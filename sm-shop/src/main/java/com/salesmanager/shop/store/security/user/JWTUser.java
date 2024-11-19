@@ -1,5 +1,6 @@
 package com.salesmanager.shop.store.security.user;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.Date;
 
@@ -10,9 +11,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class JWTUser implements UserDetails {
 
-    /**
+	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private final Long id;
     private final String username;

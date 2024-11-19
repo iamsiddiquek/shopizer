@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.order.v1;
 
+import java.io.Serial;
 import java.util.List;
 
 import com.salesmanager.shop.model.customer.ReadableBilling;
@@ -14,6 +15,7 @@ public class ReadableOrderConfirmation extends Entity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private Address billing;
 	private Address delivery;

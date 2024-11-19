@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.reference.geozone;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import com.salesmanager.core.model.reference.country.Country;
 @Table(name = "GEOZONE")
 // TODO : create DAO / Service
 public class GeoZone extends SalesManagerEntity<Long, GeoZone> {
+	@Serial
 	private static final long serialVersionUID = -5992008645857938825L;
 	
 	@Id

@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.order;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -30,6 +31,7 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 @Entity
 @Table (name="ORDER_TOTAL" )
 public class OrderTotal extends SalesManagerEntity<Long, OrderTotal> {
+	@Serial
 	private static final long serialVersionUID = -5885315557404081674L;
 	
 	@Id

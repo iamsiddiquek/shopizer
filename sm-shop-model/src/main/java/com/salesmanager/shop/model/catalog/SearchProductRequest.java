@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +15,7 @@ public class SearchProductRequest implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private static final int DEFAULT_COUNT = 100;
 	private static final int START_COUNT = 0;

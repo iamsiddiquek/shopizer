@@ -77,7 +77,7 @@ public class InitializationLoader {
 
 				//All default data to be created
 				
-				LOGGER.info(String.format("%s : Shopizer database is empty, populate it....", "sm-shop"));
+				LOGGER.info("%s : Shopizer database is empty, populate it....".formatted("sm-shop"));
 		
 				 initializationDatabase.populate("sm-shop");
 				

@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.system;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -37,6 +38,7 @@ public class SystemNotification extends SalesManagerEntity<Long, SystemNotificat
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = -6269172313628887000L;
 
 	@Id

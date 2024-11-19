@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.customer;
 
+import java.io.Serial;
 import java.io.Serializable;
 import javax.validation.constraints.Size;
 import com.salesmanager.shop.validation.FieldMatch;
@@ -14,6 +15,7 @@ public class SecuredCustomer extends PersistableCustomer implements Serializable
 	/**
 	 *
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 

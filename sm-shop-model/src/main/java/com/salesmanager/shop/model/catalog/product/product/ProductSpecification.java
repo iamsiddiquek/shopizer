@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.product;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import com.salesmanager.shop.model.references.DimensionUnitOfMeasure;
@@ -12,10 +13,11 @@ import com.salesmanager.shop.model.references.WeightUnitOfMeasure;
  */
 public class ProductSpecification implements Serializable {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
   
   
   private BigDecimal height;

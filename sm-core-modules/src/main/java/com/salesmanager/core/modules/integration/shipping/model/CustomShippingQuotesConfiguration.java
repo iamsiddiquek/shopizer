@@ -1,5 +1,6 @@
 package com.salesmanager.core.modules.integration.shipping.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,9 @@ public class CustomShippingQuotesConfiguration extends IntegrationConfiguration 
 	private String moduleCode;
 	
 	private List<CustomShippingQuotesRegion> regions = new ArrayList<CustomShippingQuotesRegion>();
-	
-	
+
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	

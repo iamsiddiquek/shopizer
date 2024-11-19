@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.content.page;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.content.common.ContentDescription;
 
 public class ReadableContentPage extends ContentPage {
@@ -7,6 +9,7 @@ public class ReadableContentPage extends ContentPage {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 

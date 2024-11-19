@@ -1,6 +1,8 @@
 package com.salesmanager.core.model.catalog.marketplace;
 
 
+import java.io.Serial;
+
 import com.salesmanager.core.model.common.description.Description;
 import com.salesmanager.core.model.reference.language.Language;
 
@@ -15,11 +17,11 @@ import com.salesmanager.core.model.reference.language.Language;
 )*/
 public class CatalogDescription extends Description {
 
-	
 
-/**
+	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	/*	@ManyToOne(targetEntity = Catalog.class)
 	@JoinColumn(name = "CATALOG_ID", nullable = false)*/

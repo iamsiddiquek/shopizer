@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.order.orderproduct;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +24,7 @@ import com.salesmanager.core.model.order.Order;
 @Entity
 @Table (name="ORDER_PRODUCT" )
 public class OrderProduct extends SalesManagerEntity<Long, OrderProduct> {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

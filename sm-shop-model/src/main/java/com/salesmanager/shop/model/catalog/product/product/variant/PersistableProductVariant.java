@@ -1,9 +1,12 @@
 package com.salesmanager.shop.model.catalog.product.product.variant;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.catalog.product.product.PersistableProductInventory;
 
 public class PersistableProductVariant extends ProductVariant {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private Long variation;

@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.product.type;
 
+import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +29,8 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 @EntityListeners(value = AuditListener.class)
 @Table(name = "PRODUCT_TYPE")
 public class ProductType extends SalesManagerEntity<Long, ProductType> implements Auditable {
-  private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
   public final static String GENERAL_TYPE = "GENERAL";
 

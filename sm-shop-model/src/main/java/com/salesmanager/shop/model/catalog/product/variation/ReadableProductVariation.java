@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.catalog.product.variation;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.catalog.product.attribute.ReadableProductOption;
 import com.salesmanager.shop.model.catalog.product.attribute.ReadableProductOptionValue;
 
@@ -8,6 +10,7 @@ public class ReadableProductVariation extends ProductVariationEntity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	ReadableProductOption option = null;

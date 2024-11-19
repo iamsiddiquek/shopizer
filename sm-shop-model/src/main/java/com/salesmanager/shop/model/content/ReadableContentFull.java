@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.content;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +15,11 @@ public class ReadableContentFull extends Entity {
 	
 	private boolean isDisplayedInMenu;
 
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private List<ContentDescriptionEntity> descriptions = new ArrayList<ContentDescriptionEntity>();
 	public List<ContentDescriptionEntity> getDescriptions() {

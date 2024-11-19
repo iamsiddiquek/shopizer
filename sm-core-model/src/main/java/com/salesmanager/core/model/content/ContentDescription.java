@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.content;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -27,11 +28,12 @@ import com.salesmanager.core.model.reference.language.Language;
 @TableGenerator(name = "description_gen", table = "SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "content_description_seq", allocationSize = SchemaConstant.DESCRIPTION_ID_ALLOCATION_SIZE, initialValue = SchemaConstant.DESCRIPTION_ID_START_VALUE)
 //@SequenceGenerator(name = "description_gen", sequenceName = "content_description_seq", allocationSize = SchemaConstant.DESCRIPTION_ID_SEQUENCE_START)
 public class ContentDescription extends Description implements Serializable {
-	
-	
+
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne(targetEntity = Content.class)

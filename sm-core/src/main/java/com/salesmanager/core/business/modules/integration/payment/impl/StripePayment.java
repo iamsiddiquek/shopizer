@@ -398,8 +398,7 @@ public class StripePayment implements PaymentModule {
 	private IntegrationException buildException(Exception ex) {
 		
 		
-	if(ex instanceof CardException) {
-		  CardException e = (CardException)ex;
+	if(ex instanceof CardException e) {
 		  // Since it's a decline, CardException will be caught
 		  //System.out.println("Status is: " + e.getCode());
 		  //System.out.println("Message is: " + e.getMessage());
@@ -497,9 +496,8 @@ public class StripePayment implements PaymentModule {
 		
 
 		  
-	} else if (ex instanceof InvalidRequestException) {
+	} else if (ex instanceof InvalidRequestException e) {
 		LOGGER.error("InvalidRequest error with stripe", ex.getMessage());
-		InvalidRequestException e =(InvalidRequestException)ex;
 		IntegrationException te = new IntegrationException(
 				"Can't process Stripe, missing invalid payment parameters");
 		te.setExceptionType(IntegrationException.TRANSACTION_EXCEPTION);
@@ -507,9 +505,8 @@ public class StripePayment implements PaymentModule {
 		te.setErrorCode(IntegrationException.TRANSACTION_EXCEPTION);
 		return te;
 		
-	} else if (ex instanceof AuthenticationException) {
+	} else if (ex instanceof AuthenticationException e) {
 		LOGGER.error("Authentication error with stripe", ex.getMessage());
-		AuthenticationException e = (AuthenticationException)ex;
 		  // Authentication with Stripe's API failed
 		  // (maybe you changed API keys recently)
 		IntegrationException te = new IntegrationException(
@@ -529,9 +526,8 @@ public class StripePayment implements PaymentModule {
 		te.setMessageCode("message.payment.error");
 		te.setErrorCode(IntegrationException.TRANSACTION_EXCEPTION);
 		return te;
-	} */else if (ex instanceof StripeException) {
+	} */else if (ex instanceof StripeException e) {
 		LOGGER.error("Error with stripe", ex.getMessage());
-		StripeException e = (StripeException)ex;
 		  // Display a very generic error to the user, and maybe send
 		  // yourself an email
 		IntegrationException te = new IntegrationException(
@@ -545,8 +541,8 @@ public class StripePayment implements PaymentModule {
 
 	} else if (ex instanceof Exception) {
 		LOGGER.error("Stripe module error", ex.getMessage());
-		if(ex instanceof IntegrationException) {
-			return (IntegrationException)ex;
+		if(ex instanceof IntegrationException exception) {
+			return exception;
 		} else {
 			IntegrationException te = new IntegrationException(
 					"Can't process Stripe authorize, exception", ex);

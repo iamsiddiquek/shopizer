@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.order;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,7 @@ public class OrderEntity extends Order implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private List<OrderTotal> totals;
 	private List<OrderAttribute> attributes = new ArrayList<OrderAttribute>();

@@ -1,9 +1,11 @@
 package com.salesmanager.shop.model.catalog.product;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 import org.apache.commons.lang3.StringUtils;
+
 /**
  * A product entity is used by services API
  * to populate or retrieve a Product price entity
@@ -11,10 +13,11 @@ import org.apache.commons.lang3.StringUtils;
  *
  */
 public class ProductPriceEntity extends ProductPrice implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String code;
 	private boolean discounted = false;

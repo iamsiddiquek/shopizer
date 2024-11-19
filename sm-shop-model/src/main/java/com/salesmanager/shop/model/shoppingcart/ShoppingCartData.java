@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.shoppingcart;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,10 +14,11 @@ import com.salesmanager.shop.model.order.total.OrderTotal;
 @Component
 @Scope(value = "prototype")
 public class ShoppingCartData extends ShopEntity implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String message;
 	private String code;

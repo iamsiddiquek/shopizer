@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.product;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +11,12 @@ import com.salesmanager.shop.model.catalog.product.attribute.PersistableProductA
 import com.salesmanager.shop.model.catalog.product.product.variant.PersistableProductVariant;
 
 
-
 public class PersistableProduct extends ProductEntity implements Serializable {
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private List<ProductDescription> descriptions = new ArrayList<ProductDescription>();

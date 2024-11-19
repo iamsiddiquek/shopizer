@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.tax;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ public class PersistableTaxRate extends TaxRateEntity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private BigDecimal rate;

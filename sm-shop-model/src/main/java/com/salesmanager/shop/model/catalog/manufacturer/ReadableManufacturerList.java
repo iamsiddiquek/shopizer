@@ -1,15 +1,17 @@
 package com.salesmanager.shop.model.catalog.manufacturer;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import com.salesmanager.shop.model.entity.ReadableList;
 
 public class ReadableManufacturerList extends ReadableList {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
   
   private List<ReadableManufacturer> manufacturers = new ArrayList<ReadableManufacturer>();
 

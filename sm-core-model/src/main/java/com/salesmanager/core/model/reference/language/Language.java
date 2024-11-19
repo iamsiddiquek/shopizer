@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.reference.language;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Cacheable;
@@ -30,7 +31,8 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 @Table(name = "LANGUAGE", indexes = { @Index(name="CODE_IDX2", columnList = "CODE")})
 @Cacheable
 public class Language extends SalesManagerEntity<Integer, Language> implements Auditable {
-  private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
 
 

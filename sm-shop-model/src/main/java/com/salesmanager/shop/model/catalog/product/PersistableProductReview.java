@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ public class PersistableProductReview extends ProductReviewEntity implements
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	@NotNull
 	private Long customerId;

@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.order.transaction;
 
+import java.io.Serial;
+
 import com.salesmanager.core.model.payments.PaymentType;
 import com.salesmanager.core.model.payments.TransactionType;
 
@@ -8,6 +10,7 @@ public class PersistablePayment extends PaymentEntity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	@com.salesmanager.shop.validation.Enum(enumClass=PaymentType.class, ignoreCase=true) 
 	private String paymentType;

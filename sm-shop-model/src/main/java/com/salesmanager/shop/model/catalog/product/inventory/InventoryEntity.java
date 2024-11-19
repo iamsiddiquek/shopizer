@@ -1,13 +1,16 @@
 package com.salesmanager.shop.model.catalog.product.inventory;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.entity.Entity;
 
 public class InventoryEntity extends Entity {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
   private int quantity;
   private String region;
   private String regionVariant;

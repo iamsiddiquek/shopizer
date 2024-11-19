@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.customer.connection;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.persistence.MappedSuperclass;
@@ -13,6 +14,7 @@ public abstract class AbstractUserConnection<P> implements RemoteUser,
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private String accessToken;

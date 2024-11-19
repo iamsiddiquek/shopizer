@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.catalog.catalog;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.entity.Entity;
 
 public class CatalogEntryEntity extends Entity  {
@@ -7,6 +9,7 @@ public class CatalogEntryEntity extends Entity  {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String catalog;
 	private boolean visible;

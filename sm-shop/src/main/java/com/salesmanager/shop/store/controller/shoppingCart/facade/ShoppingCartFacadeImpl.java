@@ -371,7 +371,7 @@ public class ShoppingCartFacadeImpl implements ShoppingCartFacade {
 					.populateShoppingCartItem(p, store);
 			Optional<PersistableShoppingCartItem> oShoppingCartItem = shoppingCartItems.stream()
 					.filter(i -> i.getProduct().equals(p.getSku())).findFirst();
-			if (!oShoppingCartItem.isPresent()) {
+			if (oShoppingCartItem.isEmpty()) {
 				// Should never happen if not something is updated in realtime or user has item
 				// in local storage and add it long time after to cart!
 				LOG.warn("Missing shoppingCartItem for product " + p.getSku() + " ( " + p.getId() + " )");
@@ -771,8 +771,8 @@ public class ShoppingCartFacadeImpl implements ShoppingCartFacade {
 		try {
 			return readableShoppingCart(cartModel, item, store, language);
 		} catch (Exception e) {
-			if (e instanceof ResourceNotFoundException) {
-				throw (ResourceNotFoundException) e;
+			if (e instanceof ResourceNotFoundException exception) {
+				throw exception;
 			} else {
 				throw new ServiceRuntimeException(e.getMessage(),e);
 			}

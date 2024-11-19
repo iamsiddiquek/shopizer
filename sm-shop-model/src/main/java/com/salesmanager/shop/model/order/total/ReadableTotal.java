@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.order.total;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class ReadableTotal implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private List<ReadableOrderTotal> totals;

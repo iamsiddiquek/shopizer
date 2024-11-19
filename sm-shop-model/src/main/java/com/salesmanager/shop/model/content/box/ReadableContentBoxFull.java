@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.content.box;
 
+import java.io.Serial;
 import java.util.List;
 
 import com.salesmanager.shop.model.content.common.ContentDescription;
@@ -9,6 +10,7 @@ public class ReadableContentBoxFull extends ReadableContentBox {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private List<ContentDescription> descriptions;

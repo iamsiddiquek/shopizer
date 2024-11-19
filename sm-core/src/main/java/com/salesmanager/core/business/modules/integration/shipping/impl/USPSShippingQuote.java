@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -427,7 +428,7 @@ public class USPSShippingQuote implements ShippingQuoteModule {
 			//HttpClient client = new HttpClient();
 			try(CloseableHttpClient httpclient = HttpClients.createDefault()) {
 			@SuppressWarnings("deprecation")
-			String encoded = java.net.URLEncoder.encode(xmlbuffer.toString());
+			String encoded = java.net.URLEncoder.encode(xmlbuffer.toString(), StandardCharsets.UTF_8);
 
 			String completeUri = url + "?API=RateV3&XML=" + encoded;
 			if(!store.getCountry().getIsoCode().equals(delivery.getCountry().getIsoCode())) {

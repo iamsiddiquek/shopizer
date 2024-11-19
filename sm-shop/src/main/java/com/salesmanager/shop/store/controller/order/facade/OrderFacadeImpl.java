@@ -236,8 +236,7 @@ public class OrderFacadeImpl implements OrderFacade {
 
 		OrderSummary summary = new OrderSummary();
 
-		if (order instanceof ShopOrder) {
-			ShopOrder o = (ShopOrder) order;
+		if (order instanceof ShopOrder o) {
 			summary.setProducts(o.getShoppingCartItems());
 
 			if (o.getShippingSummary() != null) {
@@ -1359,7 +1358,7 @@ public class OrderFacadeImpl implements OrderFacade {
 	}
 
 	@Async
-	private void notify(Order order, Customer customer, MerchantStore store, Language language, Locale locale) throws Exception {
+    protected void notify(Order order, Customer customer, MerchantStore store, Language language, Locale locale) throws Exception {
 
 		// send order confirmation email to customer
 		emailTemplatesUtils.sendOrderEmail(customer.getEmailAddress(), customer, order, locale,

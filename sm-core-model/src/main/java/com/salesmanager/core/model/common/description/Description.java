@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.common.description;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -27,6 +28,7 @@ import com.salesmanager.core.model.reference.language.Language;
 @EntityListeners(value = AuditListener.class)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Description implements Auditable, Serializable {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

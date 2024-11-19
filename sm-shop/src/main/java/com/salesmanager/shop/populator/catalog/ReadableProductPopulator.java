@@ -108,8 +108,8 @@ public class ReadableProductPopulator extends
               }
 	        }
 
-		     if(target instanceof ReadableProductFull) {
-		          ((ReadableProductFull)target).setDescriptions(fulldescriptions);
+		     if(target instanceof ReadableProductFull full) {
+		          full.setDescriptions(fulldescriptions);
 		      }
 
 		        if(language == null) {
@@ -554,8 +554,8 @@ public class ReadableProductPopulator extends
 
 
 
-		     if(target instanceof ReadableProductFull) {
-		          ((ReadableProductFull)target).setDescriptions(fulldescriptions);
+		     if(target instanceof ReadableProductFull full) {
+		          full.setDescriptions(fulldescriptions);
 		      }
 
 

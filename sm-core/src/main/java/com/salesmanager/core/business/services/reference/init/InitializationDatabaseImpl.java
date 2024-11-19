@@ -243,7 +243,7 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 
 
 	private void createCurrencies() throws ServiceException {
-		LOGGER.info(String.format("%s : Populating Currencies ", name));
+		LOGGER.info("%s : Populating Currencies ".formatted(name));
 
 		for (String code : SchemaConstant.CURRENCY_MAP.keySet()) {
   
@@ -251,7 +251,7 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
             	java.util.Currency c = java.util.Currency.getInstance(code);
             	
             	if(c==null) {
-            		LOGGER.info(String.format("%s : Populating Currencies : no currency for code : %s", name, code));
+            		LOGGER.info("%s : Populating Currencies : no currency for code : %s".formatted(name, code));
             	}
             	
             		//check if it exist
@@ -263,13 +263,13 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 
             //System.out.println(l.getCountry() + "   " + c.getSymbol() + "  " + c.getSymbol(l));
             } catch (IllegalArgumentException e) {
-            	LOGGER.info(String.format("%s : Populating Currencies : no currency for code : %s", name, code));
+            	LOGGER.info("%s : Populating Currencies : no currency for code : %s".formatted(name, code));
             }
         }  
 	}
 
 	private void createCountries() throws ServiceException {
-		LOGGER.info(String.format("%s : Populating Countries ", name));
+		LOGGER.info("%s : Populating Countries ".formatted(name));
 		List<Language> languages = languageService.list();
 		for(String code : SchemaConstant.COUNTRY_ISO_CODE) {
 			Locale locale = SchemaConstant.LOCALES.get(code);
@@ -289,7 +289,7 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 	}
 	
 	private void createZones() throws ServiceException {
-		LOGGER.info(String.format("%s : Populating Zones ", name));
+		LOGGER.info("%s : Populating Zones ".formatted(name));
         try {
 
     		  Map<String,Zone> zonesMap = new HashMap<String,Zone>();
@@ -367,7 +367,7 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 	}
 	
 	private void createLanguages() throws ServiceException {
-		LOGGER.info(String.format("%s : Populating Languages ", name));
+		LOGGER.info("%s : Populating Languages ".formatted(name));
 		for(String code : SchemaConstant.LANGUAGE_ISO_CODE) {
 			Language language = new Language(code);
 			languageService.create(language);
@@ -375,7 +375,7 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 	}
 	
 	private void createMerchant() throws ServiceException {
-		LOGGER.info(String.format("%s : Creating merchant ", name));
+		LOGGER.info("%s : Creating merchant ".formatted(name));
 		
 		Date date = new Date(System.currentTimeMillis());
 		
@@ -400,7 +400,7 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 		store.setStorecity("My city");
 		store.setStoreaddress("1234 Street address");
 		store.setStorepostalcode("H2H-2H2");
-		store.setStoreEmailAddress("contact@shopizer.com");
+		store.setStoreEmailAddress("iamskk1@gmail.com");
 		store.setDomainName("localhost:8080");
 		store.setStoreTemplate("december");
 		store.setRetailer(true);
@@ -456,7 +456,7 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 	
 	private void createSubReferences() throws ServiceException {
 		
-		LOGGER.info(String.format("%s : Loading catalog sub references ", name));
+		LOGGER.info("%s : Loading catalog sub references ".formatted(name));
 		
 		
 		ProductType productType = new ProductType();

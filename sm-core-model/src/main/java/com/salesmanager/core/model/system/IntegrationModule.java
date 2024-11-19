@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.system;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,6 +36,7 @@ public class IntegrationModule extends SalesManagerEntity<Long, IntegrationModul
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

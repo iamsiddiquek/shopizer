@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.order;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -44,11 +45,12 @@ import com.salesmanager.core.utils.CloneUtils;
 @Entity
 @Table (name="ORDERS")
 public class Order extends SalesManagerEntity<Long, Order> {
-	
-	
+
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

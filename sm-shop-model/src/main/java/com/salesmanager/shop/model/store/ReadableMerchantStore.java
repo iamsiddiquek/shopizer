@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.store;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class ReadableMerchantStore extends MerchantStoreEntity implements Readab
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private String currentUserLanguage;

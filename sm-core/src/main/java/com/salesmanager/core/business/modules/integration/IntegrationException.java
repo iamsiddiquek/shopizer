@@ -1,16 +1,18 @@
 package com.salesmanager.core.business.modules.integration;
 
+import java.io.Serial;
 import java.util.List;
 
 import com.salesmanager.core.business.exception.ServiceException;
 
 
 public class IntegrationException extends ServiceException {
-	
+
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	public static final int ERROR_VALIDATION_SAVE = 100;

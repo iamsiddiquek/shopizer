@@ -35,8 +35,8 @@ public class MerchantUtils {
 	public static BigDecimal getBigDecimal(String bigDecimal) throws ParseException {
 		NumberFormat decimalFormat = NumberFormat.getInstance(Locale.getDefault());
 		BigDecimal value;
-		if(decimalFormat instanceof DecimalFormat) {
-			((DecimalFormat) decimalFormat).setParseBigDecimal(true);
+		if(decimalFormat instanceof DecimalFormat format) {
+			format.setParseBigDecimal(true);
 			value = (BigDecimal) decimalFormat.parse(bigDecimal);
 		} else {
 			value = new BigDecimal(bigDecimal);

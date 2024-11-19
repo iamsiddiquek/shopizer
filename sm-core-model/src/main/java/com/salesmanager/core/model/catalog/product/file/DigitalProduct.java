@@ -1,5 +1,7 @@
 package com.salesmanager.core.model.catalog.product.file;
 
+import java.io.Serial;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +29,7 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 public class DigitalProduct extends SalesManagerEntity<Long, DigitalProduct> {
 
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	

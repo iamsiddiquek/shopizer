@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.attribute.optionset;
 
+import java.io.Serial;
 import java.util.List;
 
 import com.salesmanager.shop.model.catalog.product.attribute.ReadableProductOption;
@@ -11,6 +12,7 @@ public class ReadableProductOptionSet extends ProductOptionSetEntity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private ReadableProductOption option;

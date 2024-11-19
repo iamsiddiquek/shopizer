@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.customer.address;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -11,10 +12,11 @@ import io.swagger.annotations.ApiModelProperty;
  *
  */
 public class Address extends AddressLocation implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(notes = "Customer billing first name")

@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.catalog.product.product.definition;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.catalog.product.product.ProductSpecification;
 import com.salesmanager.shop.model.entity.Entity;
 
@@ -13,6 +15,7 @@ public class ProductDefinition extends Entity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private boolean visible = true;
 	private boolean shipeable = true;

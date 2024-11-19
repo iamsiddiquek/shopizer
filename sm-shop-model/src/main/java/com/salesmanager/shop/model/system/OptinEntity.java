@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.system;
 
+import java.io.Serial;
 import java.util.Date;
 
 public class OptinEntity extends Optin {
@@ -7,6 +8,7 @@ public class OptinEntity extends Optin {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private Date startDate;

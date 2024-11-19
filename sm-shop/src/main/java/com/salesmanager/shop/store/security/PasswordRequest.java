@@ -1,13 +1,16 @@
 package com.salesmanager.shop.store.security;
 
+import java.io.Serial;
+
 import javax.validation.constraints.NotEmpty;
 
 public class PasswordRequest extends AuthenticationRequest {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
 
   @NotEmpty(message = "{message.password.required}")
   private String current;

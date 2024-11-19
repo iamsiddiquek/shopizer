@@ -1,11 +1,14 @@
 package com.salesmanager.shop.store.api.exception;
 
+import java.io.Serial;
+
 public class ConversionRuntimeException extends GenericRuntimeException {
 
-  /**
-   *
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	*
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
 
   public ConversionRuntimeException(String errorCode, String message) {
     super(errorCode, message);

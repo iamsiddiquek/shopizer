@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.configuration;
 
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ public class ConfigurationEntity extends Entity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String key = null;

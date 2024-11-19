@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.customer.review;
 
+import java.io.Serial;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,6 +41,7 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 		}
 )
 public class CustomerReview extends SalesManagerEntity<Long, CustomerReview> implements Auditable {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

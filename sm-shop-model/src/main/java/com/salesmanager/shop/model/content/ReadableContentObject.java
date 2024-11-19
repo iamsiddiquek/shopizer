@@ -1,11 +1,14 @@
 package com.salesmanager.shop.model.content;
 
+import java.io.Serial;
+
 public class ReadableContentObject extends ObjectContent {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
   
   private boolean isDisplayedInMenu;
   private String code;

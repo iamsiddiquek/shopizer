@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.category;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class CategoryEntity extends Category implements Serializable {
@@ -7,6 +8,7 @@ public class CategoryEntity extends Category implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	

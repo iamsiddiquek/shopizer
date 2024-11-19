@@ -4,6 +4,7 @@ import com.salesmanager.core.model.shipping.ShippingOption;
 import com.salesmanager.shop.model.customer.ReadableDelivery;
 import com.salesmanager.shop.model.customer.address.Address;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public class ReadableShippingSummary implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private BigDecimal shipping;
 	private BigDecimal handling;

@@ -171,8 +171,8 @@ public class ReadableProductDefinitionMapper implements Mapper<Product, Readable
 		}
 		
 
-		if (returnDestination instanceof ReadableProductDefinitionFull) {
-			((ReadableProductDefinitionFull) returnDestination).setDescriptions(fulldescriptions);
+		if (returnDestination instanceof ReadableProductDefinitionFull full) {
+			full.setDescriptions(fulldescriptions);
 		}
 		
 

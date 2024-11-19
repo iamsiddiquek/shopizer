@@ -6,6 +6,7 @@ package com.salesmanager.core.business.modules.cms.content.infinispan;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.Serial;
 import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class CmsStaticContentFileManagerImpl
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(CmsStaticContentFileManagerImpl.class);
 	private static CmsStaticContentFileManagerImpl fileManager = null;

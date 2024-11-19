@@ -1,6 +1,8 @@
 package com.salesmanager.shop.model.customer;
 
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.customer.address.Address;
 
 public class BillingEntity extends Address {
@@ -8,6 +10,7 @@ public class BillingEntity extends Address {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String email;

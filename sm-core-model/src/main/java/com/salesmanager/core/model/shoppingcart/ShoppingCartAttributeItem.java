@@ -1,5 +1,7 @@
 package com.salesmanager.core.model.shoppingcart;
 
+import java.io.Serial;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -27,6 +29,7 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 public class ShoppingCartAttributeItem extends SalesManagerEntity<Long, ShoppingCartAttributeItem> implements Auditable {
 
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

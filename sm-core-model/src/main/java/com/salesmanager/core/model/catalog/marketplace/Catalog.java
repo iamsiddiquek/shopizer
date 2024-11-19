@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.marketplace;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +18,11 @@ import com.salesmanager.core.model.merchant.MerchantStore;
  *
  */
 public class Catalog extends SalesManagerEntity<Long, Catalog> implements Auditable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private Long id;

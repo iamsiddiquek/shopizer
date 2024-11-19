@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.order;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.salesmanager.shop.model.catalog.product.ReadableProduct;
@@ -9,6 +10,7 @@ public class OrderProductEntity extends OrderProduct implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private int orderedQuantity;
 	private ReadableProduct product;

@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.attribute.api;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +8,11 @@ import com.salesmanager.shop.model.catalog.product.attribute.ProductOptionDescri
 
 public class ReadableProductOptionFull extends ReadableProductOptionEntity {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
   private List<ProductOptionDescription> descriptions = new ArrayList<ProductOptionDescription>();
   public List<ProductOptionDescription> getDescriptions() {
     return descriptions;

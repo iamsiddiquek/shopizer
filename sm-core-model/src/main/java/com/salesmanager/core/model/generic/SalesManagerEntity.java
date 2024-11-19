@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.generic;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.text.Collator;
 import java.util.Locale;
@@ -15,6 +16,7 @@ import org.hibernate.Hibernate;
 public abstract class SalesManagerEntity<K extends Serializable & Comparable<K>, E extends SalesManagerEntity<K, ?>>
 		implements Serializable, Comparable<E> {
 
+	@Serial
 	private static final long serialVersionUID = -3988499137919577054L;
 	
 	public static final Collator DEFAULT_STRING_COLLATOR = Collator.getInstance(Locale.FRENCH);

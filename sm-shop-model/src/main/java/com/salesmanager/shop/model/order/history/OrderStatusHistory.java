@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.order.history;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.entity.Entity;
 
 public class OrderStatusHistory extends Entity {
@@ -7,6 +9,7 @@ public class OrderStatusHistory extends Entity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private long orderId;
 	private String orderStatus;

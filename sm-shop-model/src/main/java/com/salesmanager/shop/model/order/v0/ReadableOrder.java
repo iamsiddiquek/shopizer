@@ -10,6 +10,7 @@ import com.salesmanager.shop.model.order.ReadableOrderProduct;
 import com.salesmanager.shop.model.order.total.OrderTotal;
 import com.salesmanager.shop.model.store.ReadableMerchantStore;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class ReadableOrder extends OrderEntity implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private ReadableCustomer customer;
 	private List<ReadableOrderProduct> products;

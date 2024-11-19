@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.system;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -26,11 +27,11 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 @Table(name = "MERCHANT_LOG")
 public class MerchantLog extends SalesManagerEntity<Long, MerchantLog> implements Serializable {
 
-	
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

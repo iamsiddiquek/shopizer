@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.customer;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,6 +55,7 @@ import com.salesmanager.core.utils.CloneUtils;
 	 uniqueConstraints=
 			@UniqueConstraint(columnNames = {"MERCHANT_ID", "CUSTOMER_NICK"}))
 public class Customer extends SalesManagerEntity<Long, Customer> implements Auditable {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

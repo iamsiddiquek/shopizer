@@ -1,13 +1,16 @@
 package com.salesmanager.core.model.tax;
 
+import java.io.Serial;
+
 import com.salesmanager.core.model.order.OrderTotalItem;
 import com.salesmanager.core.model.tax.taxrate.TaxRate;
 
 public class TaxItem extends OrderTotalItem {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String label;
 	private TaxRate taxRate=null;

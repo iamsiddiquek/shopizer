@@ -1,15 +1,17 @@
 package com.salesmanager.shop.model.catalog;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.salesmanager.shop.model.entity.ShopEntity;
 
 
 public abstract class NamedEntity extends ShopEntity implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String description;

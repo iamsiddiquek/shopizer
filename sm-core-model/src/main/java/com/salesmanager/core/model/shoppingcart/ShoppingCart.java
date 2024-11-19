@@ -3,6 +3,7 @@
  */
 package com.salesmanager.core.model.shoppingcart;
 
+import java.io.Serial;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,7 +46,8 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 @Table(name = "SHOPPING_CART", indexes= { @Index(name = "SHP_CART_CODE_IDX", columnList = "SHP_CART_CODE"), @Index(name = "SHP_CART_CUSTOMER_IDX", columnList = "CUSTOMER_ID")})
 public class ShoppingCart extends SalesManagerEntity<Long, ShoppingCart> implements Auditable{
 
-	
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Embedded

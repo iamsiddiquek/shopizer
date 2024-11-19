@@ -828,7 +828,7 @@ public class UserFacadeImpl implements UserFacade {
 			// request
 			String customerResetLink = new StringBuilder().append(baseUrl)
 					.append(Constants.SLASH)
-					.append(String.format(resetUserLink, store.getCode(), token)).toString();
+					.append(resetUserLink.formatted(store.getCode(), token)).toString();
 
 			resetPasswordRequest(user, customerResetLink, store, lamguageService.toLocale(language, store));
 
@@ -894,7 +894,7 @@ public class UserFacadeImpl implements UserFacade {
 	
 
 	@Async
-	private void resetPasswordRequest(User user, String resetLink, MerchantStore store, Locale locale)
+    protected void resetPasswordRequest(User user, String resetLink, MerchantStore store, Locale locale)
 			throws Exception {
 		try {
 

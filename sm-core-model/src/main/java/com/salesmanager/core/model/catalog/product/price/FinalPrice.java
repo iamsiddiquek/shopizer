@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.product.price;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,10 +13,11 @@ import java.util.List;
  *
  */
 public class FinalPrice implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private BigDecimal discountedPrice = null;//final price if a discount is applied
 	private BigDecimal originalPrice = null;//original price

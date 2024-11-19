@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.merchant;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -45,7 +46,8 @@ import com.salesmanager.core.utils.CloneUtils;
 	indexes = @Index(columnList = "LINEAGE"))
 public class MerchantStore extends SalesManagerEntity<Integer, MerchantStore> implements Auditable {
 
-  private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
   public final static String DEFAULT_STORE = "DEFAULT";
   

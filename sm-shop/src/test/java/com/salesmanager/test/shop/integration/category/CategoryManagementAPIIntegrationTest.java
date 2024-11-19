@@ -52,7 +52,7 @@ public class CategoryManagementAPIIntegrationTest extends ServicesTestSupport {
     public void getCategory() throws Exception {
         final HttpEntity<String> httpEntity = new HttpEntity<>(getHeader());
 
-        final ResponseEntity<ReadableCategoryList> response = testRestTemplate.exchange(String.format("/api/v1/category/"), HttpMethod.GET,
+        final ResponseEntity<ReadableCategoryList> response = testRestTemplate.exchange("/api/v1/category/".formatted(), HttpMethod.GET,
                 httpEntity, ReadableCategoryList.class);
         if (response.getStatusCode() != HttpStatus.OK) {
             throw new Exception(response.toString());
@@ -143,7 +143,7 @@ public class CategoryManagementAPIIntegrationTest extends ServicesTestSupport {
          * For public access use friendly url
          */
         
-        final ResponseEntity<ReadableCategory> readableQuery = testRestTemplate.exchange(String.format("/api/v1//category/" +  description.getFriendlyUrl()), HttpMethod.GET,
+        final ResponseEntity<ReadableCategory> readableQuery = testRestTemplate.exchange(("/api/v1//category/" + description.getFriendlyUrl()).formatted(), HttpMethod.GET,
             httpEntity, ReadableCategory.class);
         
         assertThat(readableQuery.getStatusCode(), is(OK));
@@ -320,7 +320,7 @@ public class CategoryManagementAPIIntegrationTest extends ServicesTestSupport {
 
         final HttpEntity<String> entity = new HttpEntity<>(json, getHeader());
 
-        final int sizeBefore = testRestTemplate.exchange(String.format("/api/v1/category"), HttpMethod.GET,
+        final int sizeBefore = testRestTemplate.exchange("/api/v1/category".formatted(), HttpMethod.GET,
                 new HttpEntity<>(getHeader()), ReadableCategoryList.class).getBody().getCategories().size();
 
         final ResponseEntity response = testRestTemplate.postForEntity("/api/v1/private/category", entity, PersistableCategory.class);
@@ -415,7 +415,7 @@ public class CategoryManagementAPIIntegrationTest extends ServicesTestSupport {
             
       //get manufacturers in category
       @SuppressWarnings("rawtypes")
-      ResponseEntity<List> manufacturers = testRestTemplate.exchange(String.format("/api/v1/category/" + id + "/manufacturer"), HttpMethod.GET, entity, List.class);  
+      ResponseEntity<List> manufacturers = testRestTemplate.exchange(("/api/v1/category/" + id + "/manufacturer").formatted(), HttpMethod.GET, entity, List.class);  
       assertThat(manufacturers.getStatusCode(), is(OK));
       
       @SuppressWarnings("unchecked")
@@ -452,7 +452,7 @@ public class CategoryManagementAPIIntegrationTest extends ServicesTestSupport {
         assertThat(response.getStatusCode(), is(CREATED));
         assertNotNull(cat.getId());
 
-        final ResponseEntity<ReadableCategory> readResponse = testRestTemplate.exchange(String.format("/api/v1/category/" + categoryName), HttpMethod.GET,
+        final ResponseEntity<ReadableCategory> readResponse = testRestTemplate.exchange(("/api/v1/category/" + categoryName).formatted(), HttpMethod.GET,
         		entity, ReadableCategory.class);
         if (readResponse.getStatusCode() != HttpStatus.OK) {
             throw new Exception(response.toString());

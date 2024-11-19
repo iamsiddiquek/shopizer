@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.product.definition;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class PersistableProductDefinition extends ProductDefinition {
 	/**
 	 * type and manufacturer are String type corresponding to the unique code
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private List<ProductDescription> descriptions = new ArrayList<ProductDescription>();

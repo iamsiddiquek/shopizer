@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.content;
 
+import java.io.Serial;
+
 
 /**
  * Model object used in webservice
@@ -8,10 +10,11 @@ package com.salesmanager.shop.model.content;
  *
  */
 public class ContentFile extends ContentPath {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private byte[] file;
 	

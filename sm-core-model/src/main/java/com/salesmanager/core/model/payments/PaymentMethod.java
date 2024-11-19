@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.payments;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.salesmanager.core.model.system.IntegrationConfiguration;
@@ -12,10 +13,11 @@ import com.salesmanager.core.model.system.IntegrationModule;
  *
  */
 public class PaymentMethod implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String paymentMethodCode;
 	private PaymentType paymentType;

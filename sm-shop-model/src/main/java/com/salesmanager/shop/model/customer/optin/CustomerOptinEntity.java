@@ -1,7 +1,10 @@
 package com.salesmanager.shop.model.customer.optin;
 
 import javax.validation.constraints.NotNull;
+
 import javax.validation.constraints.Email;
+
+import java.io.Serial;
 
 
 public class CustomerOptinEntity extends CustomerOptin {
@@ -9,6 +12,7 @@ public class CustomerOptinEntity extends CustomerOptin {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private String firstName;

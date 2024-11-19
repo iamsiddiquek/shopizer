@@ -1,10 +1,13 @@
 package com.salesmanager.shop.model.catalog.product.attribute.api;
 
+import java.io.Serial;
+
 public class ReadableProductAttributeEntity extends ProductAttributeEntity {
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String productAttributeWeight;

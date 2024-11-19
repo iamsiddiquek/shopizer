@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.system;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +10,7 @@ import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
 
 public class MerchantConfig implements Serializable, JSONAware {
-	
+
 
 	/**
 	 * TODO
@@ -17,6 +18,7 @@ public class MerchantConfig implements Serializable, JSONAware {
 	 * on the fly from the client application and read from a key value map
 	 */
 	
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private boolean displayCustomerSection =false;
 	private boolean displayContactUs =false;

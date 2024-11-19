@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.product.manufacturer;
 
+import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,6 +34,7 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 @Table(name = "MANUFACTURER", uniqueConstraints=
 @UniqueConstraint(columnNames = {"MERCHANT_ID", "CODE"}) )
 public class Manufacturer extends SalesManagerEntity<Long, Manufacturer> implements Auditable {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	public static final String DEFAULT_MANUFACTURER = "DEFAULT";
@@ -53,7 +55,7 @@ public class Manufacturer extends SalesManagerEntity<Long, Manufacturer> impleme
 	private String image;
 	
 	@Column(name="SORT_ORDER")
-	private Integer order = new Integer(0);
+	private Integer order = Integer.valueOf(0);
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="MERCHANT_ID", nullable=false)

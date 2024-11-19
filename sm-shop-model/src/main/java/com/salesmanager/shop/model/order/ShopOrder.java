@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.order;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class ShopOrder extends PersistableOrder implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private List<ShoppingCartItem> shoppingCartItems;//overrides parent API list of shoppingcartitem
 	private String cartCode = null;

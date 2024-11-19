@@ -1,14 +1,16 @@
 package com.salesmanager.shop.model.system;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
 public class IntegrationModuleSummaryEntity extends IntegrationModuleEntity {
-	
+
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private boolean configured;
 	private String image;

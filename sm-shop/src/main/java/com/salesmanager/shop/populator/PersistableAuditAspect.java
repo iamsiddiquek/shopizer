@@ -32,8 +32,7 @@ public class PersistableAuditAspect {
         public void afterReturning(JoinPoint joinPoint, Object result) {
     	
 			try {
-				if(result instanceof Auditable) {
-					Auditable entity = (Auditable)result;
+				if(result instanceof Auditable entity) {
 					AuditSection audit = entity.getAuditSection();
 					if(entity.getAuditSection()==null) {
 						audit = new AuditSection();

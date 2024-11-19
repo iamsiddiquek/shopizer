@@ -14,6 +14,7 @@
  */
 package com.salesmanager.core.model.tax.taxrate;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,7 @@ import com.salesmanager.core.model.tax.taxclass.TaxClass;
 		}
 	)
 public class TaxRate  extends SalesManagerEntity<Long, TaxRate> implements Auditable {
+	@Serial
 	private static final long serialVersionUID = 3356827741612925066L;
 	
 	@Id

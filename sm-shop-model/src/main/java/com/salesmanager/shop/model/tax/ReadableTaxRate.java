@@ -1,10 +1,13 @@
 package com.salesmanager.shop.model.tax;
 
+import java.io.Serial;
+
 public class ReadableTaxRate extends TaxRateEntity {
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String rate;

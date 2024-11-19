@@ -36,7 +36,7 @@ public class TaxRateIntegrationTest extends ServicesTestSupport {
     	taxClass.setName("Test tax class");
     	
         final HttpEntity<PersistableTaxClass> taxClassEntity = new HttpEntity<>(taxClass, getHeader());
-        final ResponseEntity<Entity> response = testRestTemplate.postForEntity(String.format("/api/v1/private/tax/class/"), taxClassEntity, Entity.class);
+        final ResponseEntity<Entity> response = testRestTemplate.postForEntity("/api/v1/private/tax/class/".formatted(), taxClassEntity, Entity.class);
         
         Entity e = response.getBody();
         
@@ -47,7 +47,7 @@ public class TaxRateIntegrationTest extends ServicesTestSupport {
         final HttpEntity<String> httpEntity = new HttpEntity<>(getHeader());
         
         //tax class exists
-        final ResponseEntity<EntityExists> exists = testRestTemplate.exchange(String.format("/api/v1/private/tax/class/unique?code=" + taxClass.getCode()), HttpMethod.GET,
+        final ResponseEntity<EntityExists> exists = testRestTemplate.exchange(("/api/v1/private/tax/class/unique?code=" + taxClass.getCode()).formatted(), HttpMethod.GET,
                 httpEntity, EntityExists.class);
 
         assertTrue(exists.getBody().isExists());
@@ -93,7 +93,7 @@ public class TaxRateIntegrationTest extends ServicesTestSupport {
 
     	
         final HttpEntity<PersistableTaxRate> taxClassEntity = new HttpEntity<>(taxRate, getHeader());
-        final ResponseEntity<Entity> response = testRestTemplate.postForEntity(String.format("/api/v1/private/tax/rate/"), taxClassEntity, Entity.class);
+        final ResponseEntity<Entity> response = testRestTemplate.postForEntity("/api/v1/private/tax/rate/".formatted(), taxClassEntity, Entity.class);
         
         Entity e = response.getBody();
         
@@ -104,7 +104,7 @@ public class TaxRateIntegrationTest extends ServicesTestSupport {
         final HttpEntity<String> httpEntity = new HttpEntity<>(getHeader());
         
         //tax class exists
-        final ResponseEntity<EntityExists> exists = testRestTemplate.exchange(String.format("/api/v1/private/tax/rate/unique?code=" + taxRate.getCode()), HttpMethod.GET,
+        final ResponseEntity<EntityExists> exists = testRestTemplate.exchange(("/api/v1/private/tax/rate/unique?code=" + taxRate.getCode()).formatted(), HttpMethod.GET,
                 httpEntity, EntityExists.class);
 
         assertTrue(exists.getBody().isExists());

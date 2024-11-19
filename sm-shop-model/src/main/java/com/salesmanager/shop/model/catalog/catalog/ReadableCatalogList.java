@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.catalog;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class ReadableCatalogList extends ReadableList {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private List<ReadableCatalog> catalogs = new ArrayList<ReadableCatalog>();
 	public List<ReadableCatalog> getCatalogs() {

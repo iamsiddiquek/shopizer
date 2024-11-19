@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.order.orderproduct;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -19,6 +20,7 @@ import com.salesmanager.core.constants.SchemaConstant;
 @Entity
 @Table (name="ORDER_PRODUCT_ATTRIBUTE" )
 public class OrderProductAttribute implements Serializable {
+	@Serial
 	private static final long serialVersionUID = 6037571119918073015L;
 
 	@Id

@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.order;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,10 +11,11 @@ import java.util.List;
  *
  */
 public class OrderTotalSummary implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private BigDecimal subTotal;//one time price for items
 	private BigDecimal total;//final price

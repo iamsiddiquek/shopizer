@@ -59,7 +59,7 @@ public class ShoppingCartAPIIntegrationTest extends ServicesTestSupport {
         cartItem.setQuantity(1);
 
         final HttpEntity<PersistableShoppingCartItem> cartEntity = new HttpEntity<>(cartItem, getHeader());
-        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.postForEntity(String.format("/api/v1/cart/"), cartEntity, ReadableShoppingCart.class);
+        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.postForEntity("/api/v1/cart/".formatted(), cartEntity, ReadableShoppingCart.class);
 
         data.setCartId(response.getBody().getCode());
 
@@ -87,7 +87,7 @@ public class ShoppingCartAPIIntegrationTest extends ServicesTestSupport {
         cartItem.setQuantity(1);
 
         final HttpEntity<PersistableShoppingCartItem> cartEntity = new HttpEntity<>(cartItem, getHeader());
-        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.exchange(String.format("/api/v1/cart/" + String.valueOf(data.getCartId())),
+        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.exchange(("/api/v1/cart/" + String.valueOf(data.getCartId())).formatted(),
                 HttpMethod.PUT,
                 cartEntity,
                 ReadableShoppingCart.class);
@@ -115,7 +115,7 @@ public class ShoppingCartAPIIntegrationTest extends ServicesTestSupport {
         cartItem.setQuantity(1);
 
         final HttpEntity<PersistableShoppingCartItem> cartEntity = new HttpEntity<>(cartItem, getHeader());
-        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.exchange(String.format("/api/v1/cart/" + data.getCartId() + "breakIt"),
+        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.exchange(("/api/v1/cart/" + data.getCartId() + "breakIt").formatted(),
                 HttpMethod.PUT,
                 cartEntity,
                 ReadableShoppingCart.class);
@@ -148,8 +148,8 @@ public class ShoppingCartAPIIntegrationTest extends ServicesTestSupport {
 
 
         final HttpEntity<PersistableShoppingCartItem[]> cartEntity = new HttpEntity<>(productsQtyUpdates, getHeader());
-        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.exchange(String.format("/api/v1/cart/" + data.getCartId() +
-                        "/multi"),
+        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.exchange(("/api/v1/cart/" + data.getCartId() +
+						"/multi").formatted(),
                 HttpMethod.POST,
                 cartEntity,
                 ReadableShoppingCart.class);
@@ -176,8 +176,8 @@ public class ShoppingCartAPIIntegrationTest extends ServicesTestSupport {
 
 
         final HttpEntity<PersistableShoppingCartItem[]> cartEntity = new HttpEntity<>(productsQtyUpdates, getHeader());
-        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.exchange(String.format("/api/v1/cart/" + data.getCartId() +
-                        "/multi"),
+        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.exchange(("/api/v1/cart/" + data.getCartId() +
+						"/multi").formatted(),
                 HttpMethod.POST,
                 cartEntity,
                 ReadableShoppingCart.class);
@@ -197,7 +197,7 @@ public class ShoppingCartAPIIntegrationTest extends ServicesTestSupport {
     public void deleteCartItem() throws Exception {
 
         final ResponseEntity<ReadableShoppingCart> response =
-                testRestTemplate.exchange(String.format("/api/v1/cart/" + data.getCartId() + "/product/" + String.valueOf(data.getProducts().get(1).getId())),
+                testRestTemplate.exchange(("/api/v1/cart/" + data.getCartId() + "/product/" + String.valueOf(data.getProducts().get(1).getId())).formatted(),
                 HttpMethod.DELETE,
                 null,
                 ReadableShoppingCart.class);
@@ -217,7 +217,7 @@ public class ShoppingCartAPIIntegrationTest extends ServicesTestSupport {
     public void deleteCartItemWithBody() throws Exception {
 
         final ResponseEntity<ReadableShoppingCart> response =
-                testRestTemplate.exchange(String.format("/api/v1/cart/" + data.getCartId() + "/product/" + String.valueOf(data.getProducts().get(1).getSku()) + "?body=true"),
+                testRestTemplate.exchange(("/api/v1/cart/" + data.getCartId() + "/product/" + String.valueOf(data.getProducts().get(1).getSku()) + "?body=true").formatted(),
                         HttpMethod.DELETE,
                         null,
                         ReadableShoppingCart.class);

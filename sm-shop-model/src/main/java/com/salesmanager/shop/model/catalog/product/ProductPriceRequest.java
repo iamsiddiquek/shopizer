@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +8,11 @@ import java.util.List;
 import com.salesmanager.shop.model.catalog.product.attribute.ProductAttribute;
 
 public class ProductPriceRequest implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private List<ProductAttribute> options = new ArrayList<ProductAttribute>();
 	private String sku;//product instance sku

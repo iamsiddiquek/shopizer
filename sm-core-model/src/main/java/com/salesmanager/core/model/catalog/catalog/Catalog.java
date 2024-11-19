@@ -1,6 +1,7 @@
 package com.salesmanager.core.model.catalog.catalog;
 
 
+import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,7 +50,8 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 @Table(name = "CATALOG",
 uniqueConstraints=@UniqueConstraint(columnNames = {"MERCHANT_ID", "CODE"}))
 public class Catalog extends SalesManagerEntity<Long, Catalog> implements Auditable {
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, 

@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.catalog.product;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.catalog.product.product.ProductEntity;
 
 public class ReadableProductName extends ProductEntity {
@@ -7,6 +9,7 @@ public class ReadableProductName extends ProductEntity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String name;

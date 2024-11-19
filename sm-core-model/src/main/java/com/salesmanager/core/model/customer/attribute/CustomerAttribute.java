@@ -1,5 +1,7 @@
 package com.salesmanager.core.model.customer.attribute;
 
+import java.io.Serial;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,6 +29,7 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 	}
 )
 public class CustomerAttribute extends SalesManagerEntity<Long, CustomerAttribute> {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

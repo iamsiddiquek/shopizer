@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.security;
 
+import java.io.Serial;
+
 /**
  * Object used for saving a group
  * 
@@ -8,10 +10,11 @@ package com.salesmanager.shop.model.security;
  */
 public class PersistableGroup extends GroupEntity {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
   
   public PersistableGroup() {}
   

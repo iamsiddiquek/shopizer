@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.customer.attribute;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +36,7 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 @Table(name="CUSTOMER_OPTION_VALUE", indexes = { @Index(name="CUST_OPT_VAL_CODE_IDX",columnList = "CUSTOMER_OPT_VAL_CODE")}, uniqueConstraints=
 	@UniqueConstraint(columnNames = {"MERCHANT_ID", "CUSTOMER_OPT_VAL_CODE"}))
 public class CustomerOptionValue extends SalesManagerEntity<Long, CustomerOptionValue> {
+	@Serial
 	private static final long serialVersionUID = 3736085877929910891L;
 
 	@Id

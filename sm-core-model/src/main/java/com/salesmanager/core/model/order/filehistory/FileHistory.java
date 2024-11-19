@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.order.filehistory;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -30,6 +31,7 @@ import com.salesmanager.core.utils.CloneUtils;
 	}
 )
 public class FileHistory implements Serializable {
+	@Serial
 	private static final long serialVersionUID = 1321251632883237664L;
 	
 	@Id

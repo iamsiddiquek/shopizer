@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.product;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -52,6 +53,7 @@ import com.salesmanager.core.model.tax.taxclass.TaxClass;
 @Table(name = "PRODUCT", uniqueConstraints=
 @UniqueConstraint(columnNames = {"MERCHANT_ID", "SKU"}))
 public class Product extends SalesManagerEntity<Long, Product> implements Auditable {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -183,7 +185,7 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 	private Integer productOrdered;
 	
 	@Column(name = "SORT_ORDER")
-	private Integer sortOrder = new Integer(0);
+	private Integer sortOrder = Integer.valueOf(0);
 
 	@NotEmpty
 	@Pattern(regexp="^[a-zA-Z0-9_]*$")

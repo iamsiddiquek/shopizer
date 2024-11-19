@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.store;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
@@ -8,11 +9,12 @@ import com.salesmanager.shop.model.references.MeasureUnit;
 import com.salesmanager.shop.model.references.WeightUnit;
 
 public class MerchantStoreEntity implements Serializable {
-	
+
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private int id;
 	@NotNull

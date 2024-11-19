@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.content;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 
@@ -13,6 +14,7 @@ public class ContentSettings implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String httpBasePath;

@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.customer;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ public class CustomerEntity extends Customer implements Serializable {
 	/**
 	 *
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(notes = "Customer email address. Required for registration")

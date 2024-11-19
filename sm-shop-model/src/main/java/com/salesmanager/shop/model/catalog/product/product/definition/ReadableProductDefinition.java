@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.product.definition;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +13,11 @@ import com.salesmanager.shop.model.catalog.product.inventory.ReadableInventory;
 import com.salesmanager.shop.model.catalog.product.type.ReadableProductType;
 
 public class ReadableProductDefinition extends ProductDefinition {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private ReadableProductType type;
 	private List<ReadableCategory> categories = new ArrayList<ReadableCategory>();

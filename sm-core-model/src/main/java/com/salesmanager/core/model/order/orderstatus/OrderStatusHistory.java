@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.order.orderstatus;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -27,6 +28,7 @@ import com.salesmanager.core.utils.CloneUtils;
 @Entity
 @Table (name="ORDER_STATUS_HISTORY" )
 public class OrderStatusHistory implements Serializable {
+	@Serial
 	private static final long serialVersionUID = 3438730310126102187L;
 	
 	@Id

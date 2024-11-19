@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.catalog.product;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.customer.address.Address;
 import com.salesmanager.shop.model.entity.Entity;
 
@@ -9,10 +11,11 @@ import com.salesmanager.shop.model.entity.Entity;
  *
  */
 public class RentalOwner extends Entity {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String lastName;

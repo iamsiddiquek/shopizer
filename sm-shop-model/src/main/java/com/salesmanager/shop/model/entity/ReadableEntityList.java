@@ -1,12 +1,14 @@
 package com.salesmanager.shop.model.entity;
 
+import java.io.Serial;
 import java.util.List;
 
 public class ReadableEntityList<T> extends ReadableList {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private List<T> items;
 

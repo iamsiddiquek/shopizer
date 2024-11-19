@@ -1,5 +1,7 @@
 package com.salesmanager.core.model.catalog.catalog;
 
+import java.io.Serial;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -28,10 +30,11 @@ public class CatalogCategoryEntry extends SalesManagerEntity<Long, CatalogCatego
 	
     @Embedded
     private AuditSection auditSection = new AuditSection();
-	
-    /**
+
+	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

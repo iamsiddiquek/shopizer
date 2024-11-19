@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.order.transaction;
 
+import java.io.Serial;
+
 import com.salesmanager.core.model.payments.PaymentType;
 import com.salesmanager.core.model.payments.TransactionType;
 
@@ -8,6 +10,7 @@ public class ReadablePayment extends PaymentEntity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private PaymentType paymentType;
 	private TransactionType transactionType;

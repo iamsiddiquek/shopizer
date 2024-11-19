@@ -3,6 +3,7 @@
  */
 package com.salesmanager.core.business.modules.cms.content;
 
+import java.io.Serial;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ public class StaticContentFileManagerImpl extends StaticContentFileManager {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private FilePut uploadFile;
 	private FileGet getFile;

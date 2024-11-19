@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.system;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -27,6 +28,7 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 @EntityListeners(value = AuditListener.class)
 @Table(name = "SYSTEM_CONFIGURATION")
 public class SystemConfiguration extends SalesManagerEntity<Long, SystemConfiguration> implements Serializable, Auditable {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

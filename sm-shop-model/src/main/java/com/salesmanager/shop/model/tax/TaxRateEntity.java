@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.tax;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.entity.Entity;
 
 public class TaxRateEntity extends Entity {
@@ -7,6 +9,7 @@ public class TaxRateEntity extends Entity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private int priority;
 	private String code;

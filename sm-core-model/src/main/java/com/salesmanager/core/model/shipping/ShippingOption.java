@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.shipping;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -10,10 +11,11 @@ import org.slf4j.LoggerFactory;
 public class ShippingOption implements Serializable {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ShippingOption.class);
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private BigDecimal optionPrice;
 	private Long shippingQuoteOptionId;

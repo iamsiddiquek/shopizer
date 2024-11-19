@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.attribute;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,11 @@ import java.util.List;
  */
 public class ReadableSelectedProductVariant implements Serializable {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
   private List<ReadableProductVariantValue> options = new ArrayList<ReadableProductVariantValue>();
   
   public List<ReadableProductVariantValue> getOptions() {

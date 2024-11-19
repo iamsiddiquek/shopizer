@@ -1,15 +1,17 @@
 package com.salesmanager.shop.model.system;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class IntegrationModuleConfiguration extends IntegrationModuleEntity {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private boolean defaultSelected;
 	private Map<String, String> integrationKeys = new HashMap<String,String>();

@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.user;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,8 +49,9 @@ import com.salesmanager.core.model.reference.language.Language;
 	uniqueConstraints=
 	@UniqueConstraint(columnNames = {"MERCHANT_ID", "ADMIN_NAME"}))
 public class User extends SalesManagerEntity<Long, User> implements Auditable {
-	
-	
+
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

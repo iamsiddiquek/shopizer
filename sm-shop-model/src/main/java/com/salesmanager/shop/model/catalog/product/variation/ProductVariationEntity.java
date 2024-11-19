@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.catalog.product.variation;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.entity.Entity;
 
 public class ProductVariationEntity extends Entity {
@@ -7,6 +9,7 @@ public class ProductVariationEntity extends Entity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String code;//sku
 	private String date;

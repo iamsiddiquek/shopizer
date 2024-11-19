@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.common.audit;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -16,7 +17,8 @@ import com.salesmanager.core.utils.CloneUtils;
 public class AuditSection implements Serializable {
 
 
-  private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "DATE_CREATED")

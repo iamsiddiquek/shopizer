@@ -53,8 +53,8 @@ public class ReadableManufacturerPopulator extends
         target.setDescription(d);
       }
 
-      if (target instanceof ReadableManufacturerFull) {
-        ((ReadableManufacturerFull) target).setDescriptions(fulldescriptions);
+      if (target instanceof ReadableManufacturerFull full) {
+        full.setDescriptions(fulldescriptions);
       }
 
     }

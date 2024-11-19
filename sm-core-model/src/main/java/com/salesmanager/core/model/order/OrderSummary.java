@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.order;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,12 @@ import com.salesmanager.core.model.shoppingcart.ShoppingCartItem;
  *
  */
 public class OrderSummary implements Serializable {
-	
-	
+
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private OrderSummaryType orderSummaryType = OrderSummaryType.ORDERTOTAL;
 	private ShippingSummary shippingSummary;

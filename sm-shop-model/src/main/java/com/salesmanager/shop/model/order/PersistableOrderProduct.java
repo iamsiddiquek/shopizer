@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.order;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +14,7 @@ public class PersistableOrderProduct extends OrderProductEntity implements
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private BigDecimal price;//specify final price
 	private List<ProductAttribute> attributes;//may have attributes

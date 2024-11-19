@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.order.orderaccount;
 
+import java.io.Serial;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +27,8 @@ import com.salesmanager.core.utils.CloneUtils;
 @Entity
 @Table(name = "ORDER_ACCOUNT")
 public class OrderAccount extends SalesManagerEntity<Long, OrderAccount> {
-private static final long serialVersionUID = -2429388347536330540L;
+	@Serial
+	private static final long serialVersionUID = -2429388347536330540L;
 
 	@Id
 	@Column(name = "ORDER_ACCOUNT_ID", unique = true, nullable = false)

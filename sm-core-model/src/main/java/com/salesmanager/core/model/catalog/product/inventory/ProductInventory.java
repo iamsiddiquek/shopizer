@@ -1,11 +1,13 @@
 package com.salesmanager.core.model.catalog.product.inventory;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.salesmanager.core.model.catalog.product.price.FinalPrice;
 
 public class ProductInventory implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String sku;

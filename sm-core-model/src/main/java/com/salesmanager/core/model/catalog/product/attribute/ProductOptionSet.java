@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.product.attribute;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,10 +42,11 @@ uniqueConstraints={
 	}
 )
 public class ProductOptionSet extends SalesManagerEntity<Long, ProductOptionSet> {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

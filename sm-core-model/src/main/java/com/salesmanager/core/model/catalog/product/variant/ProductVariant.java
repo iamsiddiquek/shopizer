@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.product.variant;
 
+import java.io.Serial;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -43,6 +44,7 @@ uniqueConstraints =
         "PRODUCT_ID",
 		"SKU" }))
 public class ProductVariant extends SalesManagerEntity<Long, ProductVariant> implements Auditable {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

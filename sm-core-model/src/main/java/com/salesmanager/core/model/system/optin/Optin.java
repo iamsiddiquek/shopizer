@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.system.optin;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -36,11 +37,11 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 @UniqueConstraint(columnNames = {"MERCHANT_ID", "CODE"}))
 public class Optin extends SalesManagerEntity<Long, Optin> implements Serializable {
 
-	
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

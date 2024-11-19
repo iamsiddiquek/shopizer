@@ -1,14 +1,16 @@
 package com.salesmanager.shop.model.catalog.product.attribute.api;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.salesmanager.shop.model.catalog.product.attribute.ProductAttribute;
 
 public class ProductAttributeEntity extends ProductAttribute implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private int sortOrder;

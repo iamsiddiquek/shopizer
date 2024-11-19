@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.category;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -38,7 +39,8 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 
 
 public class Category extends SalesManagerEntity<Long, Category> implements Auditable {
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
     
     @Id
     @Column(name = "CATEGORY_ID", unique=true, nullable=false)

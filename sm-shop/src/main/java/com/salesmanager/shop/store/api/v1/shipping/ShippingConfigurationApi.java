@@ -216,7 +216,7 @@ public class ShippingConfigurationApi {
 			//check if exist
 			Optional<IntegrationModule> checkIfExist = modules.stream().filter(m -> m.getCode().equals(code)).findAny();
 			
-			if(!checkIfExist.isPresent()) {
+			if(checkIfExist.isEmpty()) {
 				throw new ResourceNotFoundException("Shipping module [" + code + "] not found");
 			}
 			

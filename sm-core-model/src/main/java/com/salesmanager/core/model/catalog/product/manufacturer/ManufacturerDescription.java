@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.product.manufacturer;
 
+import java.io.Serial;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -25,6 +26,7 @@ import com.salesmanager.core.model.common.description.Description;
 
 @TableGenerator(name = "description_gen", table = "SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "manufacturer_description_seq", allocationSize = SchemaConstant.DESCRIPTION_ID_ALLOCATION_SIZE, initialValue = SchemaConstant.DESCRIPTION_ID_START_VALUE)
 public class ManufacturerDescription extends Description {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@JsonIgnore

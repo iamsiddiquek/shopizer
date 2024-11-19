@@ -66,7 +66,7 @@ public class ServicesTestSupport {
 
 	public ReadableMerchantStore fetchStore() {
 		final HttpEntity<String> httpEntity = new HttpEntity<>(getHeader());
-		return testRestTemplate.exchange(String.format("/api/v1/store/%s", Constants.DEFAULT_STORE), HttpMethod.GET,
+		return testRestTemplate.exchange("/api/v1/store/%s".formatted(Constants.DEFAULT_STORE), HttpMethod.GET,
 				httpEntity, ReadableMerchantStore.class).getBody();
 
 	}
@@ -245,7 +245,7 @@ public class ServicesTestSupport {
 
 		final HttpEntity<PersistableShoppingCartItem> cartEntity = new HttpEntity<>(cartItem, getHeader());
 		final ResponseEntity<ReadableShoppingCart> response = testRestTemplate
-				.postForEntity(String.format("/api/v1/cart/"), cartEntity, ReadableShoppingCart.class);
+				.postForEntity("/api/v1/cart/".formatted(), cartEntity, ReadableShoppingCart.class);
 
 		assertNotNull(response);
 		assertThat(response.getStatusCode(), is(CREATED));

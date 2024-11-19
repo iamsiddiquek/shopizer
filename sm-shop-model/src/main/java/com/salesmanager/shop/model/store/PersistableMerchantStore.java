@@ -1,14 +1,16 @@
 package com.salesmanager.shop.model.store;
 
+import java.io.Serial;
 import java.util.List;
 
 import com.salesmanager.shop.model.references.PersistableAddress;
 
 public class PersistableMerchantStore extends MerchantStoreEntity {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private PersistableAddress address;
 	//code of parent store (can be null if retailer)

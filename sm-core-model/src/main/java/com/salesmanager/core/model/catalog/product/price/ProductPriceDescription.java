@@ -1,5 +1,7 @@
 package com.salesmanager.core.model.catalog.product.price;
 
+import java.io.Serial;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,12 +25,13 @@ uniqueConstraints={
 )
 
 @TableGenerator(name = "description_gen", table = "SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "product_price_description_seq", allocationSize = SchemaConstant.DESCRIPTION_ID_ALLOCATION_SIZE, initialValue = SchemaConstant.DESCRIPTION_ID_START_VALUE)
-public class ProductPriceDescription extends Description {;
-	
+public class ProductPriceDescription extends Description {
+
 	/**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
 
   public final static String DEFAULT_PRICE_DESCRIPTION = "DEFAULT";
 	

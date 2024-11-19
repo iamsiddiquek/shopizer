@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.user;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -9,11 +10,11 @@ import java.io.Serializable;
  *
  */
 public class UserPassword implements Serializable{
-  
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	@Serial
+	private static final long serialVersionUID = 1L;
   String password = null;
   String changePassword = null;
   public String getPassword() {

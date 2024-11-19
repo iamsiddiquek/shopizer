@@ -1,5 +1,7 @@
 package com.salesmanager.core.model.shipping;
 
+import java.io.Serial;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,10 +25,11 @@ import com.salesmanager.core.model.reference.zone.Zone;
 @Table(name = "SHIPING_ORIGIN")
 public class ShippingOrigin extends SalesManagerEntity<Long, ShippingOrigin> {
 
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1172536723717691214L;
 
 

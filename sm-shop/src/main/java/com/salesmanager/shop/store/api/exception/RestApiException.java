@@ -1,10 +1,13 @@
 package com.salesmanager.shop.store.api.exception;
 
+import java.io.Serial;
+
 public class RestApiException extends GenericRuntimeException {
-    /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
 
     public RestApiException(String errorCode, String message) {
         super(errorCode, message);

@@ -1,11 +1,13 @@
 package com.salesmanager.shop.model.catalog.product.product;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.salesmanager.shop.model.catalog.product.PersistableProductPrice;
 
 public class PersistableProductInventory implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String sku;

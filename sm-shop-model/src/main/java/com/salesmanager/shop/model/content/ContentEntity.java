@@ -1,11 +1,14 @@
 package com.salesmanager.shop.model.content;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.entity.Entity;
 
 @Deprecated
 public class ContentEntity extends Entity {
-	
-	  private static final long serialVersionUID = 1L;
+
+	@Serial
+	private static final long serialVersionUID = 1L;
 	  private String code;
 	  private String contentType = "BOX";
 	  private boolean isDisplayedInMenu;

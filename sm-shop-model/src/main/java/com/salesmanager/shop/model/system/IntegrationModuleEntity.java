@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.system;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class IntegrationModuleEntity implements Serializable {
@@ -10,6 +11,7 @@ public class IntegrationModuleEntity implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public String getCode() {

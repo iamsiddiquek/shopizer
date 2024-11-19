@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.user;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,8 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 @Table(name = "PERMISSION")
 public class Permission extends SalesManagerEntity<Integer, Permission> implements Auditable {
 
-	
 
+	@Serial
 	private static final long serialVersionUID = 813468140197420748L;
 
 	@Id

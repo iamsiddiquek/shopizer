@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.references;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.entity.Entity;
 
 public class ZoneEntity extends Entity {
@@ -7,6 +9,7 @@ public class ZoneEntity extends Entity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String countryCode;
 	private String code;

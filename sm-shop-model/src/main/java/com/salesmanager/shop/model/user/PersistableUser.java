@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.user;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import com.salesmanager.shop.model.security.PersistableGroup;
@@ -23,6 +24,7 @@ public class PersistableUser extends UserEntity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private List<PersistableGroup> groups = new ArrayList<PersistableGroup>();

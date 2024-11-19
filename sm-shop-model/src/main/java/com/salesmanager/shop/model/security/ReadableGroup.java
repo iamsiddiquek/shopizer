@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.security;
 
+import java.io.Serial;
+
 /**
  * Object used for reading a group
  * 
@@ -8,10 +10,11 @@ package com.salesmanager.shop.model.security;
  */
 public class ReadableGroup extends GroupEntity {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
 
   private Long id = 0L;
 

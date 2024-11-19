@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.shoppingcart;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class ReadableShoppingCart extends ShoppingCartEntity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String code;

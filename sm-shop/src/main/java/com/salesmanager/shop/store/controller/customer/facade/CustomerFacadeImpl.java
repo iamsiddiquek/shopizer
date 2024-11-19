@@ -656,7 +656,7 @@ public class CustomerFacadeImpl implements CustomerFacade {
   }
 
   @Async
-  private void notifyNewCustomer(PersistableCustomer customer, MerchantStore store, Language lang) {
+  protected void notifyNewCustomer(PersistableCustomer customer, MerchantStore store, Language lang) {
 		System.out.println("Customer notification");
 		long startTime = System.nanoTime();
 	Locale customerLocale = LocaleUtils.getLocale(lang);

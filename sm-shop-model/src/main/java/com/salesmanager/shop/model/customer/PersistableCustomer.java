@@ -1,11 +1,11 @@
 package com.salesmanager.shop.model.customer;
 
+import java.io.Serial;
 import java.util.List;
 import com.salesmanager.shop.model.customer.attribute.PersistableCustomerAttribute;
 import com.salesmanager.shop.model.security.PersistableGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 
 
 @ApiModel(value="Customer", description="Customer model object")
@@ -17,6 +17,7 @@ public class PersistableCustomer extends CustomerEntity {
     @ApiModelProperty(notes = "Customer password")
 	private String password = null;
     private String repeatPassword = null;
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private List<PersistableCustomerAttribute> attributes;
 	private List<PersistableGroup> groups;

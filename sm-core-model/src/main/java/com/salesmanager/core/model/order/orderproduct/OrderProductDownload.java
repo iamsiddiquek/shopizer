@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.order.orderproduct;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 @Entity
 @Table (name="ORDER_PRODUCT_DOWNLOAD")
 public class OrderProductDownload extends SalesManagerEntity<Long, OrderProductDownload> implements Serializable {
+	@Serial
 	private static final long serialVersionUID = -8935511990745477240L;
 	
 	public final static int DEFAULT_DOWNLOAD_MAX_DAYS = 31;

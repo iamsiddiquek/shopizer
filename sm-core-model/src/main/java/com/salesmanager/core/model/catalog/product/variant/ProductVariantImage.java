@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.product.variant;
 
+import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +24,7 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 public class ProductVariantImage extends SalesManagerEntity<Long, ProductVariantImage> {
 
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

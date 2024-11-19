@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.customer;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.validation.constraints.Max;
@@ -12,10 +13,11 @@ import com.salesmanager.shop.model.entity.ShopEntity;
 
 
 public class CustomerReviewEntity extends ShopEntity implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	@NotEmpty
 	private String description;

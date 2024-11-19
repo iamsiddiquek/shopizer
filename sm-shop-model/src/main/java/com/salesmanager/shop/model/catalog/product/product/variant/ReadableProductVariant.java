@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.product.variant;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import com.salesmanager.shop.model.catalog.product.variation.ReadableProductVari
 
 public class ReadableProductVariant extends ProductVariant {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private ReadableProductVariation variation;

@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.product;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -17,6 +18,7 @@ public class ProductEntity extends Product implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private BigDecimal price;

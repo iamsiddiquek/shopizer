@@ -417,8 +417,8 @@ public class PayPalExpressCheckoutPayment implements PaymentModule {
 			
 			
 		} catch(Exception e) {
-			if(e instanceof IntegrationException) {
-				throw (IntegrationException)e;
+			if(e instanceof IntegrationException exception) {
+				throw exception;
 			} else {
 				throw new IntegrationException(e);
 			}

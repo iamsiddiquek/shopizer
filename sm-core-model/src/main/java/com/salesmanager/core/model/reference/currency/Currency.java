@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.reference.currency;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.persistence.Cacheable;
@@ -18,6 +19,7 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 @Table(name = "CURRENCY")
 @Cacheable
 public class Currency extends SalesManagerEntity<Long, Currency> implements Serializable {
+	@Serial
 	private static final long serialVersionUID = -999926410367685145L;
 	
 	@Id

@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.customer.address;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class AddressLocation implements Serializable {
@@ -7,6 +8,7 @@ public class AddressLocation implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String postalCode;

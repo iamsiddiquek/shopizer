@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.content;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,8 @@ indexes = { @Index(name="CODE_IDX", columnList = "CODE")},
 	uniqueConstraints = @UniqueConstraint(columnNames = {"MERCHANT_ID", "CODE"}) )
 public class Content extends SalesManagerEntity<Long, Content> implements Serializable {
 
-	
 
+	@Serial
 	private static final long serialVersionUID = 1772757159185494620L;
 	
 	@Id

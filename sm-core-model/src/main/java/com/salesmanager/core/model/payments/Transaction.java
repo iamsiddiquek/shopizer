@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.payments;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -48,6 +49,7 @@ public class Transaction extends SalesManagerEntity<Long, Transaction> implement
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

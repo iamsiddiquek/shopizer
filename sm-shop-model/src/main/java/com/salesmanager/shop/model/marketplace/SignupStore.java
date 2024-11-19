@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.marketplace;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
@@ -9,6 +10,7 @@ public class SignupStore implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@NotEmpty

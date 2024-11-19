@@ -1,12 +1,14 @@
 package com.salesmanager.shop.model.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class EntityExists implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private boolean exists = false;
 	

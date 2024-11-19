@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.shipping;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -11,10 +12,11 @@ import com.salesmanager.core.model.common.Delivery;
  *
  */
 public class ShippingSummary implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private BigDecimal shipping;
 	private BigDecimal handling;

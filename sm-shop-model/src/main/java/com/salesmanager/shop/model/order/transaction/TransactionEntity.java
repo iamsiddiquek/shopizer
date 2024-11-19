@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.order.transaction;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.salesmanager.shop.model.entity.Entity;
@@ -10,10 +11,11 @@ import com.salesmanager.shop.model.entity.Entity;
  *
  */
 public class TransactionEntity extends Entity implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private Long orderId;
 	private String details;

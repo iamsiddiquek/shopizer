@@ -41,7 +41,7 @@ public class SendEmailTest extends AbstractSalesManagerCoreTestCase {
 
       
       templateTokens.put("EMAIL_CONTACT_NAME", "Test");
-      templateTokens.put("EMAIL_CONTACT_EMAIL", "test@gmail.com");
+      templateTokens.put("EMAIL_CONTACT_EMAIL", "iamskk1@gmail.com");
       templateTokens.put("EMAIL_CONTACT_CONTENT", "Hello");
 
       templateTokens.put("EMAIL_CUSTOMER_CONTACT", "Contact");
@@ -52,9 +52,9 @@ public class SendEmailTest extends AbstractSalesManagerCoreTestCase {
 
       Email email = new Email();
       email.setFrom("Default store");
-      email.setFromEmail("test@shopizer.com");
+      email.setFromEmail("iamskk1@gmail.com");
       email.setSubject("Contact");
-      email.setTo("test@shopizer.com");
+      email.setTo("iamskk1@gmail.com");
       email.setTemplateName("email_template_contact.ftl");
       email.setTemplateTokens(templateTokens);
 

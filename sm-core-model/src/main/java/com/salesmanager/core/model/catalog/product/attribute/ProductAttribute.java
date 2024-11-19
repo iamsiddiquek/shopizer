@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.product.attribute;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -38,6 +39,7 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
  */
 
 public class ProductAttribute extends SalesManagerEntity<Long, ProductAttribute> implements Optionable {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

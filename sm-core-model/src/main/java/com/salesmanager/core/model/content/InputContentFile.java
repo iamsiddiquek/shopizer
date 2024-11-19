@@ -1,13 +1,15 @@
 package com.salesmanager.core.model.content;
 
 import java.io.InputStream;
+import java.io.Serial;
 import java.io.Serializable;
 
 
 public class InputContentFile extends StaticContentFile implements Serializable 
 {
 
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
    
     private InputStream file;
     private String path;

@@ -1,14 +1,17 @@
 package com.salesmanager.shop.model.content;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.entity.ResourceUrlAccess;
 
 @Deprecated
 public class ObjectContent extends ContentPath implements ResourceUrlAccess {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
 
   private String slug;
   private String metaDetails;

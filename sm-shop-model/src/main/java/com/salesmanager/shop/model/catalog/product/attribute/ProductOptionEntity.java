@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.attribute;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class ProductOptionEntity extends ProductPropertyOption implements Serializable {
@@ -7,6 +8,7 @@ public class ProductOptionEntity extends ProductPropertyOption implements Serial
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private int order;
 	

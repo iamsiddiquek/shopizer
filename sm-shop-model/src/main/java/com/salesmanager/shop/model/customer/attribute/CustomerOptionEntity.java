@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.customer.attribute;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class CustomerOptionEntity extends CustomerOption implements
@@ -8,6 +9,7 @@ public class CustomerOptionEntity extends CustomerOption implements
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private int order;
 	private String code;

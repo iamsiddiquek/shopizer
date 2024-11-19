@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.reference.zone;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -24,7 +25,8 @@ import com.salesmanager.core.model.reference.country.Country;
 @Entity
 @Table(name = "ZONE")
 public class Zone extends SalesManagerEntity<Long, Zone> {
-  private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
   @Id
   @Column(name = "ZONE_ID")

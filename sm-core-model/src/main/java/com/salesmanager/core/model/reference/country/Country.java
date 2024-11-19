@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.reference.country;
 
+import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +29,7 @@ import com.salesmanager.core.model.reference.zone.Zone;
 @Table(name = "COUNTRY")
 @Cacheable
 public class Country extends SalesManagerEntity<Integer, Country> {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

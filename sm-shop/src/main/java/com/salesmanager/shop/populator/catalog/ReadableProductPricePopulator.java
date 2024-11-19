@@ -83,8 +83,8 @@ public class ReadableProductPricePopulator extends
                    target.setDescription(d);
                }
                
-               if(target instanceof ReadableProductPriceFull) {
-                 ((ReadableProductPriceFull)target).setDescriptions(fulldescriptions);
+               if(target instanceof ReadableProductPriceFull full) {
+                 full.setDescriptions(fulldescriptions);
                }
 		    }
 

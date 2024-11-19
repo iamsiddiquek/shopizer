@@ -1,10 +1,13 @@
 package com.salesmanager.shop.model.catalog.product.attribute;
 
+import java.io.Serial;
+
 public class ReadableProductOptionValue extends ProductOptionValue {
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String price;

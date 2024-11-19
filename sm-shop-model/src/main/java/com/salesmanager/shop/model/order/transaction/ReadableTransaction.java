@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.order.transaction;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.salesmanager.core.model.payments.PaymentType;
@@ -10,6 +11,7 @@ public class ReadableTransaction extends TransactionEntity implements Serializab
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private PaymentType paymentType;

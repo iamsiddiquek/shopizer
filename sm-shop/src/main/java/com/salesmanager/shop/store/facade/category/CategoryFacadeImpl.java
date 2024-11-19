@@ -292,7 +292,7 @@ public class CategoryFacadeImpl implements CategoryFacade {
 		try {
 			return categoryService.getListByLineage(store, lineage);
 		} catch (ServiceException e) {
-			throw new ServiceRuntimeException(String.format("Error while getting root category %s", e.getMessage()), e);
+			throw new ServiceRuntimeException("Error while getting root category %s".formatted(e.getMessage()), e);
 		}
 	}
 
@@ -364,7 +364,7 @@ public class CategoryFacadeImpl implements CategoryFacade {
 
 	private Category getOne(Long categoryId, int storeId) {
 		return Optional.ofNullable(categoryService.getById(categoryId)).orElseThrow(
-				() -> new ResourceNotFoundException(String.format("No Category found for ID : %s", categoryId)));
+				() -> new ResourceNotFoundException("No Category found for ID : %s".formatted(categoryId)));
 	}
 
 	@Override

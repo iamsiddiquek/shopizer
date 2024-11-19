@@ -1,9 +1,12 @@
 package com.salesmanager.shop.model.catalog.product.product.variant;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.catalog.product.Product;
 
 public class ProductVariant extends Product {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String store;
 	/** use product id or sku **/

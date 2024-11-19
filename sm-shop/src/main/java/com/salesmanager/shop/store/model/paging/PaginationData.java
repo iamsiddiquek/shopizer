@@ -3,6 +3,7 @@
  */
 package com.salesmanager.shop.store.model.paging;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -12,9 +13,9 @@ import java.io.Serializable;
  */
 public class PaginationData implements Serializable
 {
-    
-    
-    private static final long serialVersionUID = 1L;
+
+	@Serial
+	private static final long serialVersionUID = 1L;
 
     /** The number of results per page.*/
     private int pageSize;

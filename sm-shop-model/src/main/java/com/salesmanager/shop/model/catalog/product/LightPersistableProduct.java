@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -9,10 +10,11 @@ import java.io.Serializable;
  */
 public class LightPersistableProduct implements Serializable {
 
-  /**
-   *
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	*
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
   private String price;
   private boolean available;
   private boolean productShipeable;

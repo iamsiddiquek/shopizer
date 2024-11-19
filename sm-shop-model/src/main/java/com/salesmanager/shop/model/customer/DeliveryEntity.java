@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.customer;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 
@@ -7,12 +8,12 @@ import com.salesmanager.shop.model.customer.address.Address;
 
 
 public class DeliveryEntity extends Address implements Serializable {
-	
 
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private String countryName;

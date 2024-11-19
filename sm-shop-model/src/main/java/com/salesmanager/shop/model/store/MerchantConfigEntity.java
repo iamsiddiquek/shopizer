@@ -1,14 +1,16 @@
 package com.salesmanager.shop.model.store;
 
+import java.io.Serial;
+
 import com.salesmanager.core.model.system.MerchantConfigurationType;
 import com.salesmanager.shop.model.entity.Entity;
 
 public class MerchantConfigEntity extends Entity {
-  
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	@Serial
+	private static final long serialVersionUID = 1L;
   private String key;
   private MerchantConfigurationType type;
   private String value;

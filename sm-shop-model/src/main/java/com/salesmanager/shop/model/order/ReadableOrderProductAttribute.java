@@ -1,15 +1,17 @@
 package com.salesmanager.shop.model.order;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.salesmanager.shop.model.entity.Entity;
 
 public class ReadableOrderProductAttribute extends Entity implements Serializable {
-	
-	
+
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String attributeName;
 	private String attributePrice;

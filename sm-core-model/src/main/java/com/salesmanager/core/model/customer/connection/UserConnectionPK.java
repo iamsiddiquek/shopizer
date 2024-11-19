@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.customer.connection;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
@@ -15,6 +16,7 @@ public class UserConnectionPK implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private String userId;
@@ -46,8 +48,7 @@ public class UserConnectionPK implements Serializable {
 	}
 
 	public boolean equals(Object o) {
-		if (o instanceof UserConnectionPK) {
-			UserConnectionPK other = (UserConnectionPK) o;
+		if (o instanceof UserConnectionPK other) {
 			return other.getProviderId().equals(getProviderId())
 					&& other.getProviderUserId().equals(getProviderUserId())
 					&& other.getUserId().equals(getUserId());

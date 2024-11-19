@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.order.v0;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class ReadableOrderList extends ReadableList implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private List<ReadableOrder> orders;
 	

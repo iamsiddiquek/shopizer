@@ -34,7 +34,7 @@ public class UserApiIntegrationTest extends ServicesTestSupport {
   public void getUser() throws Exception {
       final HttpEntity<String> httpEntity = new HttpEntity<>(getHeader());
 
-      final ResponseEntity<ReadableUser> response = testRestTemplate.exchange(String.format("/api/v1/private/users/" + DEFAULT_USER_ID), HttpMethod.GET,
+      final ResponseEntity<ReadableUser> response = testRestTemplate.exchange(("/api/v1/private/users/" + DEFAULT_USER_ID).formatted(), HttpMethod.GET,
               httpEntity, ReadableUser.class);
       if (response.getStatusCode() != HttpStatus.OK) {
           throw new Exception(response.toString());
@@ -64,7 +64,7 @@ public class UserApiIntegrationTest extends ServicesTestSupport {
       final HttpEntity<PersistableUser> persistableUser = new HttpEntity<PersistableUser>(newUser, getHeader());
 
       ReadableUser user = null;
-      final ResponseEntity<ReadableUser> response = testRestTemplate.exchange(String.format("/api/v1/private/user/"), HttpMethod.POST,
+      final ResponseEntity<ReadableUser> response = testRestTemplate.exchange("/api/v1/private/user/".formatted(), HttpMethod.POST,
           persistableUser, ReadableUser.class);
       if (response.getStatusCode() != HttpStatus.OK) {
           throw new Exception(response.toString());
@@ -84,7 +84,7 @@ public class UserApiIntegrationTest extends ServicesTestSupport {
       final HttpEntity<UserPassword> changePasswordEntity = new HttpEntity<UserPassword>(userPassword, getHeader());
 
       
-      final ResponseEntity<Void> changePassword = testRestTemplate.exchange(String.format("/api/v1/private/user/" + user.getId() + "/password"), HttpMethod.PATCH, changePasswordEntity, Void.class);
+      final ResponseEntity<Void> changePassword = testRestTemplate.exchange(("/api/v1/private/user/" + user.getId() + "/password").formatted(), HttpMethod.PATCH, changePasswordEntity, Void.class);
       if (changePassword.getStatusCode() != HttpStatus.OK) {
           throw new Exception(response.toString());
       } else {

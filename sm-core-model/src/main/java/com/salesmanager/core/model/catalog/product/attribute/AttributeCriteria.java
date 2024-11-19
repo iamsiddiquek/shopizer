@@ -1,12 +1,14 @@
 package com.salesmanager.core.model.catalog.product.attribute;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class AttributeCriteria implements Serializable {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String attributeCode;
 	private String attributeValue;

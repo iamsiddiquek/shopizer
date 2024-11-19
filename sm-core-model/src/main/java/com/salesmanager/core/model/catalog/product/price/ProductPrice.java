@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.product.price;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -32,6 +33,7 @@ import com.salesmanager.core.utils.CloneUtils;
 @Entity
 @Table(name = "PRODUCT_PRICE")
 public class ProductPrice extends SalesManagerEntity<Long, ProductPrice> {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public final static String DEFAULT_PRICE_CODE = "base";

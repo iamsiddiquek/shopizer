@@ -1,5 +1,7 @@
 package com.salesmanager.core.model.customer.attribute;
 
+import java.io.Serial;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,10 +28,11 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 )
 public class CustomerOptionSet extends SalesManagerEntity<Long, CustomerOptionSet> {
 
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -50,7 +53,7 @@ public class CustomerOptionSet extends SalesManagerEntity<Long, CustomerOptionSe
 
 
 	@Column(name="SORT_ORDER")
-	private Integer sortOrder = new Integer(0);
+	private Integer sortOrder = Integer.valueOf(0);
 	
 
 

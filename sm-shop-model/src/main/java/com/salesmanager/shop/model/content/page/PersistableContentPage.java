@@ -1,15 +1,17 @@
 package com.salesmanager.shop.model.content.page;
 
+import java.io.Serial;
 import java.util.List;
 
 import com.salesmanager.shop.model.content.common.ContentDescription;
 
 public class PersistableContentPage extends ContentPage {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
   
 	private List<ContentDescription> descriptions;
 

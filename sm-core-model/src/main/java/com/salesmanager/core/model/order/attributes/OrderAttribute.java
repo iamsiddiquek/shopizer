@@ -1,5 +1,7 @@
 package com.salesmanager.core.model.order.attributes;
 
+import java.io.Serial;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,10 +24,11 @@ import com.salesmanager.core.model.order.Order;
 @Entity
 @Table (name="ORDER_ATTRIBUTE" )
 public class OrderAttribute extends SalesManagerEntity<Long, OrderAttribute> {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

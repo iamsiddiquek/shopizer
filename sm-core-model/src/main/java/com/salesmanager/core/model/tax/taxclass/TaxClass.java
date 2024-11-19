@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.tax.taxclass;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,7 @@ uniqueConstraints=
 
 
 public class TaxClass extends SalesManagerEntity<Long, TaxClass> {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	public final static String DEFAULT_TAX_CLASS = "DEFAULT";

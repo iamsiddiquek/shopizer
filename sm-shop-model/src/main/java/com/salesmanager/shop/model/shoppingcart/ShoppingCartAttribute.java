@@ -1,15 +1,17 @@
 package com.salesmanager.shop.model.shoppingcart;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.salesmanager.shop.model.entity.ShopEntity;
 
 public class ShoppingCartAttribute extends ShopEntity implements Serializable {
 
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private long optionId;
 	private long optionValueId;

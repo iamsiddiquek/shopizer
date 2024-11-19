@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.order.orderaccount;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -23,6 +24,7 @@ import com.salesmanager.core.utils.CloneUtils;
 @Entity
 @Table (name="ORDER_ACCOUNT_PRODUCT" )
 public class OrderAccountProduct implements Serializable {
+	@Serial
 	private static final long serialVersionUID = -7437197293537758668L;
 
 	@Id

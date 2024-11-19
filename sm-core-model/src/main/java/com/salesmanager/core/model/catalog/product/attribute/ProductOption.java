@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.catalog.product.attribute;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +35,7 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 	uniqueConstraints=@UniqueConstraint(columnNames = {"MERCHANT_ID", "PRODUCT_OPTION_CODE"}))
 
 public class ProductOption extends SalesManagerEntity<Long, ProductOption> {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

@@ -1,6 +1,7 @@
 package com.salesmanager.core.business.modules.cms.content.gcp;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,8 @@ import com.salesmanager.core.model.content.OutputContentFile;
 @Component("gcpContentAssetsManager")
 public class GCPStaticContentAssetsManagerImpl implements ContentAssetsManager {
 
-  private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GCPStaticContentAssetsManagerImpl.class);
 

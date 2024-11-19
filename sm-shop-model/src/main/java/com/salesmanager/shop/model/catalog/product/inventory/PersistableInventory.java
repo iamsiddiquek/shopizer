@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.inventory;
 
+import java.io.Serial;
 import java.util.List;
 import com.salesmanager.shop.model.catalog.product.PersistableProductPrice;
 
@@ -10,6 +11,7 @@ public class PersistableInventory extends InventoryEntity {
 	/**
 	 * An inventory for a given product and possibly a given variant
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String store;
 	@NotNull

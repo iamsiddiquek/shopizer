@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.catalog.catalog;
 
+import java.io.Serial;
+
 import com.salesmanager.shop.model.catalog.category.ReadableCategory;
 
 public class ReadableCatalogCategoryEntry extends CatalogEntryEntity {
@@ -7,6 +9,7 @@ public class ReadableCatalogCategoryEntry extends CatalogEntryEntity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String creationDate;
 	//private ReadableProduct product;

@@ -1,15 +1,17 @@
 package com.salesmanager.shop.model.content;
 
+import java.io.Serial;
 import java.io.Serializable;
 import javax.validation.constraints.NotEmpty;
 
 @Deprecated
 public abstract class Content implements Serializable {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
   @NotEmpty
   private String name;
   private String contentType;

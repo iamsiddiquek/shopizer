@@ -1,5 +1,7 @@
 package com.salesmanager.core.model.catalog.product.variant;
 
+import java.io.Serial;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,6 +25,7 @@ import com.salesmanager.core.model.common.description.Description;
 )
 @TableGenerator(name = "description_gen", table = "SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "product_var_image_desc_seq", allocationSize = SchemaConstant.DESCRIPTION_ID_ALLOCATION_SIZE, initialValue = SchemaConstant.DESCRIPTION_ID_START_VALUE)
 public class ProductVariantImageDescription extends Description {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne(targetEntity = ProductVariantImage.class)

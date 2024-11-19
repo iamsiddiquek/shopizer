@@ -1,14 +1,16 @@
 package com.salesmanager.core.model.common;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 
 public class Address implements Serializable {
-	
+
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String city;
 	private String postalCode;

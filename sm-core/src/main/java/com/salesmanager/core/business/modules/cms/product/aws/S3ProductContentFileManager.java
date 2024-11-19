@@ -1,6 +1,7 @@
 package com.salesmanager.core.business.modules.cms.product.aws;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serial;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +40,11 @@ import com.salesmanager.core.model.content.OutputContentFile;
 public class S3ProductContentFileManager
     implements ProductAssetsManager {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
 
 
 

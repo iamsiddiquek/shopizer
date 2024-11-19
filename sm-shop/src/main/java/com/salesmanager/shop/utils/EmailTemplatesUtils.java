@@ -307,7 +307,7 @@ public class EmailTemplatesUtils {
 		
 	}
 	
-	@Async
+//	@Async
 	public void sendContactEmail(
 			ContactForm contact, MerchantStore merchantStore,
 				Locale storeLocale, String contextPath) {

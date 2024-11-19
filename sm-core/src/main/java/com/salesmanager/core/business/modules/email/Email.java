@@ -1,5 +1,6 @@
 package com.salesmanager.core.business.modules.email;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +11,7 @@ public class Email implements Serializable {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 6481794982612826257L;
 	private String from;
 	private String fromEmail;

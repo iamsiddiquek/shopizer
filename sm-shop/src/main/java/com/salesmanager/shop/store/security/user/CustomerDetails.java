@@ -1,5 +1,6 @@
 package com.salesmanager.shop.store.security.user;
 
+import java.io.Serial;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +11,7 @@ public class CustomerDetails extends User {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String email;

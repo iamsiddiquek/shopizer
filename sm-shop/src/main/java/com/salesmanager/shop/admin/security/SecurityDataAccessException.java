@@ -1,5 +1,7 @@
 package com.salesmanager.shop.admin.security;
 
+import java.io.Serial;
+
 import org.springframework.dao.DataAccessException;
 
 public class SecurityDataAccessException extends DataAccessException {
@@ -7,6 +9,7 @@ public class SecurityDataAccessException extends DataAccessException {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public SecurityDataAccessException(String msg) {

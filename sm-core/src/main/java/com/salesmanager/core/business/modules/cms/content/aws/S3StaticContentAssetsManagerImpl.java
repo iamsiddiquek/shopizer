@@ -1,6 +1,7 @@
 package com.salesmanager.core.business.modules.cms.content.aws;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serial;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ import com.salesmanager.core.model.content.OutputContentFile;
  */
 public class S3StaticContentAssetsManagerImpl implements ContentAssetsManager {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(S3StaticContentAssetsManagerImpl.class);

@@ -1,6 +1,7 @@
 package com.salesmanager.core.model.catalog.product.image;
 
 import java.io.InputStream;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import com.salesmanager.core.model.generic.SalesManagerEntity;
 @Entity
 @Table(name = "PRODUCT_IMAGE")
 public class ProductImage extends SalesManagerEntity<Long, ProductImage> {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

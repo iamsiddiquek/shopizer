@@ -128,10 +128,10 @@ public class OrderApi {
 		}
 
 		if (start == null) {
-			start = new Integer(0);
+			start = Integer.valueOf(0);
 		}
 		if (count == null) {
-			count = new Integer(100);
+			count = Integer.valueOf(100);
 		}
 
 		ReadableCustomer readableCustomer = new ReadableCustomer();
@@ -182,10 +182,10 @@ public class OrderApi {
 		}
 
 		if (page == null) {
-			page = new Integer(0);
+			page = Integer.valueOf(0);
 		}
 		if (count == null) {
-			count = new Integer(100);
+			count = Integer.valueOf(100);
 		}
 
 		ReadableCustomer readableCustomer = new ReadableCustomer();

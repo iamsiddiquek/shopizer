@@ -3,6 +3,7 @@ package com.salesmanager.core.business.modules.cms.product.gcp;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serial;
 import java.nio.channels.Channels;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,10 +57,11 @@ public class GCPProductContentFileManager implements ProductAssetsManager {
   private final static String SMALL = "SMALL";
   private final static String LARGE = "LARGE";
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
 
 
   @Override

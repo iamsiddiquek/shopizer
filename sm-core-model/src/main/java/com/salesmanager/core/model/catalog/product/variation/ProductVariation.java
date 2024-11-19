@@ -1,5 +1,7 @@
 package com.salesmanager.core.model.catalog.product.variation;
 
+import java.io.Serial;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -43,6 +45,7 @@ public class ProductVariation extends SalesManagerEntity<Long, ProductVariation>
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Embedded

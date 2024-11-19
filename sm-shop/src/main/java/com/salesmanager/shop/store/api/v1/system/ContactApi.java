@@ -53,10 +53,10 @@ public class ContactApi {
   public ResponseEntity<Void> contact(
       @Valid @RequestBody ContactForm contact,
       @ApiIgnore MerchantStore merchantStore,
-      @ApiIgnore Language language,
-      HttpServletRequest request) {
+      @ApiIgnore Language language, HttpServletRequest request) {
+
     Locale locale = languageService.toLocale(language, merchantStore);
     emailTemplatesUtils.sendContactEmail(contact, merchantStore, locale, request.getContextPath());
-    return new ResponseEntity<Void>(HttpStatus.OK);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }

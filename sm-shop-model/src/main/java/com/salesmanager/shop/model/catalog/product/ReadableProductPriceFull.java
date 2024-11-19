@@ -1,14 +1,16 @@
 package com.salesmanager.shop.model.catalog.product;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReadableProductPriceFull extends ReadableProductPrice {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
   
   private List<ProductPriceDescription> descriptions = new ArrayList<ProductPriceDescription>();
 

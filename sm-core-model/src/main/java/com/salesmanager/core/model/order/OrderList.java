@@ -1,14 +1,16 @@
 package com.salesmanager.core.model.order;
 
+import java.io.Serial;
 import java.util.List;
 
 import com.salesmanager.core.model.common.EntityList;
 
 public class OrderList extends EntityList {
-	
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = -6645927228659963628L;
 	private List<Order> orders;
 

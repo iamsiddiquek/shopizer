@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.catalog.product.type;
 
+import java.io.Serial;
 import java.util.List;
 
 public class PersistableProductType extends ProductTypeEntity {
@@ -7,6 +8,7 @@ public class PersistableProductType extends ProductTypeEntity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private List<ProductTypeDescription> descriptions;
 	public List<ProductTypeDescription> getDescriptions() {

@@ -2,9 +2,9 @@ package com.salesmanager.core.business.modules.cms.product.local;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serial;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -33,10 +33,11 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 public class CmsImageFileManagerImpl
     implements ProductAssetsManager {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 1L;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CmsImageFileManagerImpl.class);
 
@@ -88,19 +89,19 @@ public class CmsImageFileManagerImpl
 
       // base path
       String rootPath = this.buildRootPath();
-      Path confDir = Paths.get(rootPath);
+      Path confDir = Path.of(rootPath);
       this.createDirectoryIfNorExist(confDir);
 
       // node path
       StringBuilder nodePath = new StringBuilder();
       nodePath.append(rootPath).append(productImage.getProduct().getMerchantStore().getCode());
-      Path merchantPath = Paths.get(nodePath.toString());
+      Path merchantPath = Path.of(nodePath.toString());
       this.createDirectoryIfNorExist(merchantPath);
 
       // product path
       nodePath.append(Constants.SLASH).append(productImage.getProduct().getSku())
           .append(Constants.SLASH);
-      Path dirPath = Paths.get(nodePath.toString());
+      Path dirPath = Path.of(nodePath.toString());
       this.createDirectoryIfNorExist(dirPath);
 
       // small large
@@ -110,7 +111,7 @@ public class CmsImageFileManagerImpl
           .equals(FileContentType.PRODUCTLG.name())) {
         nodePath.append(LARGE);
       }
-      Path sizePath = Paths.get(nodePath.toString());
+      Path sizePath = Path.of(nodePath.toString());
       this.createDirectoryIfNorExist(sizePath);
 
 
@@ -118,7 +119,7 @@ public class CmsImageFileManagerImpl
       nodePath.append(Constants.SLASH).append(contentImage.getFileName());
 
 
-      Path path = Paths.get(nodePath.toString());
+      Path path = Path.of(nodePath.toString());
       InputStream isFile = contentImage.getFile();
 
       Files.copy(isFile, path, StandardCopyOption.REPLACE_EXISTING);
@@ -169,7 +170,7 @@ public class CmsImageFileManagerImpl
       StringBuilder merchantPath = new StringBuilder();
       merchantPath.append(buildRootPath()).append(Constants.SLASH).append(merchantStoreCode);
 
-      Path path = Paths.get(merchantPath.toString());
+      Path path = Path.of(merchantPath.toString());
 
       Files.deleteIfExists(path);
 
@@ -200,7 +201,7 @@ public class CmsImageFileManagerImpl
           .append(productImage.getProductImage());
 
 
-      Path path = Paths.get(smallPath.toString());
+      Path path = Path.of(smallPath.toString());
 
       Files.deleteIfExists(path);
 
@@ -210,7 +211,7 @@ public class CmsImageFileManagerImpl
           .append(productImage.getProductImage());
 
 
-      path = Paths.get(largePath.toString());
+      path = Path.of(largePath.toString());
 
       Files.deleteIfExists(path);
 
@@ -233,7 +234,7 @@ public class CmsImageFileManagerImpl
           .append(product.getSku());
 
 
-      Path path = Paths.get(nodePath.toString());
+      Path path = Path.of(nodePath.toString());
 
       Files.deleteIfExists(path);
 

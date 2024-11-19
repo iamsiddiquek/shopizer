@@ -1,5 +1,7 @@
 package com.salesmanager.core.model.customer.connection;
 
+import java.io.Serial;
+
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
@@ -20,6 +22,7 @@ public abstract class AbstractUserConnectionWithCompositeKey extends
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Override

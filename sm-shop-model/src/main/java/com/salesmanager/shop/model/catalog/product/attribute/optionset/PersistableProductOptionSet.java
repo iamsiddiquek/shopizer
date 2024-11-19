@@ -1,13 +1,15 @@
 package com.salesmanager.shop.model.catalog.product.attribute.optionset;
 
+import java.io.Serial;
 import java.util.List;
 
 public class PersistableProductOptionSet extends ProductOptionSetEntity{
-	
-	
+
+
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private List<Long> optionValues;
 	private List<Long> productTypes;

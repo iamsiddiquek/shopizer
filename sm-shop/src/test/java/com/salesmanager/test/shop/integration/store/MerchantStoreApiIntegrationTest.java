@@ -44,7 +44,7 @@ public class MerchantStoreApiIntegrationTest extends ServicesTestSupport {
   public void testGetDefaultStore() throws Exception {
       final HttpEntity<String> httpEntity = new HttpEntity<>(getHeader());
 
-      final ResponseEntity<ReadableMerchantStore> response = testRestTemplate.exchange(String.format("/api/v1/store/" + MerchantStore.DEFAULT_STORE), HttpMethod.GET,
+      final ResponseEntity<ReadableMerchantStore> response = testRestTemplate.exchange(("/api/v1/store/" + MerchantStore.DEFAULT_STORE).formatted(), HttpMethod.GET,
               httpEntity, ReadableMerchantStore.class);
       if (response.getStatusCode() != HttpStatus.OK) {
           throw new Exception(response.toString());
@@ -81,7 +81,7 @@ public class MerchantStoreApiIntegrationTest extends ServicesTestSupport {
       
       final HttpEntity<PersistableMerchantStore> httpEntity = new HttpEntity<PersistableMerchantStore>(createdStore, getHeader());
 
-      ResponseEntity<Void> response = testRestTemplate.exchange(String.format("/api/v1/private/store/"), HttpMethod.POST, httpEntity, Void.class);
+      ResponseEntity<Void> response = testRestTemplate.exchange("/api/v1/private/store/".formatted(), HttpMethod.POST, httpEntity, Void.class);
 
       assertThat(response.getStatusCode(), is(HttpStatus.OK));
 
@@ -98,7 +98,7 @@ public class MerchantStoreApiIntegrationTest extends ServicesTestSupport {
 
       HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(parameters, headers);
 
-      ResponseEntity<Void> createResponse = testRestTemplate.exchange(String.format("/api/v1/private/store/" + MerchantStore.DEFAULT_STORE + "/marketing/logo"), HttpMethod.POST, entity, Void.class);
+      ResponseEntity<Void> createResponse = testRestTemplate.exchange(("/api/v1/private/store/" + MerchantStore.DEFAULT_STORE + "/marketing/logo").formatted(), HttpMethod.POST, entity, Void.class);
 
       // Expect Created
       assertThat(createResponse.getStatusCode(), is(HttpStatus.CREATED));
@@ -106,7 +106,7 @@ public class MerchantStoreApiIntegrationTest extends ServicesTestSupport {
       // now remove logo
       HttpEntity<Void> deleteRequest = new HttpEntity<Void>(getHeader());
       
-      ResponseEntity<Void> deleteResponse = testRestTemplate.exchange(String.format("/api/v1/private/store/" + MerchantStore.DEFAULT_STORE + "/marketing/logo"), HttpMethod.DELETE, deleteRequest, Void.class);
+      ResponseEntity<Void> deleteResponse = testRestTemplate.exchange(("/api/v1/private/store/" + MerchantStore.DEFAULT_STORE + "/marketing/logo").formatted(), HttpMethod.DELETE, deleteRequest, Void.class);
 
       // Expect Ok
       assertThat(deleteResponse.getStatusCode(), is(HttpStatus.OK));

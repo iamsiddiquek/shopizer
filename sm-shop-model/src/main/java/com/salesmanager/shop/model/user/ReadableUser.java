@@ -1,5 +1,6 @@
 package com.salesmanager.shop.model.user;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import com.salesmanager.shop.model.security.ReadableGroup;
@@ -10,6 +11,7 @@ public class ReadableUser extends UserEntity {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String lastAccess;
 	private String loginTime;

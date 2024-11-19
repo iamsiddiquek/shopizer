@@ -1,5 +1,7 @@
 package com.salesmanager.shop.model.order.v1;
 
+import java.io.Serial;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.salesmanager.shop.model.order.transaction.PersistablePayment;
 
@@ -14,6 +16,7 @@ public class PersistableOrder extends Order {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private PersistablePayment payment;

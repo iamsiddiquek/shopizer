@@ -1,12 +1,15 @@
 package com.salesmanager.shop.model.catalog.product;
 
+import java.io.Serial;
+
 import org.springframework.web.multipart.MultipartFile;
 import com.salesmanager.shop.model.entity.Entity;
 
 public class PersistableImage extends Entity {
-	
 
-	   private static final long serialVersionUID = 1L;
+
+	@Serial
+	private static final long serialVersionUID = 1L;
 	   private boolean defaultImage;
 	   private int imageType = 0;
 	   private String name = null;

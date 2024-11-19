@@ -1,16 +1,17 @@
 package com.salesmanager.shop.model.content;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import com.salesmanager.shop.model.entity.Entity;
 
 public class PersistableContent extends Entity implements Serializable {
-  
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	@Serial
+	private static final long serialVersionUID = 1L;
   private String code;
   private boolean isDisplayedInMenu;
 

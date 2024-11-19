@@ -1,5 +1,6 @@
 package com.salesmanager.core.model.system;
 
+import java.io.Serial;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -37,10 +38,11 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 public class MerchantConfiguration extends SalesManagerEntity<Long, MerchantConfiguration>
     implements Serializable, Auditable {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 4246917986731953459L;
+	/**
+	* 
+	*/
+	@Serial
+	private static final long serialVersionUID = 4246917986731953459L;
 
   @Id
   @Column(name = "MERCHANT_CONFIG_ID")
@@ -63,7 +65,7 @@ public class MerchantConfiguration extends SalesManagerEntity<Long, MerchantConf
    * activate and deactivate configuration
    */
   @Column(name = "ACTIVE", nullable = true)
-  private Boolean active = new Boolean(false);
+  private Boolean active = Boolean.valueOf(false);
 
 
   @Column(name = "VALUE")
