@@ -17,7 +17,9 @@ public class VendorCacheManager {
     try {
       manager = new DefaultCacheManager();
     } catch (Exception e) {
-      LOGGER.error("Cannot start manager " + e.toString());
+      LOGGER.warn(
+          "Cannot start Infinispan cache manager ({}). Continuing with local CMS managers if configured.",
+          e.toString());
     }
 
   }

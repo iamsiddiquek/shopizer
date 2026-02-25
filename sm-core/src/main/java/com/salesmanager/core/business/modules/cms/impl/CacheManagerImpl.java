@@ -36,6 +36,15 @@ public abstract class CacheManagerImpl implements CacheManager {
         return;
       }
       
+      final EmbeddedCacheManager embeddedManager = manager.getManager();
+      if (embeddedManager == null) {
+        LOGGER.warn(
+            "Infinispan manager unavailable, skipping cache initialization for '{}' (location: {}).",
+            namedCache,
+            locationFolder);
+        return;
+      }
+
       TreeCacheFactory f = null;
       
       
@@ -59,9 +68,9 @@ public abstract class CacheManagerImpl implements CacheManager {
     		   .invocationBatching().enable()
     		   .build();
       
-      manager.getManager().defineConfiguration(namedCache, config);
+      embeddedManager.defineConfiguration(namedCache, config);
 
-      final Cache<String, String> cache = manager.getManager().getCache(namedCache);
+      final Cache<String, String> cache = embeddedManager.getCache(namedCache);
       
       f = new TreeCacheFactory();
       treeCache = f.createTreeCache(cache);
@@ -72,7 +81,7 @@ public abstract class CacheManagerImpl implements CacheManager {
 
 
     } catch (Exception e) {
-      LOGGER.error("Error while instantiating CmsImageFileManager", e);
+      LOGGER.warn("Error while initializing Infinispan CMS cache '{}': {}", namedCache, e.toString());
     } finally {
 
     }

@@ -13,16 +13,15 @@
    http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring.xsd">
 
 
-	<bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-		<property name="configLocation" value="classpath:/spring/ehcache.xml" />
-		<property name="shared" value="false" />
-	</bean>
-
-	<bean id="serviceCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-		<property name="cacheManager">
-			<ref bean="springCacheManager" />
+	<bean id="springCacheManager" class="org.springframework.cache.concurrent.ConcurrentMapCacheManager">
+		<property name="cacheNames">
+			<list>
+				<value>com.shopizer.OBJECT_CACHE</value>
+			</list>
 		</property>
 	</bean>
+
+	<alias name="springCacheManager" alias="serviceCacheManager" />
 
     <bean id="serviceCache" factory-bean="serviceCacheManager" factory-method="getCache">
         <constructor-arg value="com.shopizer.OBJECT_CACHE" />
