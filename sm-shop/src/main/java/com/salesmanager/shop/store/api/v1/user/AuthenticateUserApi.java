@@ -1,10 +1,12 @@
 package com.salesmanager.shop.store.api.v1.user;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 import org.apache.http.auth.AuthenticationException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,9 +50,11 @@ public class AuthenticateUserApi {
     private String tokenHeader;
 
     @Inject
+    @Named("jwtAdminAuthenticationManager")
     private AuthenticationManager jwtAdminAuthenticationManager;
     
     @Inject
+    @Named("jwtAdminDetailsService")
     private UserDetailsService jwtAdminDetailsService;
 
     @Inject
@@ -70,6 +74,7 @@ public class AuthenticateUserApi {
         // Perform the security
     	Authentication authentication = null;
     	try {
+    		LOGGER.info("Authenticating admin API user [{}]", authenticationRequest.getUsername());
     		
 	
         		//to be used when username and password are set
@@ -84,7 +89,7 @@ public class AuthenticateUserApi {
     		if(e instanceof BadCredentialsException) {
     			return new ResponseEntity<>("{\"message\":\"Bad credentials\"}",HttpStatus.UNAUTHORIZED);
     		}
-    		LOGGER.error("Error during authentication " + e.getMessage());
+    		LOGGER.error("Error during authentication", e);
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
     	
@@ -108,18 +113,34 @@ public class AuthenticateUserApi {
     public ResponseEntity<AuthenticationResponse> refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
 
-        if(token != null && token.contains("Bearer")) {
-          token = token.substring("Bearer ".length(),token.length());
+        if (StringUtils.isBlank(token)) {
+            return ResponseEntity.badRequest().build();
         }
-        
-        String username = jwtTokenUtil.getUsernameFromToken(token);
-        JWTUser user = (JWTUser) jwtAdminDetailsService.loadUserByUsername(username);
 
-        if (jwtTokenUtil.canTokenBeRefreshedWithGrace(token, user.getLastPasswordResetDate())) {
-            String refreshedToken = jwtTokenUtil.refreshToken(token);
-            return ResponseEntity.ok(new AuthenticationResponse(user.getId(),refreshedToken));
-        } else {
-            return ResponseEntity.badRequest().body(null);
+        if (token.startsWith("Bearer ")) {
+            token = token.substring("Bearer ".length());
+        }
+
+        if (StringUtils.isBlank(token)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        try {
+            String username = jwtTokenUtil.getUsernameFromToken(token);
+            if (StringUtils.isBlank(username)) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            JWTUser user = (JWTUser) jwtAdminDetailsService.loadUserByUsername(username);
+
+            if (jwtTokenUtil.canTokenBeRefreshedWithGrace(token, user.getLastPasswordResetDate())) {
+                String refreshedToken = jwtTokenUtil.refreshToken(token);
+                return ResponseEntity.ok(new AuthenticationResponse(user.getId(), refreshedToken));
+            }
+            return ResponseEntity.badRequest().build();
+        } catch (Exception ex) {
+            LOGGER.debug("Invalid refresh token", ex);
+            return ResponseEntity.badRequest().build();
         }
     }
     

@@ -1,12 +1,12 @@
 package com.salesmanager.shop.store.security.admin;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author carlsamson
  *
  */
-public class JWTAdminAuthenticationProvider extends DaoAuthenticationProvider {
+public class JWTAdminAuthenticationProvider implements AuthenticationProvider {
 	
     @Autowired
     private UserDetailsService jwtAdminDetailsService;
@@ -45,7 +45,7 @@ public class JWTAdminAuthenticationProvider extends DaoAuthenticationProvider {
         String pass = credentials.toString();
         String usr = name;
         
-        if(!passwordMatch(pass, usr)) {
+        if(!passwordMatch(pass, user.getPassword())) {
         	throw new BadCredentialsException("Username/Password does not match for " + auth.getPrincipal());
         }
         
@@ -59,8 +59,8 @@ public class JWTAdminAuthenticationProvider extends DaoAuthenticationProvider {
     }
 	
 	
-    private boolean passwordMatch(String rawPassword, String user) {
-		    return passwordEncoder.matches(rawPassword, user);
+    private boolean passwordMatch(String rawPassword, String encodedPassword) {
+		    return passwordEncoder.matches(rawPassword, encodedPassword);
 	}
 	
     @Override

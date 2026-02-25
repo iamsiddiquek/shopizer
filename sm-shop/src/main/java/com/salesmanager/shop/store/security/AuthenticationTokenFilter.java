@@ -5,11 +5,11 @@ import java.util.Enumeration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.inject.Inject;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.inject.Inject;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,6 +99,8 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     	if(requestUrl.contains("/api/v1/private") || requestUrl.contains("/api/v2/private")) {
     		
     		//setHeader(request,response);  
+    		boolean preflightRequest = "OPTIONS".equalsIgnoreCase(request.getMethod());
+    		boolean loginRequest = requestUrl.contains("/private/login");
     		
     		Enumeration<String> headers = request.getHeaderNames();
     		//while(headers.hasMoreElements()) {
@@ -114,9 +116,18 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 	
 		        } else {
 		        	LOGGER.warn("couldn't find any authorization token, will ignore the header, might be a preflight check");
+		        	if (!preflightRequest && !loginRequest) {
+		        		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Missing authorization token");
+		        		return;
+		        	}
 		        }
 	        
 	    	} catch(Exception e) {
+	    		if (!preflightRequest && !loginRequest) {
+	    			LOGGER.warn("Invalid admin authorization token", e);
+	    			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid authorization token");
+	    			return;
+	    		}
 	    		throw new ServletException(e);
 	    	}
     	}
