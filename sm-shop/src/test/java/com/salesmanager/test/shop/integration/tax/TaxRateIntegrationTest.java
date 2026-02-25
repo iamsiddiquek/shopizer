@@ -36,7 +36,7 @@ public class TaxRateIntegrationTest extends ServicesTestSupport {
     	taxClass.setName("Test tax class");
     	
         final HttpEntity<PersistableTaxClass> taxClassEntity = new HttpEntity<>(taxClass, getHeader());
-        final ResponseEntity<Entity> response = testRestTemplate.postForEntity("/api/v1/private/tax/class/".formatted(), taxClassEntity, Entity.class);
+        final ResponseEntity<Entity> response = testRestTemplate.postForEntity("/api/v1/private/tax/class".formatted(), taxClassEntity, Entity.class);
         
         Entity e = response.getBody();
         
@@ -93,7 +93,7 @@ public class TaxRateIntegrationTest extends ServicesTestSupport {
 
     	
         final HttpEntity<PersistableTaxRate> taxClassEntity = new HttpEntity<>(taxRate, getHeader());
-        final ResponseEntity<Entity> response = testRestTemplate.postForEntity("/api/v1/private/tax/rate/".formatted(), taxClassEntity, Entity.class);
+        final ResponseEntity<Entity> response = testRestTemplate.postForEntity("/api/v1/private/tax/rate".formatted(), taxClassEntity, Entity.class);
         
         Entity e = response.getBody();
         

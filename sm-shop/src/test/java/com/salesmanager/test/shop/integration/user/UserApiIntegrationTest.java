@@ -1,7 +1,7 @@
 package com.salesmanager.test.shop.integration.user;
 
 import static org.junit.Assert.assertNotNull;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,10 +26,6 @@ public class UserApiIntegrationTest extends ServicesTestSupport {
   private static Long DEFAULT_USER_ID = 1L;
   private static String CREATED_PASSWORD = "Password1";
   private static String NEW_CREATED_PASSWORD = "Password2";
-  
-  @Inject
-  private TestRestTemplate testRestTemplate;
-  
   @Test
   public void getUser() throws Exception {
       final HttpEntity<String> httpEntity = new HttpEntity<>(getHeader());
@@ -49,10 +45,11 @@ public class UserApiIntegrationTest extends ServicesTestSupport {
  
       PersistableUser newUser = new PersistableUser();
       newUser.setDefaultLanguage("en");
-      newUser.setEmailAddress("test@test.com");
+      String uniqueEmail = "test+" + System.nanoTime() + "@test.com";
+      newUser.setEmailAddress(uniqueEmail);
       newUser.setFirstName("Test");
       newUser.setLastName("User");
-      newUser.setUserName("test@test.com");
+      newUser.setUserName(uniqueEmail);
       newUser.setPassword(CREATED_PASSWORD);
       newUser.setRepeatPassword(CREATED_PASSWORD);
       

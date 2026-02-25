@@ -26,12 +26,6 @@ import com.salesmanager.test.shop.common.ServicesTestSupport;
 @RunWith(SpringRunner.class)
 @Ignore
 public class SearchApiIntegrationTest extends ServicesTestSupport {
-
-    @Autowired
-    private TestRestTemplate testRestTemplate;
-
-
-
     /**
      * Add a product then search for it
      * This tests is disabled since it requires Elastic search server started

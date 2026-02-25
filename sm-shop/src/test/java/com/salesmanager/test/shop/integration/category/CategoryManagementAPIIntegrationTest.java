@@ -32,17 +32,13 @@ import com.salesmanager.shop.model.catalog.manufacturer.PersistableManufacturer;
 import com.salesmanager.shop.model.catalog.manufacturer.ReadableManufacturer;
 import com.salesmanager.shop.model.catalog.product.product.PersistableProduct;
 import com.salesmanager.shop.model.catalog.product.product.ProductSpecification;
+import com.salesmanager.shop.model.entity.Entity;
+import com.salesmanager.shop.model.entity.EntityExists;
 import com.salesmanager.test.shop.common.ServicesTestSupport;
 
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 public class CategoryManagementAPIIntegrationTest extends ServicesTestSupport {
-
-    @Autowired
-    private TestRestTemplate testRestTemplate;
-
-
-
     /**
      * Read - GET a category by id
      *
@@ -52,7 +48,7 @@ public class CategoryManagementAPIIntegrationTest extends ServicesTestSupport {
     public void getCategory() throws Exception {
         final HttpEntity<String> httpEntity = new HttpEntity<>(getHeader());
 
-        final ResponseEntity<ReadableCategoryList> response = testRestTemplate.exchange("/api/v1/category/".formatted(), HttpMethod.GET,
+        final ResponseEntity<ReadableCategoryList> response = testRestTemplate.exchange("/api/v1/category".formatted(), HttpMethod.GET,
                 httpEntity, ReadableCategoryList.class);
         if (response.getStatusCode() != HttpStatus.OK) {
             throw new Exception(response.toString());
@@ -143,7 +139,7 @@ public class CategoryManagementAPIIntegrationTest extends ServicesTestSupport {
          * For public access use friendly url
          */
         
-        final ResponseEntity<ReadableCategory> readableQuery = testRestTemplate.exchange(("/api/v1//category/" + description.getFriendlyUrl()).formatted(), HttpMethod.GET,
+        final ResponseEntity<ReadableCategory> readableQuery = testRestTemplate.exchange(("/api/v1/category/" + description.getFriendlyUrl()).formatted(), HttpMethod.GET,
             httpEntity, ReadableCategory.class);
         
         assertThat(readableQuery.getStatusCode(), is(OK));
@@ -335,10 +331,21 @@ public class CategoryManagementAPIIntegrationTest extends ServicesTestSupport {
 
     @Test
     public void deleteCategory() throws Exception {
+        PersistableCategory category = super.category("DELETE-ME");
+        HttpEntity<PersistableCategory> createEntity = new HttpEntity<>(category, getHeader());
+        ResponseEntity<PersistableCategory> createResponse =
+                testRestTemplate.postForEntity("/api/v1/private/category", createEntity, PersistableCategory.class);
+        assertThat(createResponse.getStatusCode(), is(CREATED));
+        assertNotNull(createResponse.getBody());
+        assertNotNull(createResponse.getBody().getId());
 
-        final HttpEntity<String> httpEntity = new HttpEntity<>(getHeader());
-
-        testRestTemplate.exchange("/services/DEFAULT/category/100", HttpMethod.DELETE, httpEntity, Category.class);
+        final HttpEntity<String> deleteEntity = new HttpEntity<>(getHeader());
+        ResponseEntity<Category> deleteResponse = testRestTemplate.exchange(
+                "/api/v1/private/category/" + createResponse.getBody().getId(),
+                HttpMethod.DELETE,
+                deleteEntity,
+                Category.class);
+        assertThat(deleteResponse.getStatusCode(), is(OK));
     }
 
     @Test
@@ -461,6 +468,101 @@ public class CategoryManagementAPIIntegrationTest extends ServicesTestSupport {
             assertNotNull(readResponse);
             assertTrue(categoryCode.equals(categ.getCode()));
         }
+    }
+
+    @Test
+    public void privateCategoryGetUniqueVisiblePatchAndMove() throws Exception {
+        PersistableCategory parent = createCategory("cat-parent-" + System.nanoTime());
+        PersistableCategory child = createCategory("cat-child-" + System.nanoTime());
+
+        ResponseEntity<ReadableCategory> privateGetResponse = testRestTemplate.exchange(
+                "/api/v1/private/category/" + child.getId() + "?store=" + Constants.DEFAULT_STORE + "&lang=en",
+                HttpMethod.GET,
+                new HttpEntity<>(getHeader()),
+                ReadableCategory.class);
+        assertThat(privateGetResponse.getStatusCode(), is(OK));
+        assertNotNull(privateGetResponse.getBody());
+        assertThat(privateGetResponse.getBody().getCode(), is(child.getCode()));
+
+        ResponseEntity<EntityExists> uniqueResponse = testRestTemplate.exchange(
+                "/api/v1/private/category/unique?store=" + Constants.DEFAULT_STORE + "&lang=en&code=" + child.getCode(),
+                HttpMethod.GET,
+                new HttpEntity<>(getHeader()),
+                EntityExists.class);
+        assertThat(uniqueResponse.getStatusCode(), is(OK));
+        assertNotNull(uniqueResponse.getBody());
+        assertThat(uniqueResponse.getBody().isExists(), is(true));
+
+        PersistableCategory visibilityPatch = new PersistableCategory();
+        visibilityPatch.setVisible(false);
+        ResponseEntity<String> visiblePatchResponse = testRestTemplate.exchange(
+                "/api/v1/private/category/" + child.getId() + "/visible?store=" + Constants.DEFAULT_STORE,
+                HttpMethod.PATCH,
+                new HttpEntity<>(visibilityPatch, getHeader()),
+                String.class);
+        assertThat(visiblePatchResponse.getStatusCode(), is(OK));
+
+        ResponseEntity<String> moveResponse = testRestTemplate.exchange(
+                "/api/v1/private/category/" + child.getId() + "/move/" + parent.getId() + "?store=" + Constants.DEFAULT_STORE,
+                HttpMethod.PUT,
+                new HttpEntity<>(getHeader()),
+                String.class);
+        assertThat(moveResponse.getStatusCode(), is(OK));
+    }
+
+    @Test
+    public void categoryListSupportsNamePaginationAndListByProduct() throws Exception {
+        String categoryCode = "cat-filter-" + System.nanoTime();
+        PersistableCategory category = createCategory(categoryCode);
+
+        ResponseEntity<ReadableCategoryList> pagedListResponse = testRestTemplate.exchange(
+                "/api/v1/category?store=" + Constants.DEFAULT_STORE + "&lang=en&name=" + categoryCode + "&page=0&count=1",
+                HttpMethod.GET,
+                new HttpEntity<>(getHeader()),
+                ReadableCategoryList.class);
+        assertThat(pagedListResponse.getStatusCode(), is(OK));
+        assertNotNull(pagedListResponse.getBody());
+        assertNotNull(pagedListResponse.getBody().getCategories());
+        assertTrue(pagedListResponse.getBody().getCategories().size() <= 1);
+
+        PersistableProduct product = super.product("cat-prod-" + System.nanoTime());
+        Category productCategory = new Category();
+        productCategory.setCode(category.getCode());
+        product.getCategories().add(productCategory);
+        ProductSpecification specifications = new ProductSpecification();
+        specifications.setManufacturer(
+                com.salesmanager.core.model.catalog.product.manufacturer.Manufacturer.DEFAULT_MANUFACTURER);
+        product.setProductSpecifications(specifications);
+
+        ResponseEntity<Entity> createProductResponse = testRestTemplate.postForEntity(
+                "/api/v1/private/product?store=" + Constants.DEFAULT_STORE,
+                new HttpEntity<>(product, getHeader()),
+                Entity.class);
+        assertThat(createProductResponse.getStatusCode(), is(CREATED));
+        assertNotNull(createProductResponse.getBody());
+        assertNotNull(createProductResponse.getBody().getId());
+
+        ResponseEntity<ReadableCategoryList> byProductResponse = testRestTemplate.exchange(
+                "/api/v1/category/product/" + createProductResponse.getBody().getId() + "?store=" + Constants.DEFAULT_STORE + "&lang=en",
+                HttpMethod.GET,
+                new HttpEntity<>(getHeader()),
+                ReadableCategoryList.class);
+        assertThat(byProductResponse.getStatusCode(), is(OK));
+        assertNotNull(byProductResponse.getBody());
+        assertNotNull(byProductResponse.getBody().getCategories());
+        assertTrue(byProductResponse.getBody().getCategories().stream().anyMatch(c -> category.getCode().equals(c.getCode())));
+    }
+
+    private PersistableCategory createCategory(String code) {
+        PersistableCategory category = category(code, code);
+        ResponseEntity<PersistableCategory> createResponse = testRestTemplate.postForEntity(
+                "/api/v1/private/category?store=" + Constants.DEFAULT_STORE,
+                new HttpEntity<>(category, getHeader()),
+                PersistableCategory.class);
+        assertThat(createResponse.getStatusCode(), is(CREATED));
+        assertNotNull(createResponse.getBody());
+        assertNotNull(createResponse.getBody().getId());
+        return createResponse.getBody();
     }
 
 }

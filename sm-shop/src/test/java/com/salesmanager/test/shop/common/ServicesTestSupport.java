@@ -11,11 +11,14 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -48,8 +51,25 @@ import com.salesmanager.shop.store.security.AuthenticationResponse;
 @ExtendWith(SpringExtension.class)
 public class ServicesTestSupport {
 
-	@Autowired
 	protected TestRestTemplate testRestTemplate;
+	
+	@Autowired
+	private ServletWebServerApplicationContext webServerApplicationContext;
+
+	@BeforeEach
+	void initializeTestRestTemplate() {
+		initializeLegacyAndJupiterTestRestTemplate();
+	}
+
+	@Before
+	public void initializeJUnit4TestRestTemplate() {
+		initializeLegacyAndJupiterTestRestTemplate();
+	}
+
+	private void initializeLegacyAndJupiterTestRestTemplate() {
+		this.testRestTemplate =
+				new TestRestTemplate("http://localhost:" + webServerApplicationContext.getWebServer().getPort());
+	}
 
 	protected HttpHeaders getHeader() {
 		return getHeader("admin@shopizer.com", "password");
@@ -245,7 +265,7 @@ public class ServicesTestSupport {
 
 		final HttpEntity<PersistableShoppingCartItem> cartEntity = new HttpEntity<>(cartItem, getHeader());
 		final ResponseEntity<ReadableShoppingCart> response = testRestTemplate
-				.postForEntity("/api/v1/cart/".formatted(), cartEntity, ReadableShoppingCart.class);
+				.postForEntity("/api/v1/cart".formatted(), cartEntity, ReadableShoppingCart.class);
 
 		assertNotNull(response);
 		assertThat(response.getStatusCode(), is(CREATED));

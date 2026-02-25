@@ -24,6 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.salesmanager.core.business.constants.Constants;
 import com.salesmanager.shop.application.ShopApplication;
 import com.salesmanager.shop.model.catalog.product.ReadableProduct;
 import com.salesmanager.shop.model.shoppingcart.PersistableShoppingCartItem;
@@ -34,10 +35,6 @@ import com.salesmanager.test.shop.common.ServicesTestSupport;
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ShoppingCartAPIIntegrationTest extends ServicesTestSupport {
-
-    @Autowired
-    private TestRestTemplate testRestTemplate;
-
     private static CartTestBean data = new CartTestBean();
 
 
@@ -59,7 +56,7 @@ public class ShoppingCartAPIIntegrationTest extends ServicesTestSupport {
         cartItem.setQuantity(1);
 
         final HttpEntity<PersistableShoppingCartItem> cartEntity = new HttpEntity<>(cartItem, getHeader());
-        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.postForEntity("/api/v1/cart/".formatted(), cartEntity, ReadableShoppingCart.class);
+        final ResponseEntity<ReadableShoppingCart> response = testRestTemplate.postForEntity("/api/v1/cart".formatted(), cartEntity, ReadableShoppingCart.class);
 
         data.setCartId(response.getBody().getCode());
 
@@ -194,13 +191,13 @@ public class ShoppingCartAPIIntegrationTest extends ServicesTestSupport {
      */
     @Test
     @Order(6)
-    public void deleteCartItem() throws Exception {
+	    public void deleteCartItem() throws Exception {
 
-        final ResponseEntity<ReadableShoppingCart> response =
-                testRestTemplate.exchange(("/api/v1/cart/" + data.getCartId() + "/product/" + String.valueOf(data.getProducts().get(1).getId())).formatted(),
-                HttpMethod.DELETE,
-                null,
-                ReadableShoppingCart.class);
+	        final ResponseEntity<ReadableShoppingCart> response =
+	                testRestTemplate.exchange(("/api/v1/cart/" + data.getCartId() + "/product/" + String.valueOf(data.getProducts().get(1).getSku())).formatted(),
+	                HttpMethod.DELETE,
+	                null,
+	                ReadableShoppingCart.class);
 
         assertNotNull(response);
         assertThat(response.getStatusCode(), is(NO_CONTENT));
@@ -216,14 +213,95 @@ public class ShoppingCartAPIIntegrationTest extends ServicesTestSupport {
     @Order(7)
     public void deleteCartItemWithBody() throws Exception {
 
+    	ReadableProduct product = sampleProduct("deleteCartItemWithBody");
+    	assertNotNull(product);
+    	PersistableShoppingCartItem cartItem = new PersistableShoppingCartItem();
+    	cartItem.setProduct(product.getSku());
+    	cartItem.setQuantity(1);
+    	ResponseEntity<ReadableShoppingCart> createResponse =
+    			testRestTemplate.postForEntity("/api/v1/cart", new HttpEntity<>(cartItem, getHeader()), ReadableShoppingCart.class);
+    	assertThat(createResponse.getStatusCode(), is(CREATED));
+
         final ResponseEntity<ReadableShoppingCart> response =
-                testRestTemplate.exchange(("/api/v1/cart/" + data.getCartId() + "/product/" + String.valueOf(data.getProducts().get(1).getSku()) + "?body=true").formatted(),
+                testRestTemplate.exchange(("/api/v1/cart/" + createResponse.getBody().getCode() + "/product/" + String.valueOf(product.getSku()) + "?body=true").formatted(),
                         HttpMethod.DELETE,
                         null,
                         ReadableShoppingCart.class);
 
         assertNotNull(response);
         assertThat(response.getStatusCode(), is(OK));
+    }
+
+    @Test
+    @Order(8)
+    public void getCartByCodeSupportsStoreAndLangParams() throws Exception {
+        ReadableProduct product = sampleProduct("getCartByCode");
+        assertNotNull(product);
+
+        PersistableShoppingCartItem cartItem = new PersistableShoppingCartItem();
+        cartItem.setProduct(product.getSku());
+        cartItem.setQuantity(1);
+
+        ResponseEntity<ReadableShoppingCart> createResponse = testRestTemplate.postForEntity(
+                "/api/v1/cart?store=" + Constants.DEFAULT_STORE + "&lang=en",
+                new HttpEntity<>(cartItem, getHeader()),
+                ReadableShoppingCart.class);
+        assertThat(createResponse.getStatusCode(), is(CREATED));
+        assertNotNull(createResponse.getBody());
+        assertNotNull(createResponse.getBody().getCode());
+
+        ResponseEntity<ReadableShoppingCart> getResponse = testRestTemplate.exchange(
+                "/api/v1/cart/" + createResponse.getBody().getCode() + "?store=" + Constants.DEFAULT_STORE + "&lang=en",
+                HttpMethod.GET,
+                new HttpEntity<>(getHeader()),
+                ReadableShoppingCart.class);
+        assertThat(getResponse.getStatusCode(), is(OK));
+        assertNotNull(getResponse.getBody());
+        assertThat(getResponse.getBody().getCode(), is(createResponse.getBody().getCode()));
+        assertEquals(1, getResponse.getBody().getQuantity());
+    }
+
+    @Test
+    @Order(9)
+    public void modifyCartAndReadBackWithLocalizationParams() throws Exception {
+        ReadableProduct first = sampleProduct("cartReadBack1");
+        ReadableProduct second = sampleProduct("cartReadBack2");
+        assertNotNull(first);
+        assertNotNull(second);
+
+        PersistableShoppingCartItem firstItem = new PersistableShoppingCartItem();
+        firstItem.setProduct(first.getSku());
+        firstItem.setQuantity(1);
+
+        ResponseEntity<ReadableShoppingCart> createResponse = testRestTemplate.postForEntity(
+                "/api/v1/cart?store=" + Constants.DEFAULT_STORE + "&lang=en",
+                new HttpEntity<>(firstItem, getHeader()),
+                ReadableShoppingCart.class);
+        assertThat(createResponse.getStatusCode(), is(CREATED));
+        assertNotNull(createResponse.getBody());
+
+        PersistableShoppingCartItem secondItem = new PersistableShoppingCartItem();
+        secondItem.setProduct(second.getSku());
+        secondItem.setQuantity(1);
+
+        ResponseEntity<ReadableShoppingCart> modifyResponse = testRestTemplate.exchange(
+                "/api/v1/cart/" + createResponse.getBody().getCode() + "?store=" + Constants.DEFAULT_STORE + "&lang=en",
+                HttpMethod.PUT,
+                new HttpEntity<>(secondItem, getHeader()),
+                ReadableShoppingCart.class);
+        assertThat(modifyResponse.getStatusCode(), is(CREATED));
+        assertNotNull(modifyResponse.getBody());
+        assertEquals(2, modifyResponse.getBody().getQuantity());
+
+        ResponseEntity<ReadableShoppingCart> getResponse = testRestTemplate.exchange(
+                "/api/v1/cart/" + createResponse.getBody().getCode() + "?store=" + Constants.DEFAULT_STORE + "&lang=en",
+                HttpMethod.GET,
+                new HttpEntity<>(getHeader()),
+                ReadableShoppingCart.class);
+        assertThat(getResponse.getStatusCode(), is(OK));
+        assertNotNull(getResponse.getBody());
+        assertEquals(2, getResponse.getBody().getQuantity());
+        assertNotNull(getResponse.getBody().getProducts());
     }
 
 }

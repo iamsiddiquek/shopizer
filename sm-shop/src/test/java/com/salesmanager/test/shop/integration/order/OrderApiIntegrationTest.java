@@ -10,10 +10,6 @@ import com.salesmanager.test.shop.common.ServicesTestSupport;
 
 @Ignore
 public class OrderApiIntegrationTest extends ServicesTestSupport {
-	
-    @Autowired
-    private TestRestTemplate testRestTemplate;
-
     public void createOrder() throws Exception {
     	
     	//create cart

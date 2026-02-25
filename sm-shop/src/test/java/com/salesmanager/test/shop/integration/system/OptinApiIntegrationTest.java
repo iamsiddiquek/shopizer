@@ -22,16 +22,11 @@ import com.salesmanager.test.shop.common.ServicesTestSupport;
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 public class OptinApiIntegrationTest extends ServicesTestSupport {
-  
-  @Autowired
-  private TestRestTemplate testRestTemplate;
-  
-  
   @Test
   public void createOptin() throws Exception {
 
       PersistableOptin optin = new PersistableOptin();
-      optin.setCode(OptinType.PROMOTIONS.name());
+      optin.setCode(OptinType.PROMOTIONS.name() + "_" + System.nanoTime());
       optin.setOptinType(OptinType.PROMOTIONS.name());
      
       
@@ -42,7 +37,7 @@ public class OptinApiIntegrationTest extends ServicesTestSupport {
       final HttpEntity<String> entity = new HttpEntity<>(json, getHeader());
       final ResponseEntity<PersistableOptin> response = testRestTemplate.postForEntity("/api/v1/private/optin", entity, PersistableOptin.class);
 
-      if (response.getStatusCode() != HttpStatus.OK) {
+      if (!response.getStatusCode().is2xxSuccessful()) {
           throw new Exception(response.toString());
       } else {
           assertTrue(true);
