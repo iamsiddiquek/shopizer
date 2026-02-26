@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -35,6 +36,7 @@ public class CategoryServiceImpl extends SalesManagerEntityServiceImpl<Long, Cat
   private CategoryRepository categoryRepository;
 
   @Inject
+  @Lazy
   private ProductService productService;
   
   @Inject
