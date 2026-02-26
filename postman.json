@@ -819,7 +819,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"id\": null,\n  \"code\": \"{{catalogCode}}\",\n  \"visible\": true,\n  \"defaultCatalog\": false\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1520,7 +1520,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"code\": \"{{categoryCode}}\",\n  \"visible\": true,\n  \"featured\": false,\n  \"description\": {\n    \"language\": \"en\",\n    \"name\": \"Demo Category\",\n    \"title\": \"Demo Category\",\n    \"friendlyUrl\": \"{{categoryFriendlyUrl}}\"\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1626,7 +1626,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"visible\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3453,7 +3453,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"id\": null,\n  \"code\": \"DEMO_CODE\",\n  \"name\": \"Demo Name\",\n  \"description\": \"Demo payload for Update content page (PUT /api/v1/private/content/{id})\",\n  \"enabled\": true,\n  \"store\": \"{{store}}\",\n  \"lang\": \"{{lang}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3735,7 +3735,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"emailAddress\": \"{{customer_email}}\",\n  \"firstName\": \"QA\",\n  \"lastName\": \"Customer\",\n  \"userName\": \"{{customer_email}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3793,7 +3793,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"address\": \"123 Demo St\",\n  \"city\": \"Demo City\",\n  \"postalCode\": \"10001\",\n  \"country\": \"US\",\n  \"stateProvince\": \"NY\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3895,7 +3895,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"emailAddress\": \"demo.customer@example.com\",\n  \"userName\": \"demo.customer@example.com\",\n  \"firstName\": \"Demo\",\n  \"lastName\": \"Customer\",\n  \"password\": \"Customer123!\",\n  \"repeatPassword\": \"Customer123!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -4103,7 +4103,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"emailAddress\": \"demo.customer@example.com\",\n  \"userName\": \"demo.customer@example.com\",\n  \"firstName\": \"Demo\",\n  \"lastName\": \"Customer\",\n  \"password\": \"Customer123!\",\n  \"repeatPassword\": \"Customer123!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -4162,7 +4162,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"id\": null,\n  \"code\": \"DEMO_CODE\",\n  \"name\": \"Demo Name\",\n  \"description\": \"Demo payload for Updates a customer (PATCH /api/v1/private/customer/{id}/address)\",\n  \"enabled\": true,\n  \"store\": \"{{store}}\",\n  \"lang\": \"{{lang}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -4273,7 +4273,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"email\": \"demo.customer@example.com\",\n  \"firstName\": \"Demo\",\n  \"lastName\": \"Customer\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -4391,7 +4391,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"emailAddress\": \"demo.customer@example.com\",\n  \"firstName\": \"Demo\",\n  \"lastName\": \"Customer\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -4523,7 +4523,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"emailAddress\": \"demo.customer@example.com\",\n  \"userName\": \"demo.customer@example.com\",\n  \"firstName\": \"Demo\",\n  \"lastName\": \"Customer\",\n  \"password\": \"Customer123!\",\n  \"repeatPassword\": \"Customer123!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -4630,7 +4630,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"emailAddress\": \"demo.customer@example.com\",\n  \"userName\": \"demo.customer@example.com\",\n  \"firstName\": \"Demo\",\n  \"lastName\": \"Customer\",\n  \"password\": \"Customer123!\",\n  \"repeatPassword\": \"Customer123!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -4812,7 +4812,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"userName\": \"demo.store.admin\",\n  \"emailAddress\": \"demo.store@example.com\",\n  \"password\": \"Password123!\",\n  \"repeatPassword\": \"Password123!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -5018,7 +5018,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"code\": \"DEMO_STORE\",\n  \"name\": \"Demo Store\",\n  \"email\": \"demo.store@example.com\",\n  \"phone\": \"1112223333\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -5216,7 +5216,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"code\": \"{{store}}\",\n  \"name\": \"Demo Store Updated\",\n  \"email\": \"demo.store@example.com\",\n  \"phone\": \"1112223333\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -5321,7 +5321,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"code\": \"DEMO_STORE\",\n  \"name\": \"Demo Store\",\n  \"email\": \"demo.store@example.com\",\n  \"phone\": \"1112223333\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -5719,7 +5719,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"code\": \"DEMO_OPTIN\",\n  \"optinType\": \"NEWSLETTER\",\n  \"description\": \"Demo optin\",\n  \"store\": \"{{store}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -5789,7 +5789,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"paymentModule\": \"moneyorder\",\n  \"shippingModule\": \"ups\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -5951,7 +5951,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"paymentModule\": \"moneyorder\",\n  \"shippingModule\": \"ups\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -6160,7 +6160,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"emailAddress\": \"demo.customer@example.com\",\n  \"firstName\": \"Demo\",\n  \"lastName\": \"Customer\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -6219,7 +6219,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"status\": \"ORDERED\",\n  \"comments\": \"Demo status update\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -6290,7 +6290,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"paymentModule\": \"moneyorder\",\n  \"paymentType\": \"MONEYORDER\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -6364,7 +6364,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"paymentModule\": \"moneyorder\",\n  \"paymentType\": \"MONEYORDER\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -6787,7 +6787,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"address\": {\n    \"country\": \"US\",\n    \"stateProvince\": \"NY\",\n    \"city\": \"New York\",\n    \"postalCode\": \"10001\",\n    \"address\": \"123 Demo St\"\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -6918,7 +6918,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"status\": \"ORDERED\",\n  \"comments\": \"Demo history entry\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -7427,7 +7427,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"id\": \"{{productId}}\",\n  \"sortOrder\": 1,\n  \"descriptions\": [\n    {\n      \"language\": \"en\",\n      \"name\": \"Demo Product\"\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -7497,7 +7497,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"sku\": \"{{sku}}\",\n  \"descriptions\": [\n    {\n      \"language\": \"en\",\n      \"name\": \"Demo Auth Product\"\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -7788,7 +7788,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"quantity\": 5,\n  \"price\": \"10.00\",\n  \"available\": true,\n  \"productShipeable\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -7917,7 +7917,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"id\": null,\n  \"code\": \"DEMO_CODE\",\n  \"name\": \"Demo Name\",\n  \"description\": \"Demo payload for Update product (PUT /api/v1/private/product/{id})\",\n  \"enabled\": true,\n  \"store\": \"{{store}}\",\n  \"lang\": \"{{lang}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -8554,7 +8554,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"id\": null,\n  \"code\": \"DEMO_CODE\",\n  \"name\": \"Demo Name\",\n  \"description\": \"Demo payload for PUT /api/v2/private/product/{id}\",\n  \"enabled\": true,\n  \"store\": \"{{store}}\",\n  \"lang\": \"{{lang}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -8625,7 +8625,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"quantity\": 5,\n  \"price\": \"10.00\",\n  \"available\": true,\n  \"productShipeable\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -9696,7 +9696,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"code\": \"{{optionCode}}\",\n  \"type\": \"Select\",\n  \"order\": 1,\n  \"descriptions\": [\n    {\n      \"language\": \"en\",\n      \"name\": \"Demo Option\"\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -10401,7 +10401,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"active\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -11913,7 +11913,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"code\": \"qa-manufacturer\",\n  \"descriptions\": [\n    {\n      \"language\": \"en\",\n      \"name\": \"QA Manufacturer Updated\"\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -12392,7 +12392,7 @@
             "method": "GET",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"id\": null,\n  \"code\": \"DEMO_CODE\",\n  \"name\": \"Demo Name\",\n  \"description\": \"Demo payload for GET /api/v1/private/product/{sku}/price/{priceId}\",\n  \"enabled\": true,\n  \"store\": \"{{store}}\",\n  \"lang\": \"{{lang}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -13196,7 +13196,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"language\": \"en\",\n  \"description\": \"Demo review update\",\n  \"rating\": 4\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -13396,7 +13396,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"language\": \"en\",\n  \"description\": \"Demo admin review update\",\n  \"rating\": 4\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -13776,7 +13776,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"code\": \"{{productTypeCode}}\",\n  \"visible\": true,\n  \"allowAddToCart\": true,\n  \"descriptions\": [\n    {\n      \"language\": \"en\",\n      \"name\": \"Demo Type\"\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -14064,7 +14064,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"id\": \"{{variantId}}\",\n  \"productId\": \"{{productId}}\",\n  \"sku\": \"QA_VARIANT_001\",\n  \"defaultSelection\": true,\n  \"variation\": \"{{variationId}}\",\n  \"variationValue\": \"{{optionValueId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -15199,7 +15199,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"options\": [\n    {\n      \"option\": \"{{optionId}}\",\n      \"optionValue\": \"{{optionValueId}}\"\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -15554,7 +15554,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"email\": \"{{customer_email}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -15613,7 +15613,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"username\": \"{{customer_email}}\",\n  \"current\": \"{{customer_password}}\",\n  \"password\": \"{{customer_password}}\",\n  \"repeatPassword\": \"{{customer_password}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -15729,7 +15729,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"email\": \"{{admin_username}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -15788,7 +15788,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"username\": \"{{customer_email}}\",\n  \"current\": \"{{customer_password}}\",\n  \"password\": \"{{customer_password}}\",\n  \"repeatPassword\": \"{{customer_password}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -16825,7 +16825,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"code\": \"DEMO_EXPEDITION\",\n  \"name\": \"Demo Expedition\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -17500,7 +17500,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"product\": \"{{sku}}\",\n  \"quantity\": 1\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -17624,7 +17624,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"name\": \"Demo User\",\n  \"email\": \"demo@example.com\",\n  \"subject\": \"Demo\",\n  \"comment\": \"Demo contact\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -17766,7 +17766,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"code\": \"DEMO_OPTIN\",\n  \"email\": \"demo@example.com\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -17841,7 +17841,7 @@
             "method": "DELETE",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"id\": null,\n  \"code\": \"DEMO_CODE\",\n  \"name\": \"Demo Name\",\n  \"description\": \"Demo payload for DELETE /services/private/system/optin/{code}\",\n  \"enabled\": true,\n  \"store\": \"{{store}}\",\n  \"lang\": \"{{lang}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -17917,7 +17917,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"code\": \"DEMO_OPTIN\",\n  \"email\": \"demo@example.com\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -18377,7 +18377,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"userName\": \"demo.user\",\n  \"emailAddress\": \"demo.user@example.com\",\n  \"firstName\": \"Demo\",\n  \"lastName\": \"User\",\n  \"password\": \"Password123!\",\n  \"repeatPassword\": \"Password123!\",\n  \"active\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -18480,7 +18480,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"userName\": \"demo.user\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -18598,7 +18598,7 @@
             "method": "PUT",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"userName\": \"demo.user\",\n  \"emailAddress\": \"demo.user@example.com\",\n  \"firstName\": \"Demo\",\n  \"lastName\": \"User\",\n  \"active\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -18657,7 +18657,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"active\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -18731,7 +18731,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"TODO\": \"Add request payload\"\n}",
+              "raw": "{\n  \"username\": \"demo.user\",\n  \"current\": \"Password123!\",\n  \"password\": \"Password123!\",\n  \"repeatPassword\": \"Password123!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -19229,6 +19229,10 @@
     {
       "key": "categoryCode",
       "value": "qa_cat_live"
+    },
+    {
+      "key": "variantGroupId",
+      "value": "1"
     }
   ],
   "info": {
