@@ -1,7 +1,10 @@
 package com.salesmanager.shop.populator.store;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 import jakarta.inject.Inject;
 
@@ -101,27 +104,34 @@ public class PersistableMerchantStorePopulator extends AbstractDataPopulator<Per
 		}
 		
 		
-		try {
-			
-			if(!StringUtils.isEmpty(source.getDefaultLanguage())) {
-				Language l = languageService.getByCode(source.getDefaultLanguage());
+			try {
+				
+				String defaultLanguageCode = !StringUtils.isEmpty(source.getDefaultLanguage())
+						? source.getDefaultLanguage()
+						: languageService.defaultLanguage().getCode();
+				Language l = buildLanguageReference(defaultLanguageCode);
 				target.setDefaultLanguage(l);
-			}
-			
-			if(!StringUtils.isEmpty(source.getCurrency())) {
-				Currency c = currencyService.getByCode(source.getCurrency());
-				target.setCurrency(c);
-			} else {
-				target.setCurrency(currencyService.getByCode(Constants.DEFAULT_CURRENCY.getCurrencyCode()));
-			}
-			
-			List<String> languages = source.getSupportedLanguages();
-			if(!CollectionUtils.isEmpty(languages)) {
-				for(String lang : languages) {
-					Language ll = languageService.getByCode(lang);
-					target.getLanguages().add(ll);
+				
+				if(!StringUtils.isEmpty(source.getCurrency())) {
+					Currency c = buildCurrencyReference(source.getCurrency());
+					target.setCurrency(c);
+				} else {
+					target.setCurrency(buildCurrencyReference(Constants.DEFAULT_CURRENCY.getCurrencyCode()));
 				}
-			}
+				
+				List<String> languages = source.getSupportedLanguages();
+				if(!CollectionUtils.isEmpty(languages)) {
+					Set<String> addedLanguageCodes = new LinkedHashSet<String>();
+					for(String lang : languages) {
+						if (StringUtils.isBlank(lang)) {
+							continue;
+						}
+						Language ll = buildLanguageReference(lang);
+						if (addedLanguageCodes.add(ll.getCode())) {
+							target.getLanguages().add(ll);
+						}
+					}
+				}
 			
 		} catch(Exception e) {
 			throw new ConversionException(e);
@@ -130,31 +140,67 @@ public class PersistableMerchantStorePopulator extends AbstractDataPopulator<Per
 		//address population
 		PersistableAddress address = source.getAddress();
 		if(address != null) {
-			Country country;
-			try {
-				country = countryService.getByCode(address.getCountry());
+			Country country = buildCountryReference(address.getCountry());
 
-				Zone zone = zoneService.getByCode(address.getStateProvince());
-				if(zone != null) {
-					target.setZone(zone);
-				} else {
-					target.setStorestateprovince(address.getStateProvince());
-				}
-				
-				target.setStoreaddress(address.getAddress());
-				target.setStorecity(address.getCity());
-				target.setCountry(country);
-				target.setStorepostalcode(address.getPostalCode());
-				
-			} catch (ServiceException e) {
-				throw new ConversionException(e);
+			Zone zone = zoneService.getByCode(address.getStateProvince());
+			if(zone != null) {
+				target.setZone(zone);
+			} else {
+				target.setStorestateprovince(address.getStateProvince());
 			}
+			
+			target.setStoreaddress(address.getAddress());
+			target.setStorecity(address.getCity());
+			target.setCountry(country);
+			target.setStorepostalcode(address.getPostalCode());
 		}
 
 		if (StringUtils.isNotEmpty(source.getTemplate()))
 			target.setStoreTemplate(source.getTemplate());
 		
 		return target;
+	}
+
+	private Language buildLanguageReference(String code) throws ConversionException {
+		Language dependency = new Language();
+		dependency.setCode(normalizeLanguageCode(code));
+		dependency.setSortOrder(0);
+		return dependency;
+	}
+
+	private Currency buildCurrencyReference(String code) throws ConversionException {
+		String normalized = normalizeCode(code, "Currency");
+		try {
+			java.util.Currency javaCurrency = java.util.Currency.getInstance(normalized);
+			Currency dependency = new Currency();
+			dependency.setCurrency(javaCurrency);
+			dependency.setName(javaCurrency.getCurrencyCode());
+			dependency.setSupported(true);
+			return dependency;
+		} catch (IllegalArgumentException e) {
+			throw new ConversionException("Cannot create currency [" + normalized + "]", e);
+		}
+	}
+
+	private Country buildCountryReference(String code) throws ConversionException {
+		Country dependency = new Country();
+		dependency.setIsoCode(normalizeCode(code, "Country"));
+		dependency.setSupported(true);
+		return dependency;
+	}
+
+	private String normalizeCode(String code, String dependencyName) throws ConversionException {
+		if (StringUtils.isBlank(code)) {
+			throw new ConversionException(dependencyName + " code is required");
+		}
+		return code.trim().toUpperCase(Locale.ROOT);
+	}
+
+	private String normalizeLanguageCode(String code) throws ConversionException {
+		if (StringUtils.isBlank(code)) {
+			throw new ConversionException("Language code is required");
+		}
+		return code.trim().toLowerCase(Locale.ROOT);
 	}
 
 	@Override

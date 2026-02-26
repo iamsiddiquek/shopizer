@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.salesmanager.core.business.exception.ConversionException;
 import com.salesmanager.core.business.exception.ServiceException;
@@ -45,6 +46,7 @@ import com.salesmanager.shop.populator.store.ReadableMerchantStorePopulator;
 import com.salesmanager.shop.store.api.exception.ConversionRuntimeException;
 import com.salesmanager.shop.store.api.exception.ResourceNotFoundException;
 import com.salesmanager.shop.store.api.exception.ServiceRuntimeException;
+import com.salesmanager.shop.store.support.EntityDependencyResolver;
 import com.salesmanager.shop.utils.ImageFilePath;
 import com.salesmanager.shop.utils.LanguageUtils;
 
@@ -72,6 +74,9 @@ public class StoreFacadeImpl implements StoreFacade {
 
 	@Inject
 	private LanguageUtils languageUtils;
+
+	@Inject
+	private EntityDependencyResolver entityDependencyResolver;
 	
 	@Autowired
 	private ReadableMerchantStorePopulator readableMerchantStorePopulator;
@@ -171,6 +176,7 @@ public class StoreFacadeImpl implements StoreFacade {
 	}
 
 	@Override
+	@Transactional
 	public void create(PersistableMerchantStore store) {
 
 		Validate.notNull(store, "PersistableMerchantStore must not be null");
@@ -183,6 +189,7 @@ public class StoreFacadeImpl implements StoreFacade {
 		}
 
 		MerchantStore mStore = convertPersistableMerchantStoreToMerchantStore(store, languageService.defaultLanguage());
+		entityDependencyResolver.resolveDependencies(mStore);
 		createMerchantStore(mStore);
 
 	}

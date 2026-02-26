@@ -25,6 +25,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.salesmanager.core.business.exception.ConversionException;
@@ -63,6 +64,7 @@ import com.salesmanager.shop.store.api.exception.ServiceRuntimeException;
 import com.salesmanager.shop.store.api.exception.UnauthorizedException;
 import com.salesmanager.shop.store.controller.security.facade.SecurityFacade;
 import com.salesmanager.shop.store.controller.user.facade.UserFacade;
+import com.salesmanager.shop.store.support.EntityDependencyResolver;
 import com.salesmanager.shop.utils.DateUtil;
 import com.salesmanager.shop.utils.EmailUtils;
 import com.salesmanager.shop.utils.FilePathUtils;
@@ -99,6 +101,9 @@ public class UserFacadeImpl implements UserFacade {
 
 	@Inject
 	private SecurityFacade securityFacade;
+
+	@Inject
+	private EntityDependencyResolver entityDependencyResolver;
 
 	@Autowired
 	private FilePathUtils filePathUtils;
@@ -300,6 +305,7 @@ public class UserFacadeImpl implements UserFacade {
 	}
 
 	@Override
+	@Transactional
 	public ReadableUser create(PersistableUser user, MerchantStore store) {
 
 		Validate.notNull(store, "MerchantStore must not be null");
@@ -336,6 +342,7 @@ public class UserFacadeImpl implements UserFacade {
 			if (CollectionUtils.isEmpty(userModel.getGroups())) {
 				throw new ServiceRuntimeException("No valid group groups associated with user " + user.getUserName());
 			}
+			entityDependencyResolver.resolveDependencies(userModel);
 			userModel.setAdminPassword(newPasswordEncoded);
 			userService.saveOrUpdate(userModel);
 			// now build returned object
