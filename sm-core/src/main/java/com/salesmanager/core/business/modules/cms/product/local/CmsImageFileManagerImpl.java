@@ -1,8 +1,11 @@
 package com.salesmanager.core.business.modules.cms.product.local;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serial;
+import java.net.FileNameMap;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -136,8 +139,8 @@ public class CmsImageFileManagerImpl
   @Override
   public OutputContentFile getProductImage(ProductImage productImage) throws ServiceException {
 
-    // the web server takes care of the images
-    return null;
+    return getProductImage(productImage.getProduct().getMerchantStore().getCode(),
+        productImage.getProduct().getSku(), productImage.getProductImage());
 
   }
 
@@ -270,7 +273,25 @@ public class CmsImageFileManagerImpl
   private OutputContentFile getProductImage(String merchantStoreCode, String productCode,
       String imageName, String size) throws ServiceException {
 
-    return null;
+    try {
+      Path path = Path.of(buildRootPath(), merchantStoreCode, productCode, size, imageName);
+      if (Files.notExists(path)) {
+        return null;
+      }
+
+      ByteArrayOutputStream output = new ByteArrayOutputStream();
+      output.write(Files.readAllBytes(path));
+
+      FileNameMap fileNameMap = URLConnection.getFileNameMap();
+      OutputContentFile contentFile = new OutputContentFile();
+      contentFile.setFile(output);
+      contentFile.setFileName(imageName);
+      contentFile.setMimeType(fileNameMap.getContentTypeFor(imageName));
+      contentFile.setFileContentType(LARGE.equals(size) ? FileContentType.PRODUCTLG : FileContentType.PRODUCT);
+      return contentFile;
+    } catch (Exception e) {
+      throw new ServiceException(e);
+    }
 
   }
 
@@ -282,12 +303,12 @@ public class CmsImageFileManagerImpl
   }
 
 
-  private void createDirectoryIfNorExist(Path path) throws IOException {
+	private void createDirectoryIfNorExist(Path path) throws IOException {
 
-    if (Files.notExists(path)) {
-      Files.createDirectory(path);
-    }
-  }
+		if (Files.notExists(path)) {
+			Files.createDirectories(path);
+		}
+	}
 
   public void setRootName(String rootName) {
     this.rootName = rootName;

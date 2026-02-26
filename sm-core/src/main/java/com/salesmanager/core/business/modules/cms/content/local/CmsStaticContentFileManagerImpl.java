@@ -385,7 +385,7 @@ public class CmsStaticContentFileManagerImpl implements ContentAssetsManager {
 	private void createDirectoryIfNorExist(Path path) throws IOException {
 
 		if (Files.notExists(path)) {
-			Files.createDirectory(path);
+			Files.createDirectories(path);
 		}
 	}
 
