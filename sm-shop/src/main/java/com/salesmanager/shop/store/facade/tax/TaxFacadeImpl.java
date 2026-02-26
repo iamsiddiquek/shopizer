@@ -69,7 +69,13 @@ public class TaxFacadeImpl implements TaxFacade {
 			}
 
 			taxClass.setStore(store.getCode());
+			if (taxClass.getId() != null && taxClass.getId() <= 0L) {
+				taxClass.setId(null);
+			}
 			TaxClass model = persistableTaxClassMapper.convert(taxClass, store, language);
+			if (model.getId() != null && model.getId() <= 0L) {
+				model.setId(null);
+			}
 			model = taxClassService.saveOrUpdate(model);;
 			Entity id = new Entity();
 			id.setId(model.getId());
@@ -276,6 +282,12 @@ public class TaxFacadeImpl implements TaxFacade {
 
 			
 			model = persistableTaxRateMapper.convert(taxRate, store, language);
+			if (taxRate.getId() != null && taxRate.getId() <= 0L) {
+				taxRate.setId(null);
+			}
+			if (model.getId() != null && model.getId() <= 0L) {
+				model.setId(null);
+			}
 			
 			model = taxRateService.saveOrUpdate(model);
 			

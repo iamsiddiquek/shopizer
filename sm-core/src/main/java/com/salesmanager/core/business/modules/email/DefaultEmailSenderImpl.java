@@ -10,12 +10,14 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.mail.BodyPart;
+import jakarta.mail.Message;
+import jakarta.mail.Multipart;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMultipart;
 import java.io.*;
 import java.util.Map;
 import java.util.Properties;
@@ -49,15 +51,51 @@ public class DefaultEmailSenderImpl implements EmailModule {
       JavaMailSenderImpl impl = (JavaMailSenderImpl) mailSender;
       // if email configuration is present in Database, use the same
       if (emailConfig != null) {
-        impl.setProtocol(emailConfig.getProtocol());
-        impl.setHost(emailConfig.getHost());
-        impl.setPort(Integer.parseInt(emailConfig.getPort()));
+        String protocol = emailConfig.getProtocol();
+        String port = emailConfig.getPort();
+        String host = emailConfig.getHost();
+        if (protocol != null) {
+          protocol = protocol.trim();
+        }
+        if (port != null) {
+          port = port.trim();
+        }
+        if (host != null) {
+          host = host.trim();
+        }
+        boolean starttlsEnabled = emailConfig.isStarttls();
+        // STARTTLS on port 587 must use "smtp"; some stored configs incorrectly use "smtps".
+        boolean gmailStartTlsPort =
+            "587".equals(port) && host != null && "smtp.gmail.com".equalsIgnoreCase(host);
+        if ("smtps".equalsIgnoreCase(protocol) && "587".equals(port)) {
+          protocol = "smtp";
+          starttlsEnabled = true;
+        }
+        if (gmailStartTlsPort) {
+          protocol = "smtp";
+          starttlsEnabled = true;
+        }
+        if (protocol == null || protocol.isBlank()) {
+          protocol = "smtp";
+        }
+        impl.setProtocol(protocol);
+        impl.setHost(host);
+        impl.setPort(Integer.parseInt(port));
         impl.setUsername(emailConfig.getUsername());
         impl.setPassword(emailConfig.getPassword());
 
         Properties prop = new Properties();
+        prop.put("mail.transport.protocol", protocol);
         prop.put("mail.smtp.auth", emailConfig.isSmtpAuth());
-        prop.put("mail.smtp.starttls.enable", emailConfig.isStarttls());
+        prop.put("mail.smtp.starttls.enable", starttlsEnabled);
+        if ("smtp".equalsIgnoreCase(protocol)) {
+          // Force plaintext SMTP + STARTTLS negotiation instead of implicit SSL socket mode.
+          prop.put("mail.smtp.ssl.enable", "false");
+          prop.put("mail.smtps.ssl.enable", "false");
+        }
+        if (gmailStartTlsPort) {
+          prop.put("mail.smtp.starttls.required", "true");
+        }
         impl.setJavaMailProperties(prop);
       }
 
@@ -84,7 +122,7 @@ public class DefaultEmailSenderImpl implements EmailModule {
       } catch (TemplateException e) {
         throw new MailPreparationException("Can't generate text mail", e);
       }
-      textPart.setDataHandler(new javax.activation.DataHandler(new javax.activation.DataSource() {
+      textPart.setDataHandler(new DataHandler(new DataSource() {
         public InputStream getInputStream() throws IOException {
           // return new StringBufferInputStream(textWriter
           // .toString());
@@ -117,7 +155,7 @@ public class DefaultEmailSenderImpl implements EmailModule {
       } catch (TemplateException e) {
         throw new MailPreparationException("Can't generate HTML mail", e);
       }
-      htmlPage.setDataHandler(new javax.activation.DataHandler(new javax.activation.DataSource() {
+      htmlPage.setDataHandler(new DataHandler(new DataSource() {
         public InputStream getInputStream() throws IOException {
           // return new StringBufferInputStream(htmlWriter
           // .toString());

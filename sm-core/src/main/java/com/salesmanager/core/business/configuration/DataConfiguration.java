@@ -2,13 +2,16 @@ package com.salesmanager.core.business.configuration;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -103,9 +106,9 @@ public class DataConfiguration {
         hibernateProperties.setProperty("hibernate.default_schema", schema);
         hibernateProperties.setProperty("hibernate.dialect", dialect);
         hibernateProperties.setProperty("hibernate.show_sql", showSql);
-        hibernateProperties.setProperty("hibernate.cache.use_second_level_cache", "true");
-        hibernateProperties.setProperty("hibernate.cache.use_query_cache", "true");
-        hibernateProperties.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
+        // Legacy Hibernate Ehcache integration is not available on Hibernate 7.
+        hibernateProperties.setProperty("hibernate.cache.use_second_level_cache", "false");
+        hibernateProperties.setProperty("hibernate.cache.use_query_cache", "false");
         hibernateProperties.setProperty("hibernate.connection.CharSet", "utf8");
         hibernateProperties.setProperty("hibernate.connection.characterEncoding", "utf8");
         hibernateProperties.setProperty("hibernate.connection.useUnicode", "true");
@@ -121,6 +124,12 @@ public class DataConfiguration {
 		JpaTransactionManager txManager = new JpaTransactionManager();
 		txManager.setEntityManagerFactory(entityManagerFactory);
 		return txManager;
+	}
+
+	@Bean
+	@Primary
+	public CacheManager cacheManager() {
+		return new ConcurrentMapCacheManager();
 	}
 
 }

@@ -2,8 +2,8 @@ package com.salesmanager.shop.store.api.v1.product;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +24,7 @@ import com.salesmanager.shop.model.catalog.product.ReadableProduct;
 import com.salesmanager.shop.store.controller.product.facade.ProductFacade;
 import com.salesmanager.shop.store.controller.store.facade.StoreFacade;
 import com.salesmanager.shop.utils.LanguageUtils;
-
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import springfox.documentation.annotations.ApiIgnore;
+import io.swagger.v3.oas.annotations.Parameter;
 
 @Controller
 @RequestMapping("/api/v1")
@@ -51,7 +47,6 @@ public class ProductRelationshipApi {
   @ResponseBody
   public PersistableProductReview create(@PathVariable final Long id, @Valid @RequestBody PersistableProductReview review, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
   	try {
 
   		MerchantStore merchantStore = storeFacade.getByCode(request);
@@ -72,8 +67,6 @@ public class ProductRelationshipApi {
 
   		review.setProductId(id);
 
-
-
   		productFacade.saveOrUpdateReview(review, merchantStore, language);
 
   		return review;
@@ -91,22 +84,11 @@ public class ProductRelationshipApi {
 
   @RequestMapping(value = "/product/{id}/related", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
-  @ApiOperation(
-      httpMethod = "GET",
-      value =
-          "Get product related items. This is used for doing cross-sell and up-sell functionality on a product details page",
-      notes = "",
-      produces = "application/json",
-      response = List.class)
   @ResponseBody
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
-      @ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en")
-  })
   public List<ReadableProduct> getAll(
       @PathVariable final Long id,
-      @ApiIgnore MerchantStore merchantStore,
-      @ApiIgnore Language language,
+      @Parameter(hidden = true) MerchantStore merchantStore,
+      @Parameter(hidden = true) Language language,
       HttpServletResponse response)
       throws Exception {
 
@@ -141,7 +123,6 @@ public class ProductRelationshipApi {
   @ResponseBody
   public PersistableProductReview update(@PathVariable final Long id, @PathVariable final Long reviewId, @Valid @RequestBody PersistableProductReview review, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
   	try {
 
   		MerchantStore merchantStore = storeFacade.getByCode(request);
@@ -166,7 +147,6 @@ public class ProductRelationshipApi {
 
   		review.setProductId(id);
 
-
   		productFacade.saveOrUpdateReview(review, merchantStore, language);
 
   		return review;
@@ -187,7 +167,6 @@ public class ProductRelationshipApi {
   @ResponseBody
   public void delete(@PathVariable final Long id, @PathVariable final Long reviewId, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
   	try {
 
   		MerchantStore merchantStore = storeFacade.getByCode(request);
@@ -204,10 +183,7 @@ public class ProductRelationshipApi {
   			return;
   		}
 
-
   		productFacade.deleteReview(prodReview, merchantStore, language);
-
-
 
   	} catch (Exception e) {
   		LOGGER.error("Error while deleting product review",e);

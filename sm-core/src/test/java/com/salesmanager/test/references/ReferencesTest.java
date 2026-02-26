@@ -18,7 +18,9 @@ import com.salesmanager.core.model.reference.language.Language;
 import com.salesmanager.test.configuration.ConfigurationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest	(classes = {ConfigurationTest.class})
+@SpringBootTest(
+	classes = {ConfigurationTest.class},
+	properties = "spring.main.allow-circular-references=true")
 @Ignore
 public class ReferencesTest {
 	

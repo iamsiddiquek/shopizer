@@ -71,6 +71,11 @@ public class ServicesTestSupport {
 				new TestRestTemplate("http://localhost:" + webServerApplicationContext.getWebServer().getPort());
 	}
 
+	protected String validSku(String candidate) {
+		String normalized = candidate == null ? "" : candidate.replaceAll("[^a-zA-Z0-9_]", "_");
+		return normalized.isEmpty() ? "test_sku" : normalized;
+	}
+
 	protected HttpHeaders getHeader() {
 		return getHeader("admin@shopizer.com", "password");
 	}
@@ -158,10 +163,12 @@ public class ServicesTestSupport {
 	protected PersistableProduct product(String code) {
 
 		PersistableProduct product = new PersistableProduct();
+		String sku = validSku(code);
+		product.setSku(sku);
 
 		PersistableProductInventory inventory = new PersistableProductInventory();
 		inventory.setQuantity(5);
-		inventory.setSku(code);
+		inventory.setSku(sku);
 
 		final PersistableProductPrice productPrice = new PersistableProductPrice();
 		productPrice.setDefaultPrice(true);
@@ -187,6 +194,7 @@ public class ServicesTestSupport {
 	}
 
 	protected ReadableProduct sampleProduct(String code) {
+		String sku = validSku(code);
 
 		final PersistableCategory newCategory = new PersistableCategory();
 		newCategory.setCode(code);
@@ -227,7 +235,7 @@ public class ServicesTestSupport {
 		product.setProductSpecifications(specifications);
 		product.setAvailable(true);
 		product.setPrice(BigDecimal.TEN);
-		product.setSku(code);
+		product.setSku(sku);
 		product.setQuantity(100);
 		/**
 		ProductDescription productDescription = new ProductDescription();
@@ -245,7 +253,7 @@ public class ServicesTestSupport {
 
 		final HttpEntity<String> httpEntity = new HttpEntity<>(getHeader());
 
-		String apiUrl = "/api/v2/product/" + code;
+		String apiUrl = "/api/v2/product/" + sku;
 
 		ResponseEntity<ReadableProduct> readableProduct = testRestTemplate.exchange(apiUrl, HttpMethod.GET, httpEntity,
 				ReadableProduct.class);

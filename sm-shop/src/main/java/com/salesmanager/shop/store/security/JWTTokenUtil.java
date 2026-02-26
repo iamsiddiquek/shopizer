@@ -2,11 +2,17 @@ package com.salesmanager.shop.store.security;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
+
+import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +24,7 @@ import com.salesmanager.shop.utils.DateUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 /**
  * Used for managing token based authentication for customer and user
@@ -68,7 +75,11 @@ public class JWTTokenUtil implements Serializable {
 	    }
 
 	    public String getAudienceFromToken(String token) {
-	        return getClaimFromToken(token, Claims::getAudience);
+	        Set<String> audiences = getClaimFromToken(token, Claims::getAudience);
+	        if (audiences == null || audiences.isEmpty()) {
+	            return AUDIENCE_UNKNOWN;
+	        }
+	        return audiences.iterator().next();
 	    }
 
 	    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
@@ -78,7 +89,8 @@ public class JWTTokenUtil implements Serializable {
 
 	    private Claims getAllClaimsFromToken(String token) {
 	        return Jwts.parser()
-	                .setSigningKey(secret)
+	                .setSigningKey(signingKey())
+	                .build()
 	                .parseClaimsJws(token)
 	                .getBody();
 	    }
@@ -127,15 +139,13 @@ public class JWTTokenUtil implements Serializable {
 	        final Date createdDate = DateUtil.getDate();
 	        final Date expirationDate = calculateExpirationDate(createdDate);
 
-	        System.out.println("doGenerateToken " + createdDate);
-
 	        return Jwts.builder()
 	                .setClaims(claims)
 	                .setSubject(subject)
 	                .setAudience(audience)
 	                .setIssuedAt(createdDate)
 	                .setExpiration(expirationDate)
-	                .signWith(SignatureAlgorithm.HS512, secret)
+	                .signWith(signingKey(), SignatureAlgorithm.HS512)
 	                .compact();
 	    }
 	    
@@ -163,12 +173,12 @@ public class JWTTokenUtil implements Serializable {
 	        final Date expirationDate = calculateExpirationDate(createdDate);
 
 	        final Claims claims = getAllClaimsFromToken(token);
-	        claims.setIssuedAt(createdDate);
-	        claims.setExpiration(expirationDate);
 
 	        return Jwts.builder()
 	                .setClaims(claims)
-	                .signWith(SignatureAlgorithm.HS512, secret)
+	                .setIssuedAt(createdDate)
+	                .setExpiration(expirationDate)
+	                .signWith(signingKey(), SignatureAlgorithm.HS512)
 	                .compact();
 	    }
 
@@ -190,6 +200,19 @@ public class JWTTokenUtil implements Serializable {
 
 	    private Date calculateExpirationDate(Date createdDate) {
 	        return new Date(createdDate.getTime() + expiration * 1000);
+	    }
+
+	    private SecretKey signingKey() {
+	        byte[] secretBytes = secret.getBytes(StandardCharsets.UTF_8);
+	        if (secretBytes.length >= 64) {
+	            return Keys.hmacShaKeyFor(secretBytes);
+	        }
+	        try {
+	            byte[] derivedKey = MessageDigest.getInstance("SHA-512").digest(secretBytes);
+	            return Keys.hmacShaKeyFor(derivedKey);
+	        } catch (NoSuchAlgorithmException e) {
+	            throw new IllegalStateException("SHA-512 algorithm not available", e);
+	        }
 	    }
 
 }

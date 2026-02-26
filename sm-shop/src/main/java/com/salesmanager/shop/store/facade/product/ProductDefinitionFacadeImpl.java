@@ -2,7 +2,7 @@ package com.salesmanager.shop.store.facade.product;
 
 import java.util.Optional;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -86,6 +86,9 @@ public class ProductDefinitionFacadeImpl implements ProductDefinitionFacade {
 	@Override
 	public ReadableProductDefinition getProduct(MerchantStore store, Long id, Language language) {
 		Product product = productService.findOne(id, store);
+		if (product == null) {
+			throw new ResourceNotFoundException("Product with id [" + id + "] not found for store [" + store.getCode() + "]");
+		}
 		return readableProductDefinitionMapper.convert(product, store, language);
 	}
 

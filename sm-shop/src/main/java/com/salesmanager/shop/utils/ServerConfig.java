@@ -3,7 +3,7 @@ package com.salesmanager.shop.utils;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import org.springframework.boot.web.context.WebServerInitializedEvent;
+import org.springframework.boot.web.server.context.WebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 

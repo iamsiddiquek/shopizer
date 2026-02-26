@@ -166,7 +166,7 @@ public class MerchantStoreApiIntegrationTest extends ServicesTestSupport {
 
   @Test
   public void testStoreUniqueAndMerchantChildStorePagingEndpoints() {
-      String code = "store-" + System.nanoTime();
+      String code = "store_" + System.nanoTime();
 
       ResponseEntity<EntityExists> beforeExists = testRestTemplate.exchange(
               "/api/v1/private/store/unique?code=" + code,
@@ -224,6 +224,7 @@ public class MerchantStoreApiIntegrationTest extends ServicesTestSupport {
   }
 
   private PersistableMerchantStore store(String code) {
+      String normalizedCode = code.replaceAll("[^a-zA-Z0-9_]", "_");
       PersistableAddress address = new PersistableAddress();
       address.setAddress("121212 simple address");
       address.setPostalCode("12345");
@@ -232,11 +233,11 @@ public class MerchantStoreApiIntegrationTest extends ServicesTestSupport {
       address.setStateProvince("FL");
 
       PersistableMerchantStore createdStore = new PersistableMerchantStore();
-      createdStore.setCode(code);
+      createdStore.setCode(normalizedCode);
       createdStore.setCurrency(CURRENCY);
       createdStore.setDefaultLanguage(DEFAULT_LANGUAGE);
-      createdStore.setEmail(code + "@test.com");
-      createdStore.setName(code);
+      createdStore.setEmail(normalizedCode + "@test.com");
+      createdStore.setName(normalizedCode);
       createdStore.setPhone("444-555-6666");
       createdStore.setSupportedLanguages(Arrays.asList(DEFAULT_LANGUAGE));
       createdStore.setAddress(address);

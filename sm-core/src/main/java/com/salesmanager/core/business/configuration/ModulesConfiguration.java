@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 
 import com.salesmanager.core.modules.integration.payment.model.PaymentModule;
@@ -26,7 +27,8 @@ public class ModulesConfiguration {
 	 * Goes along with
 	 * shipping-canadapost-spring-boot-starter
 	 */
-    @Autowired
+    @Autowired(required = false)
+    @Qualifier("canadapost")
     private ShippingQuoteModule canadapost;
     
     

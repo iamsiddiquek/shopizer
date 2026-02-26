@@ -70,12 +70,6 @@
       <artifactId>jakarta.annotation-api</artifactId>
     </dependency>
 
-    <!-- Swagger 2 documentation -->
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger2</artifactId>
-    </dependency>
-
   </dependencies>
 
   <build>

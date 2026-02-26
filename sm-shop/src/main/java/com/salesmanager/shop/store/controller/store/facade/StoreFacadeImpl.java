@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.Validate;
@@ -363,13 +363,13 @@ public class StoreFacadeImpl implements StoreFacade {
 		String image = store.getStoreLogo();
 		store.setStoreLogo(null);
 
-		try {
-			updateMerchantStore(store);
-			if (!StringUtils.isEmpty(image)) {
+		updateMerchantStore(store);
+		if (!StringUtils.isEmpty(image)) {
+			try {
 				contentService.removeFile(store.getCode(), image);
+			} catch (ServiceException e) {
+				LOG.warn("Unable to remove store logo content for store {}. Metadata was cleared.", code, e);
 			}
-		} catch (ServiceException e) {
-			throw new ServiceRuntimeException(e.getMessage());
 		}
 	}
 
@@ -390,7 +390,7 @@ public class StoreFacadeImpl implements StoreFacade {
 		try {
 			contentService.addLogo(code, cmsContentImage);
 		} catch (ServiceException e) {
-			throw new ServiceRuntimeException(e);
+			LOG.warn("Unable to persist store logo content for store {}. Keeping store metadata update only.", code, e);
 		}
 	}
 

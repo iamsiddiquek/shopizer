@@ -52,7 +52,9 @@ import com.salesmanager.test.configuration.ConfigurationTest;
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes=ConfigurationTest.class)
+@SpringBootTest(
+	classes = ConfigurationTest.class,
+	properties = "spring.main.allow-circular-references=true")
 @Ignore
 public class AbstractSalesManagerCoreTestCase {
 	

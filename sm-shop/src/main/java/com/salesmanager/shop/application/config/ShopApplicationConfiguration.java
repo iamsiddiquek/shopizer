@@ -12,8 +12,8 @@ import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -57,16 +57,20 @@ public class ShopApplicationConfiguration implements WebMvcConfigurer {
         = new FilterRegistrationBean<>();
           
       registrationBean.setFilter(new XssFilter());
-      registrationBean.addUrlPatterns("/shop/**");
-      registrationBean.addUrlPatterns("/api/**");
-      registrationBean.addUrlPatterns("/customer/**");
+      registrationBean.addUrlPatterns("/shop/*");
+      registrationBean.addUrlPatterns("/api/*");
+      registrationBean.addUrlPatterns("/customer/*");
           
       return registrationBean;    
   }
 
   @Override
-  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    converters.add(new MappingJackson2HttpMessageConverter());
+  public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+    boolean hasJacksonConverter =
+        converters.stream().anyMatch(MappingJackson2HttpMessageConverter.class::isInstance);
+    if (!hasJacksonConverter) {
+      converters.add(new MappingJackson2HttpMessageConverter());
+    }
   }
 
   @Override

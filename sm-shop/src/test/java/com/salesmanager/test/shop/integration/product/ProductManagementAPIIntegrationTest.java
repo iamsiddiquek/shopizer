@@ -1032,7 +1032,7 @@ public class ProductManagementAPIIntegrationTest extends ServicesTestSupport {
 	}
 
 	private String uniqueCode(String prefix) {
-		return prefix + System.nanoTime();
+		return validSku(prefix + System.nanoTime());
 	}
 
 	private PersistableCategory createPrivateCategory(String code) {
