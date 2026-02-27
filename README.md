@@ -129,10 +129,16 @@ From the command line:
 	$ cd sm-shop
 	$ mvn spring-boot:run
 
-Optional profile examples (depending on your environment and DB properties):
+	Optional profile examples (depending on your environment and DB properties):
 
-	$ mvn -Dspring-boot.run.profiles=local spring-boot:run
-	$ mvn -Dspring-boot.run.profiles=mysql spring-boot:run
+		$ mvn -Dspring-boot.run.profiles=local spring-boot:run
+		$ mvn -Dspring-boot.run.profiles=mysql spring-boot:run
+
+	From the IDE (Run/Start button):
+
+	- IntelliJ: select `ShopApplication` and click Run.
+	- VS Code: select `Shopizer API (Spring Boot)` in Run and Debug and click Start.
+	- Both launch `com.salesmanager.shop.application.ShopApplication` directly (no `spring-boot:run` command needed).
 
 Notes:
 
