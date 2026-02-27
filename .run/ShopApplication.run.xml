@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ShopApplication" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.salesmanager.shop.application.ShopApplication" />
+    <module name="sm-shop" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sm-shop" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

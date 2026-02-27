@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Shopizer API (Spring Boot)",
+            "request": "launch",
+            "mainClass": "com.salesmanager.shop.application.ShopApplication",
+            "projectName": "sm-shop",
+            "cwd": "${workspaceFolder}/sm-shop"
+        }
+    ]
+}
