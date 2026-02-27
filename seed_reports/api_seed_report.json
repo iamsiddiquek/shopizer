@@ -1,0 +1,762 @@
+{
+  "apiCallSamples": {
+    "configure_payment_module": {
+      "method": "POST",
+      "path": "/api/v1/private/modules/payment?store=DEFAULT&lang=en",
+      "payload": {
+        "active": true,
+        "code": "moneyorder",
+        "defaultSelected": false,
+        "integrationKeys": {
+          "address": "api_seed payment address"
+        },
+        "integrationOptions": {}
+      }
+    },
+    "configure_shipping_module": {
+      "method": "POST",
+      "path": "/api/v1/private/modules/shipping?store=DEFAULT&lang=en",
+      "payload": {
+        "active": true,
+        "code": "storePickUp",
+        "defaultSelected": false,
+        "integrationKeys": {
+          "note": "Pickup at store",
+          "price": "0.00"
+        },
+        "integrationOptions": {}
+      }
+    },
+    "create_catalog": {
+      "method": "POST",
+      "path": "/api/v1/private/catalog?store=DEFAULT&lang=en",
+      "payload": {
+        "code": "api_seed_catalog_01",
+        "defaultCatalog": false,
+        "id": null,
+        "visible": true
+      }
+    },
+    "create_catalog_entry": {
+      "method": "POST",
+      "path": "/api/v1/private/catalog/{id}?store=DEFAULT&lang=en",
+      "payload": {
+        "categoryCode": "api_seed_cat_01",
+        "id": null,
+        "productCode": "QA_SKU_001",
+        "visible": true
+      }
+    },
+    "create_category": {
+      "method": "POST",
+      "path": "/api/v1/private/category?store=DEFAULT&lang=en",
+      "payload": {
+        "code": "api_seed_cat_01",
+        "description": {
+          "friendlyUrl": "api_seed-category-01",
+          "language": "en",
+          "name": "api_seed category 01",
+          "title": "api_seed category 01"
+        },
+        "featured": false,
+        "visible": true
+      }
+    },
+    "create_content_page": {
+      "method": "POST",
+      "path": "/api/v1/private/content/page?store=DEFAULT&lang=en",
+      "payload": {
+        "code": "api_seed_page_01",
+        "contentType": "PAGE",
+        "descriptions": [
+          {
+            "description": "api_seed content page 01",
+            "friendlyUrl": "api_seed-page-01",
+            "language": "en",
+            "name": "api_seed page 01",
+            "title": "api_seed page 01"
+          }
+        ],
+        "id": null,
+        "linkToMenu": false,
+        "visible": true
+      }
+    },
+    "create_customer": {
+      "method": "POST",
+      "path": "/api/v1/private/customer?store=DEFAULT&lang=en",
+      "payload": {
+        "billing": {
+          "address": "1 Seed Street",
+          "city": "Austin",
+          "country": "US",
+          "firstName": "Seed01",
+          "lastName": "Customer",
+          "phone": "5550000001",
+          "postalCode": "73001",
+          "stateProvince": "TX"
+        },
+        "emailAddress": "api_seed.customer.01@example.com",
+        "firstName": "Seed01",
+        "lastName": "Customer",
+        "password": "<redacted>",
+        "repeatPassword": "<redacted>",
+        "userName": "api_seed.customer.01@example.com"
+      }
+    },
+    "create_customer_optin_newsletter": {
+      "method": "POST",
+      "path": "/api/v1/newsletter?store=DEFAULT&lang=en",
+      "payload": {
+        "email": "api_seed.customer.01@example.com",
+        "firstName": "Seed01",
+        "lastName": "Customer"
+      }
+    },
+    "create_customer_review": {
+      "method": "POST",
+      "path": "/api/v1/private/customers/{id}/reviews?store=DEFAULT&lang=en",
+      "payload": {
+        "customerId": 53,
+        "date": "2026-02-26",
+        "description": "api_seed customer review 01",
+        "rating": 2.0,
+        "reviewedCustomer": 53
+      }
+    },
+    "create_manufacturer": {
+      "method": "POST",
+      "path": "/api/v1/private/manufacturer?store=DEFAULT&lang=en",
+      "payload": {
+        "code": "api_seed_man_01",
+        "descriptions": [
+          {
+            "language": "en",
+            "name": "api_seed manufacturer 01"
+          }
+        ]
+      }
+    },
+    "create_optin": {
+      "method": "POST",
+      "path": "/api/v1/private/optin?store=DEFAULT&lang=en",
+      "payload": {
+        "code": "API_SEED_OPTIN_01",
+        "description": "api_seed optin 01",
+        "optinType": "NEWSLETTER",
+        "store": "DEFAULT"
+      }
+    },
+    "create_store": {
+      "method": "POST",
+      "path": "/api/v1/private/store?store=DEFAULT&lang=en",
+      "payload": {
+        "address": {
+          "address": "1 Seed Store Street",
+          "city": "Austin",
+          "country": "US",
+          "postalCode": "73301",
+          "stateProvince": "TX"
+        },
+        "code": "API_SEED_STORE_01",
+        "currency": "USD",
+        "defaultLanguage": "en",
+        "dimension": "IN",
+        "email": "api_seed.store.01@example.com",
+        "inBusinessSince": "2026-02-26",
+        "name": "api_seed Store 01",
+        "phone": "1112223333",
+        "supportedLanguages": [
+          "en"
+        ],
+        "useCache": false,
+        "weight": "LB"
+      }
+    },
+    "login": {
+      "method": "POST",
+      "path": "/api/v1/private/login",
+      "payload": {
+        "password": "<redacted>",
+        "username": "iamskk1@gmail.com"
+      }
+    },
+    "save_shipping_expedition": {
+      "method": "POST",
+      "path": "/api/v1/private/shipping/expedition?store=DEFAULT&lang=en",
+      "payload": {
+        "iternationalShipping": false,
+        "shipToCountry": [],
+        "taxOnShipping": false
+      }
+    },
+    "save_shipping_origin": {
+      "method": "POST",
+      "path": "/api/v1/private/shipping/origin?store=DEFAULT&lang=en",
+      "payload": {
+        "address": "api_seed shipping origin",
+        "city": "Austin",
+        "country": "US",
+        "postalCode": "73301",
+        "stateProvince": "TX"
+      }
+    },
+    "save_store_marketing": {
+      "method": "POST",
+      "path": "/api/v1/private/store/DEFAULT/marketing?store=DEFAULT&lang=en",
+      "payload": {
+        "socialNetworks": []
+      }
+    }
+  },
+  "baseUrl": "http://localhost:8080",
+  "blockers": [
+    {
+      "error": "HTTP 400 for /api/v1/private/catalog/2006?store=DEFAULT&lang=en: {\"errorCode\":null,\"message\":\"Error while converting CatalogEntry, com.salesmanager.shop.store.api.exception.ConversionRuntimeException\"}",
+      "step": "create_catalog_entry",
+      "table": "CATALOG_ENTRY"
+    },
+    {
+      "error": "HTTP 400 for /api/v1/private/modules/shipping?store=DEFAULT&lang=en: {\"errorCode\":\"500\",\"message\":\"Error saving shipping module\"}",
+      "step": "configure_shipping_module",
+      "table": "MERCHANT_CONFIGURATION"
+    },
+    {
+      "error": "HTTP 500 for /api/v1/private/store?store=DEFAULT&lang=en: {\"errorCode\":\"500\",\"message\":\"Unknown entity type 'com.salesmanager.core.model.reference.country.Country$HibernateProxy', Unknown entity type 'com.salesmanager.core.model.reference.country.Country$HibernateProxy'\"}",
+      "step": "create_store",
+      "table": "MERCHANT_STORE"
+    }
+  ],
+  "dryRun": false,
+  "executionOrder": [
+    "Step 1: Identify dependency chain and initialize authenticated API clients",
+    "Step 2: Create/reuse base tables and directly seedable master entities",
+    "Create/reuse CATEGORY (+ CATEGORY_DESCRIPTION) via /api/v1/private/category",
+    "Create/reuse MANUFACTURER (+ MANUFACTURER_DESCRIPTION) via /api/v1/private/manufacturer",
+    "Create/reuse CONTENT (+ CONTENT_DESCRIPTION) via /api/v1/private/content/page",
+    "Create/reuse CATALOG via /api/v1/private/catalog and retrieve IDs via /api/v1/private/catalogs",
+    "Create/reuse CUSTOMER (+ inferred CUSTOMER_GROUP join rows) via /api/v1/private/customer",
+    "Create/reuse OPTIN definitions via /api/v1/private/optin (409 duplicate => reuse)",
+    "Step 3: Create dependent entities using IDs returned from APIs",
+    "Create/reuse CUSTOMER_REVIEW (+ CUSTOMER_REVIEW_DESCRIPTION) via customer review API using returned customer IDs",
+    "Create/reuse CUSTOMER_OPTIN via /api/v1/newsletter using seeded customer emails (idempotent 200 responses)",
+    "Attempt CATALOG_ENTRY seeding using catalog IDs, category codes, and product SKU (blocked in current runtime)",
+    "Configure merchant settings via existing APIs to seed/update MERCHANT_CONFIGURATION rows where possible",
+    "Attempt MERCHANT_STORE creation with ADMIN_RETAILER to validate current runtime support",
+    "Step 4: Repeat until target counts are met for supported tables; mark blocked/unsupported tables explicitly",
+    "Step 5: Stop on runtime blockers, preserve idempotency, and rely on per-request API transactions"
+  ],
+  "lang": "en",
+  "prefix": "api_seed",
+  "runtimeErrors": [],
+  "store": "DEFAULT",
+  "tables": {
+    "CATALOG": {
+      "apiOrder": [
+        "GET /api/v1/private/catalog/unique",
+        "POST /api/v1/private/catalog",
+        "GET /api/v1/private/catalogs"
+      ],
+      "dependencies": [
+        "MERCHANT_STORE (DEFAULT reused)",
+        "LANGUAGE(en reused)"
+      ],
+      "inferredInserted": 0,
+      "inserted": 10,
+      "notes": [],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_verified"
+    },
+    "CATALOG_ENTRY": {
+      "apiOrder": [
+        "GET /api/v1/products",
+        "POST /api/v1/private/catalog/{id}",
+        "GET /api/v1/private/catalog/{id}/entry"
+      ],
+      "dependencies": [
+        "CATALOG",
+        "CATEGORY",
+        "PRODUCT (reused via /api/v1/products)",
+        "MERCHANT_STORE (DEFAULT reused)"
+      ],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "Runtime API error on catalog entry create: {\"errorCode\":null,\"message\":\"Error while converting CatalogEntry, com.salesmanager.shop.store.api.exception.ConversionRuntimeException\"}"
+      ],
+      "reused": 0,
+      "status": "blocked",
+      "target": 10,
+      "verification": "api_verified"
+    },
+    "CATEGORY": {
+      "apiOrder": [
+        "GET /api/v1/private/category/unique",
+        "POST /api/v1/private/category"
+      ],
+      "dependencies": [
+        "MERCHANT_STORE (DEFAULT reused)",
+        "LANGUAGE(en reused)"
+      ],
+      "inferredInserted": 0,
+      "inserted": 10,
+      "notes": [],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_verified"
+    },
+    "CATEGORY_DESCRIPTION": {
+      "apiOrder": [
+        "POST /api/v1/private/category"
+      ],
+      "dependencies": [
+        "CATEGORY"
+      ],
+      "inferredInserted": 10,
+      "inserted": 0,
+      "notes": [
+        "One description row per category create is inferred from category payload with description object"
+      ],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_inferred"
+    },
+    "CONTENT": {
+      "apiOrder": [
+        "GET /api/v1/private/content/page/{code}/exists",
+        "POST /api/v1/private/content/page"
+      ],
+      "dependencies": [
+        "MERCHANT_STORE (DEFAULT reused)",
+        "LANGUAGE(en reused)"
+      ],
+      "inferredInserted": 0,
+      "inserted": 10,
+      "notes": [],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_verified"
+    },
+    "CONTENT_DESCRIPTION": {
+      "apiOrder": [
+        "POST /api/v1/private/content/page"
+      ],
+      "dependencies": [
+        "CONTENT"
+      ],
+      "inferredInserted": 10,
+      "inserted": 0,
+      "notes": [
+        "Content description rows are inferred from page create payload descriptions[]"
+      ],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_inferred"
+    },
+    "COUNTRY": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No create API is exposed in REST references endpoints; store-create indirect path is blocked in current runtime."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "COUNTRY_DESCRIPTION": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No country description create API is exposed; reference endpoints are read-only."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "CURRENCY": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No create API is exposed in REST references endpoints; indirect creation requires store create and valid missing currency codes."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "CUSTOMER": {
+      "apiOrder": [
+        "GET /api/v1/private/customers",
+        "POST /api/v1/private/customer"
+      ],
+      "dependencies": [
+        "MERCHANT_STORE (DEFAULT reused)",
+        "COUNTRY(US reused)"
+      ],
+      "inferredInserted": 0,
+      "inserted": 10,
+      "notes": [],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_verified"
+    },
+    "CUSTOMER_ATTRIBUTE": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No customer-attribute create/list API found in public/admin REST layer."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "CUSTOMER_GROUP": {
+      "apiOrder": [
+        "POST /api/v1/private/customer"
+      ],
+      "dependencies": [
+        "CUSTOMER",
+        "default CUSTOMER group (server-side)"
+      ],
+      "inferredInserted": 10,
+      "inserted": 0,
+      "notes": [
+        "CUSTOMER_GROUP is a join table populated indirectly by customer create/default group assignment"
+      ],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_inferred"
+    },
+    "CUSTOMER_OPTIN": {
+      "apiOrder": [
+        "POST /api/v1/newsletter"
+      ],
+      "dependencies": [
+        "OPTIN (newsletter type)",
+        "CUSTOMER (email reused)"
+      ],
+      "inferredInserted": 10,
+      "inserted": 0,
+      "notes": [
+        "Newsletter endpoint returns 200 with no body and no list endpoint exists for CUSTOMER_OPTIN; count is inferred from successful submissions"
+      ],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "not_queryable_via_api"
+    },
+    "CUSTOMER_OPTION": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No customer option create API found in public/admin REST layer."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "CUSTOMER_OPTION_DESC": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No customer option description create API found in public/admin REST layer."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "CUSTOMER_OPTION_SET": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No customer option set create API found in public/admin REST layer."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "CUSTOMER_OPTION_VALUE": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No customer option value create API found in public/admin REST layer."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "CUSTOMER_OPT_VAL_DESCRIPTION": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No customer option value description create API found in public/admin REST layer."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "CUSTOMER_REVIEW": {
+      "apiOrder": [
+        "GET /api/v1/customers/{id}/reviews",
+        "POST /api/v1/private/customers/{id}/reviews"
+      ],
+      "dependencies": [
+        "CUSTOMER"
+      ],
+      "inferredInserted": 0,
+      "inserted": 10,
+      "notes": [],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_verified"
+    },
+    "CUSTOMER_REVIEW_DESCRIPTION": {
+      "apiOrder": [
+        "POST /api/v1/private/customers/{id}/reviews"
+      ],
+      "dependencies": [
+        "CUSTOMER_REVIEW"
+      ],
+      "inferredInserted": 10,
+      "inserted": 0,
+      "notes": [
+        "Customer review description rows are inferred from review create payload description field"
+      ],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_inferred"
+    },
+    "FILE_HISTORY": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No deterministic file-history API for direct create/list verification was identified."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "GEOZONE": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No geozone create API found in the REST layer."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "GEOZONE_DESCRIPTION": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No geozone description create API found in the REST layer."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "LANGUAGE": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "No dedicated create API is exposed; indirect creation is not reliably observable via /api/v1/languages in current runtime."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "MANUFACTURER": {
+      "apiOrder": [
+        "GET /api/v1/private/manufacturer/unique",
+        "POST /api/v1/private/manufacturer"
+      ],
+      "dependencies": [
+        "MERCHANT_STORE (DEFAULT reused)",
+        "LANGUAGE(en reused)"
+      ],
+      "inferredInserted": 0,
+      "inserted": 10,
+      "notes": [],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_verified"
+    },
+    "MANUFACTURER_DESCRIPTION": {
+      "apiOrder": [
+        "POST /api/v1/private/manufacturer"
+      ],
+      "dependencies": [
+        "MANUFACTURER"
+      ],
+      "inferredInserted": 10,
+      "inserted": 0,
+      "notes": [
+        "Manufacturer description rows are inferred from create payload descriptions[]"
+      ],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_inferred"
+    },
+    "MERCHANT_CONFIGURATION": {
+      "apiOrder": [
+        "POST /api/v1/private/modules/payment",
+        "POST /api/v1/private/shipping/origin",
+        "POST /api/v1/private/shipping/expedition",
+        "POST /api/v1/private/store/{code}/marketing"
+      ],
+      "dependencies": [
+        "MERCHANT_STORE (DEFAULT reused)"
+      ],
+      "inferredInserted": 4,
+      "inserted": 0,
+      "notes": [
+        "MERCHANT_CONFIGURATION has no list/count API; successful writes are tracked, row inserts are inferred",
+        "Payment module configuration submitted successfully (PAYMENT_MODULES merchant configuration key updated)",
+        "Shipping origin saved successfully (shipping configuration stored server-side)",
+        "Shipping expedition configuration submitted successfully (supported-countries config likely updated)",
+        "Store marketing saved successfully (merchant CONFIG row likely updated)",
+        "Shipping module configuration API is runtime-broken in current server (returns 500 wrapper on valid payload)",
+        "Observed error: {\"errorCode\":\"500\",\"message\":\"Error saving shipping module\"}",
+        "Target 10 MERCHANT_CONFIGURATION rows cannot be reached safely via currently working APIs in this runtime"
+      ],
+      "reused": 0,
+      "status": "partial",
+      "target": 10,
+      "verification": "partially_queryable"
+    },
+    "MERCHANT_LANGUAGE": {
+      "apiOrder": [
+        "POST /api/v1/private/store"
+      ],
+      "dependencies": [
+        "MERCHANT_STORE",
+        "LANGUAGE"
+      ],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "Blocked because MERCHANT_STORE create failed"
+      ],
+      "reused": 0,
+      "status": "blocked",
+      "target": 10,
+      "verification": "api_inferred"
+    },
+    "MERCHANT_LOG": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "Merchant log rows are internal/audit-generated and no create/list API is exposed."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "MERCHANT_STORE": {
+      "apiOrder": [
+        "POST /api/v1/private/store",
+        "GET /api/v1/private/store/{code}"
+      ],
+      "dependencies": [
+        "COUNTRY",
+        "CURRENCY",
+        "LANGUAGE"
+      ],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "Store create is blocked in current runtime",
+        "Observed error: {\"errorCode\":\"500\",\"message\":\"Unknown entity type 'com.salesmanager.core.model.reference.country.Country$HibernateProxy', Unknown entity type 'com.salesmanager.core.model.reference.country.Country$HibernateProxy'\"}"
+      ],
+      "reused": 0,
+      "status": "blocked",
+      "target": 10,
+      "verification": "api_verified"
+    },
+    "MODULE_CONFIGURATION": {
+      "apiOrder": [],
+      "dependencies": [],
+      "inferredInserted": 0,
+      "inserted": 0,
+      "notes": [
+        "System module-definition API is legacy/global and unsafe for seeding; no safe idempotent admin create/list flow for this task."
+      ],
+      "reused": 0,
+      "status": "unsupported",
+      "target": 10,
+      "verification": "no_create_api_found"
+    },
+    "OPTIN": {
+      "apiOrder": [
+        "POST /api/v1/private/optin"
+      ],
+      "dependencies": [
+        "MERCHANT_STORE (DEFAULT reused)"
+      ],
+      "inferredInserted": 10,
+      "inserted": 0,
+      "notes": [
+        "OPTIN create endpoint does not expose a list API for ID lookup; duplicate prevention uses API unique-key conflict (409)"
+      ],
+      "reused": 0,
+      "status": "seeded",
+      "target": 10,
+      "verification": "api_inferred"
+    }
+  },
+  "targetPerTable": 10
+}
