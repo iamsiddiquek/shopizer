@@ -5,6 +5,8 @@ import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
+import java.util.Date;
+
 import org.apache.http.auth.AuthenticationException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.salesmanager.core.business.services.user.UserService;
 import com.salesmanager.shop.store.security.AuthenticationRequest;
 import com.salesmanager.shop.store.security.AuthenticationResponse;
 import com.salesmanager.shop.store.security.JWTTokenUtil;
@@ -54,6 +57,9 @@ public class AuthenticateUserApi {
 
     @Inject
     private JWTTokenUtil jwtTokenUtil;
+
+    @Inject
+    private UserService userService;
 
 	/**
 	 * Authenticate a user using username & password
@@ -136,6 +142,32 @@ public class AuthenticateUserApi {
         } catch (Exception ex) {
             LOGGER.debug("Invalid refresh token", ex);
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @RequestMapping(value = "/private/logout", method = RequestMethod.POST)
+    public ResponseEntity<?> logout() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || StringUtils.isBlank(authentication.getName())) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        String userName = authentication.getName();
+        try {
+            com.salesmanager.core.model.user.User user = userService.getByUserName(userName);
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            user.setLastAccess(new Date());
+            user.setLoginTime(null);
+            userService.saveOrUpdate(user);
+
+            LOGGER.info("Updated last access on logout for user [{}]", userName);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            LOGGER.error("Failed to update last access on logout for user [{}]", userName, e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     

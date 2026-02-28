@@ -77,7 +77,7 @@ public class ServicesTestSupport {
 	}
 
 	protected HttpHeaders getHeader() {
-		return getHeader("admin@shopizer.com", "password");
+		return getHeader("iamskk1@gmail.com", "password");
 	}
 
 	protected HttpHeaders getHeader(final String userName, final String password) {

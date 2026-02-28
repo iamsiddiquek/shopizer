@@ -40,6 +40,8 @@ public class UserServicesImpl implements WebUserServices{
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserServicesImpl.class);
 	
 	private static final String DEFAULT_INITIAL_PASSWORD = "password";
+	private static final String DEFAULT_INITIAL_USERNAME = "iamskk1@gmail.com";
+	private static final String LEGACY_INITIAL_USERNAME = "admin@shopizer.com";
 
 	@Inject
 	private UserService userService;
@@ -115,14 +117,27 @@ public class UserServicesImpl implements WebUserServices{
 	
 	public void createDefaultAdmin() throws Exception {
 
+		  com.salesmanager.core.model.user.User existingUser = userService.getByUserName(DEFAULT_INITIAL_USERNAME);
+		  if(existingUser != null) {
+			  return;
+		  }
+
+		  com.salesmanager.core.model.user.User legacyUser = userService.getByUserName(LEGACY_INITIAL_USERNAME);
+		  if(legacyUser != null) {
+			  legacyUser.setAdminName(DEFAULT_INITIAL_USERNAME);
+			  legacyUser.setAdminEmail(DEFAULT_INITIAL_USERNAME);
+			  userService.saveOrUpdate(legacyUser);
+			  return;
+		  }
+
 		  MerchantStore store = merchantStoreService.getByCode(MerchantStore.DEFAULT_STORE);
 
 		  String password = passwordEncoder.encode(DEFAULT_INITIAL_PASSWORD);
 		  
 		  List<Group> groups = groupService.listGroup(GroupType.ADMIN);
 		  
-		  //creation of the super admin admin:password)
-		  com.salesmanager.core.model.user.User user = new com.salesmanager.core.model.user.User("admin@shopizer.com",password,"admin@shopizer.com");
+		  //creation of the super admin user iamskk1@gmail.com:password)
+		  com.salesmanager.core.model.user.User user = new com.salesmanager.core.model.user.User(DEFAULT_INITIAL_USERNAME,password,DEFAULT_INITIAL_USERNAME);
 		  user.setFirstName("Administrator");
 		  user.setLastName("User");
 		  

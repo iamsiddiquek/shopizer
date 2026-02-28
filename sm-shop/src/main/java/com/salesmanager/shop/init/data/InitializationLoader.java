@@ -83,7 +83,6 @@ public class InitializationLoader {
 				
 				 MerchantStore store = merchantService.getByCode(MerchantStore.DEFAULT_STORE);
 
-                  userDetailsService.createDefaultAdmin();
                   MerchantConfig config = new MerchantConfig();
 				  config.setAllowPurchaseItems(true);
 				  config.setDisplayAddToCartOnFeaturedItems(true);
@@ -92,6 +91,9 @@ public class InitializationLoader {
 
 
 			}
+
+			// Keep bootstrap admin credentials aligned for both fresh and legacy databases.
+			userDetailsService.createDefaultAdmin();
 			
 		} catch (Exception e) {
 			LOGGER.error("Error in the init method",e);
