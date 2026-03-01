@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
@@ -25,6 +26,7 @@ import com.salesmanager.shop.application.ShopApplication;
 import jakarta.inject.Inject;
 
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 public class AuthenticationApiSmokeVerificationTest {
 
   @Inject private ServletWebServerApplicationContext webServerApplicationContext;

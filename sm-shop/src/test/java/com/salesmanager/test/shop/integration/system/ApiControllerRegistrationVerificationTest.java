@@ -27,10 +27,12 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ActiveProfiles("test")
 public class ApiControllerRegistrationVerificationTest {
 
   private static final String API_BASE_PACKAGE = "com.salesmanager.shop.store.api";

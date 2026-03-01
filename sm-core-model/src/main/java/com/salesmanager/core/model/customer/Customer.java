@@ -33,8 +33,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
-import org.hibernate.annotations.Cascade;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.salesmanager.core.constants.SchemaConstant;
 import com.salesmanager.core.model.catalog.product.review.ProductReview;
@@ -131,20 +129,13 @@ public class Customer extends SalesManagerEntity<Long, Customer> implements Audi
 	private Billing billing = null;
 	
 	@JsonIgnore
-	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.DETACH})
 	@JoinTable(name = "CUSTOMER_GROUP", joinColumns = { 
 			@JoinColumn(name = "CUSTOMER_ID", nullable = false) }
 			, 
 			inverseJoinColumns = { @JoinColumn(name = "GROUP_ID", 
 					nullable = false) }
 	)
-	@Cascade({
-		org.hibernate.annotations.CascadeType.DETACH,
-		org.hibernate.annotations.CascadeType.LOCK,
-		org.hibernate.annotations.CascadeType.REFRESH,
-		org.hibernate.annotations.CascadeType.REPLICATE
-		
-	})
 	private List<Group> groups = new ArrayList<Group>();
 	
 	@JsonIgnore

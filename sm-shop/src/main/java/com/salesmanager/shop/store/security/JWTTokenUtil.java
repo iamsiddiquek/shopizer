@@ -14,10 +14,12 @@ import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.salesmanager.shop.application.config.JwtProperties;
 import com.salesmanager.shop.store.security.user.JWTUser;
 import com.salesmanager.shop.utils.DateUtil;
 
@@ -39,28 +41,19 @@ public class JWTTokenUtil implements Serializable {
 	 */
 	@Serial
 	private static final long serialVersionUID = 1L;
-	
-	
-	    static final int GRACE_PERIOD = 200;
-	
-	
-	
-	 	static final String CLAIM_KEY_USERNAME = "sub";
-	    static final String CLAIM_KEY_AUDIENCE = "aud";
-	    static final String CLAIM_KEY_CREATED = "iat";
+	private static final Logger LOGGER = LoggerFactory.getLogger(JWTTokenUtil.class);
 
 	    static final String AUDIENCE_UNKNOWN = "unknown";
 	    static final String AUDIENCE_API = "api";
-	    static final String AUDIENCE_WEB = "web";
 	    static final String AUDIENCE_MOBILE = "mobile";
 	    static final String AUDIENCE_TABLET = "tablet";
 
+	    private final JwtProperties jwtProperties;
+	    private volatile SecretKey signingKey;
 
-	    @Value("${jwt.secret}")
-	    private String secret;
-
-	    @Value("${jwt.expiration}")
-	    private Long expiration;
+	    public JWTTokenUtil(JwtProperties jwtProperties) {
+	        this.jwtProperties = jwtProperties;
+	    }
 
 	    public String getUsernameFromToken(String token) {
 	        return getClaimFromToken(token, Claims::getSubject);
@@ -102,7 +95,7 @@ public class JWTTokenUtil implements Serializable {
 	    
 	    private Boolean isTokenExpiredWithGrace(String token) {
 	            Date expiration = getExpirationDateFromToken(token);
-	            expiration = addSeconds(expiration,GRACE_PERIOD);
+	            expiration = addSeconds(expiration, jwtProperties.getGracePeriodSeconds());
 	            return expiration.before(DateUtil.getDate());
 	    }
 
@@ -111,7 +104,8 @@ public class JWTTokenUtil implements Serializable {
 	    }
 	    
 	    private Boolean isCreatedBeforeLastPasswordResetWithGrace(Date created, Date lastPasswordReset) {
-	        return (lastPasswordReset != null && created.before(addSeconds(lastPasswordReset,GRACE_PERIOD)));
+	        return (lastPasswordReset != null
+	                && created.before(addSeconds(lastPasswordReset, jwtProperties.getGracePeriodSeconds())));
 	    }
 	    
 	    private Date addSeconds(Date date, Integer seconds) {
@@ -151,15 +145,8 @@ public class JWTTokenUtil implements Serializable {
 	    
         public Boolean canTokenBeRefreshedWithGrace(String token, Date lastPasswordReset) {
           final Date created = getIssuedAtDateFromToken(token);
-          boolean t = isCreatedBeforeLastPasswordResetWithGrace(created, lastPasswordReset);
-          boolean u = isTokenExpiredWithGrace(token);
-          boolean v =  ignoreTokenExpiration(token);
-          System.out.println(t + " " +  u + " " + v);
-          System.out.println(!isCreatedBeforeLastPasswordResetWithGrace(created, lastPasswordReset)
-                  && (!isTokenExpiredWithGrace(token) || ignoreTokenExpiration(token)));
-          //return !isCreatedBeforeLastPasswordResetWithGrace(created, lastPasswordReset)
-          //        && (!isTokenExpired(token) || ignoreTokenExpiration(token));
-          return true;
+          return !isCreatedBeforeLastPasswordResetWithGrace(created, lastPasswordReset)
+                  && (!isTokenExpiredWithGrace(token) || ignoreTokenExpiration(token));
         }	    
 
 	    public Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
@@ -199,13 +186,30 @@ public class JWTTokenUtil implements Serializable {
 	    }
 
 	    private Date calculateExpirationDate(Date createdDate) {
-	        return new Date(createdDate.getTime() + expiration * 1000);
+	        return new Date(createdDate.getTime() + Math.multiplyExact(jwtProperties.getExpiration(), 1000L));
 	    }
 
 	    private SecretKey signingKey() {
+	        SecretKey currentSigningKey = signingKey;
+	        if (currentSigningKey != null) {
+	            return currentSigningKey;
+	        }
+
+	        synchronized (this) {
+	            if (signingKey == null) {
+	                signingKey = createSigningKey(jwtProperties.getSecret());
+	            }
+	            return signingKey;
+	        }
+	    }
+
+	    private SecretKey createSigningKey(String secret) {
 	        byte[] secretBytes = secret.getBytes(StandardCharsets.UTF_8);
 	        if (secretBytes.length >= 64) {
 	            return Keys.hmacShaKeyFor(secretBytes);
+	        }
+	        if (secretBytes.length < 32) {
+	            throw new IllegalArgumentException("JWT secret must be at least 32 bytes long");
 	        }
 	        try {
 	            byte[] derivedKey = MessageDigest.getInstance("SHA-512").digest(secretBytes);

@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import jakarta.inject.Inject;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -34,16 +32,24 @@ import com.salesmanager.shop.utils.DateUtil;
 @Component
 public class PersistableMerchantStorePopulator extends AbstractDataPopulator<PersistableMerchantStore, MerchantStore> {
 
-	@Inject
-	private CountryService countryService;
-	@Inject
-	private ZoneService zoneService;
-	@Inject
-	private LanguageService languageService;
-	@Inject
-	private CurrencyService currencyService;
-	@Inject
-	private MerchantStoreService merchantStoreService;
+	private final CountryService countryService;
+	private final ZoneService zoneService;
+	private final LanguageService languageService;
+	private final CurrencyService currencyService;
+	private final MerchantStoreService merchantStoreService;
+
+	public PersistableMerchantStorePopulator(
+			CountryService countryService,
+			ZoneService zoneService,
+			LanguageService languageService,
+			CurrencyService currencyService,
+			MerchantStoreService merchantStoreService) {
+		this.countryService = countryService;
+		this.zoneService = zoneService;
+		this.languageService = languageService;
+		this.currencyService = currencyService;
+		this.merchantStoreService = merchantStoreService;
+	}
 	
 	
 	@Override
@@ -208,37 +214,5 @@ public class PersistableMerchantStorePopulator extends AbstractDataPopulator<Per
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public ZoneService getZoneService() {
-		return zoneService;
-	}
-
-	public void setZoneService(ZoneService zoneService) {
-		this.zoneService = zoneService;
-	}
-	public CountryService getCountryService() {
-		return countryService;
-	}
-
-	public void setCountryService(CountryService countryService) {
-		this.countryService = countryService;
-	}
-
-	public LanguageService getLanguageService() {
-		return languageService;
-	}
-
-	public void setLanguageService(LanguageService languageService) {
-		this.languageService = languageService;
-	}
-
-	public CurrencyService getCurrencyService() {
-		return currencyService;
-	}
-
-	public void setCurrencyService(CurrencyService currencyService) {
-		this.currencyService = currencyService;
-	}
-
 
 }

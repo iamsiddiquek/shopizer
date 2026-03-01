@@ -28,8 +28,6 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
-import org.hibernate.annotations.Cascade;
-
 import com.salesmanager.core.model.catalog.category.Category;
 import com.salesmanager.core.model.catalog.product.attribute.ProductAttribute;
 import com.salesmanager.core.model.catalog.product.availability.ProductAvailability;
@@ -105,20 +103,13 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 	/**
 	 * Product to category
 	 */
-	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.DETACH})
 	@JoinTable(name = "PRODUCT_CATEGORY", joinColumns = { 
 			@JoinColumn(name = "PRODUCT_ID", nullable = false) }
 			, 
 			inverseJoinColumns = { @JoinColumn(name = "CATEGORY_ID", 
 					nullable = false) }
 	)
-	@Cascade({
-		org.hibernate.annotations.CascadeType.DETACH,
-		org.hibernate.annotations.CascadeType.LOCK,
-		org.hibernate.annotations.CascadeType.REFRESH,
-		org.hibernate.annotations.CascadeType.REPLICATE
-		
-	})
 	private Set<Category> categories = new HashSet<Category>();
 	
 	/**

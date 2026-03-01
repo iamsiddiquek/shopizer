@@ -24,6 +24,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
     /**
      * @deprecated
      */
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	@Override
 	public OrderList listByStore(MerchantStore store, OrderCriteria criteria) {

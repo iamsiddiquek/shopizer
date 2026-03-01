@@ -10,6 +10,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.salesmanager.shop.application.ShopApplication;
@@ -18,6 +19,7 @@ import com.salesmanager.shop.application.ShopApplication;
 
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 public class ActuatorTest {
 	  @Autowired
 	  private ServletWebServerApplicationContext webServerApplicationContext;

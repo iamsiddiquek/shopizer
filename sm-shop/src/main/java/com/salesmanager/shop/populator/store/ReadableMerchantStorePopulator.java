@@ -44,15 +44,21 @@ public class ReadableMerchantStorePopulator extends
 	
 	protected final Log logger = LogFactory.getLog(getClass());
 	
-	@Autowired
-	private CountryService countryService;
-	@Autowired
-	private ZoneService zoneService;
-	@Autowired
-	@Qualifier("img")
-	private ImageFilePath filePath;
-	@Autowired
-	private LanguageService languageService;
+	private final CountryService countryService;
+	private final ZoneService zoneService;
+	private final ImageFilePath filePath;
+	private final LanguageService languageService;
+
+	public ReadableMerchantStorePopulator(
+			CountryService countryService,
+			ZoneService zoneService,
+			@Qualifier("img") ImageFilePath filePath,
+			LanguageService languageService) {
+		this.countryService = countryService;
+		this.zoneService = zoneService;
+		this.filePath = filePath;
+		this.languageService = languageService;
+	}
 
 
 

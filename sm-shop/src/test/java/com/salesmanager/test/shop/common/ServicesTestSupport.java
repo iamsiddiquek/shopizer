@@ -24,6 +24,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.salesmanager.core.business.constants.Constants;
@@ -49,6 +50,7 @@ import com.salesmanager.shop.store.security.AuthenticationResponse;
 
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
+@ActiveProfiles("test")
 public class ServicesTestSupport {
 
 	protected TestRestTemplate testRestTemplate;

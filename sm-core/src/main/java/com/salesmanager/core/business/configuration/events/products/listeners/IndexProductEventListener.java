@@ -2,10 +2,12 @@ package com.salesmanager.core.business.configuration.events.products.listeners;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -39,14 +41,20 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 @Component
 public class IndexProductEventListener implements ApplicationListener<ProductEvent> {
 
-	@Autowired
-	private SearchService searchService;
+	private static final Logger LOGGER = LoggerFactory.getLogger(IndexProductEventListener.class);
 
-	@Autowired
-	private ProductService productService;
-	
-    @Value("${search.noindex:false}")//skip indexing process
-    private boolean noIndex;
+	private final SearchService searchService;
+	private final ProductService productService;
+	private final boolean noIndex;
+
+	public IndexProductEventListener(
+			SearchService searchService,
+			ProductService productService,
+			@Value("${search.noindex:false}") boolean noIndex) {
+		this.searchService = searchService;
+		this.productService = productService;
+		this.noIndex = noIndex;
+	}
 
 	/**
 	 * Listens to ProductEvent and ProductVariantEvent
@@ -110,7 +118,7 @@ public class IndexProductEventListener implements ApplicationListener<ProductEve
 			if(fullProduct != null) {
 				product = fullProduct;
 			} else {
-				System.out.println("Product not loaded");
+				LOGGER.warn("Product {} could not be reloaded before indexing", product.getId());
 			}
 			
 		return product;
@@ -158,11 +166,11 @@ public class IndexProductEventListener implements ApplicationListener<ProductEve
 		 **/
 
 		List<ProductVariant> filteredVariants = product.getVariants().stream()
-				.filter(i -> variant.getId().longValue() != i.getId().longValue()).collect(Collectors.toList());
+				.filter(i -> !Objects.equals(variant.getId(), i.getId())).collect(Collectors.toList());
 
 		filteredVariants.add(variant);
 
-		Set<ProductVariant> allVariants = new HashSet<ProductVariant>(filteredVariants);
+		Set<ProductVariant> allVariants = new HashSet<>(filteredVariants);
 		product.setVariants(allVariants);
 
 		try {
@@ -186,9 +194,9 @@ public class IndexProductEventListener implements ApplicationListener<ProductEve
 		 **/
 
 		List<ProductVariant> filteredVariants = product.getVariants().stream()
-				.filter(i -> variant.getId().longValue() != i.getId().longValue()).collect(Collectors.toList());
+				.filter(i -> !Objects.equals(variant.getId(), i.getId())).collect(Collectors.toList());
 
-		Set<ProductVariant> allVariants = new HashSet<ProductVariant>(filteredVariants);
+		Set<ProductVariant> allVariants = new HashSet<>(filteredVariants);
 		product.setVariants(allVariants);
 
 		try {
@@ -214,12 +222,12 @@ public class IndexProductEventListener implements ApplicationListener<ProductEve
 		 **/
 
 		List<ProductImage> filteredImages = product.getImages().stream()
-				.filter(i -> i.getId().longValue() != i.getId().longValue()).collect(Collectors.toList());
+				.filter(i -> !Objects.equals(image.getId(), i.getId())).collect(Collectors.toList());
 
 		filteredImages.add(image);
 
-		Set<ProductImage> allInmages = new HashSet<ProductImage>(filteredImages);
-		product.setImages(allInmages);
+		Set<ProductImage> allImages = new HashSet<>(filteredImages);
+		product.setImages(allImages);
 
 		try {
 			searchService.index(store, product);
@@ -231,31 +239,7 @@ public class IndexProductEventListener implements ApplicationListener<ProductEve
 	
 	void deleteProductImage(DeleteProductImageEvent event) {
 		
-		//Product will be updated anyway so there is no need to reindex following an image removal
-		return;
-		
-		/**
-
-		Product product = productOfEvent(event);
-
-		MerchantStore store = product.getMerchantStore();
-
-		List<ProductImage> filteredImages = product.getImages().stream()
-				.filter(i -> i.getId().longValue() != i.getId().longValue()).collect(Collectors.toList());
-
-
-		Set<ProductImage> allImages = new HashSet<ProductImage>(filteredImages);
-		product.setImages(allImages);
-
-		try {
-			
-
-			//searchService.index(store, product);
-		} catch (ServiceException e) {
-			throw new RuntimeException(e);
-		}
-		**/
-
+		// Product updates already trigger re-indexing, so image deletion is a no-op here.
 	}
 	
 	void saveProductAttribute(SaveProductAttributeEvent event) {
@@ -271,11 +255,11 @@ public class IndexProductEventListener implements ApplicationListener<ProductEve
 		 **/
 
 		List<ProductAttribute> filteredAttributes = product.getAttributes().stream()
-				.filter(i -> i.getId().longValue() != i.getId().longValue()).collect(Collectors.toList());
+				.filter(i -> !Objects.equals(attribute.getId(), i.getId())).collect(Collectors.toList());
 
 		filteredAttributes.add(attribute);
 
-		Set<ProductAttribute> allAttributes = new HashSet<ProductAttribute>(filteredAttributes);
+		Set<ProductAttribute> allAttributes = new HashSet<>(filteredAttributes);
 		product.setAttributes(allAttributes);
 
 		try {
@@ -297,9 +281,9 @@ public class IndexProductEventListener implements ApplicationListener<ProductEve
 		 **/
 
 		List<ProductAttribute> filteredAttributes = product.getAttributes().stream()
-				.filter(i -> i.getId().longValue() != i.getId().longValue()).collect(Collectors.toList());
+				.filter(i -> !Objects.equals(event.getProductAttribute().getId(), i.getId())).collect(Collectors.toList());
 
-		Set<ProductAttribute> allAttributes = new HashSet<ProductAttribute>(filteredAttributes);
+		Set<ProductAttribute> allAttributes = new HashSet<>(filteredAttributes);
 		product.setAttributes(allAttributes);
 
 		try {

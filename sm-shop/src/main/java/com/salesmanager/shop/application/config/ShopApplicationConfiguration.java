@@ -5,6 +5,7 @@ import static org.springframework.http.MediaType.IMAGE_GIF;
 import static org.springframework.http.MediaType.IMAGE_JPEG;
 import static org.springframework.http.MediaType.IMAGE_PNG;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -12,6 +13,7 @@ import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +24,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -41,6 +41,7 @@ import com.salesmanager.shop.utils.LabelUtils;
 @ServletComponentScan
 @Import({CoreApplicationConfiguration.class}) // import sm-core configurations
 @EnableWebSecurity
+@EnableConfigurationProperties({JwtProperties.class, ServerHostProperties.class})
 public class ShopApplicationConfiguration implements WebMvcConfigurer {
 
   protected final Log logger = LogFactory.getLog(getClass());
@@ -62,15 +63,6 @@ public class ShopApplicationConfiguration implements WebMvcConfigurer {
       registrationBean.addUrlPatterns("/customer/*");
           
       return registrationBean;    
-  }
-
-  @Override
-  public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-    boolean hasJacksonConverter =
-        converters.stream().anyMatch(MappingJackson2HttpMessageConverter.class::isInstance);
-    if (!hasJacksonConverter) {
-      converters.add(new MappingJackson2HttpMessageConverter());
-    }
   }
 
   @Override
@@ -109,6 +101,11 @@ public class ShopApplicationConfiguration implements WebMvcConfigurer {
         new ByteArrayHttpMessageConverter();
     byteArrayHttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes);
     return byteArrayHttpMessageConverter;
+  }
+
+  @Bean
+  public ObjectMapper objectMapper() {
+    return new ObjectMapper().findAndRegisterModules();
   }
 
   @Bean

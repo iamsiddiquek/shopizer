@@ -15,9 +15,12 @@ import com.salesmanager.core.model.common.CriteriaOrderBy;
 import com.salesmanager.core.model.merchant.MerchantStoreCriteria;
 import com.salesmanager.shop.store.api.exception.RestApiException;
 
-public class ServiceRequestCriteriaBuilderUtils {
+public final class ServiceRequestCriteriaBuilderUtils {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceRequestCriteriaBuilderUtils.class);
+
+	private ServiceRequestCriteriaBuilderUtils() {
+	}
 	
 	/**
 	 * Binds request parameter values to specific request criterias
@@ -31,12 +34,16 @@ public class ServiceRequestCriteriaBuilderUtils {
 		
 			if(criteria == null)
 				throw new RestApiException("A criteria class type must be instantiated");
-	
-			mappingFields.keySet().stream().forEach(p -> {
+
+			if (mappingFields == null || mappingFields.isEmpty()) {
+				return criteria;
+			}
+
+			mappingFields.forEach((parameterName, fieldName) -> {
 				try {
-					setValue(criteria, request, p, mappingFields.get(p));
+					setValue(criteria, request, parameterName, fieldName);
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOGGER.warn("Skipping invalid criteria binding for request parameter '{}'", parameterName, e);
 				}
 			});
 			return criteria;
@@ -56,13 +63,12 @@ public class ServiceRequestCriteriaBuilderUtils {
 			String parameterValue = request.getParameter(parameterName);
 			if(parameterValue == null) return;
 			// set the property directly, bypassing the mutator (if any)
-			//String setterName = "set" + WordUtils.capitalize(setterValue);
 			String setterName = setterValue;
-			System.out.println("Trying to do this binding " + setterName + "('" + parameterValue + "') on " + criteria.getClass());
+			LOGGER.debug("Binding request parameter '{}' to '{}'", parameterName, setterName);
 			criteriaAccessor.setPropertyValue(setterName, parameterValue);
 		
 		} catch(Exception e) {
-			throw new Exception("An error occured while parameter bindding", e);
+			throw new Exception("An error occurred while binding request parameters", e);
 		}
 		
 		

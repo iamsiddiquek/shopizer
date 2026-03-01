@@ -657,14 +657,12 @@ public class CustomerFacadeImpl implements CustomerFacade {
 
   @Async
   protected void notifyNewCustomer(PersistableCustomer customer, MerchantStore store, Language lang) {
-		System.out.println("Customer notification");
-		long startTime = System.nanoTime();
+	long startTime = System.nanoTime();
 	Locale customerLocale = LocaleUtils.getLocale(lang);
     String shopSchema = coreConfiguration.getProperty("SHOP_SCHEME");
     emailTemplatesUtils.sendRegistrationEmail(customer, store, customerLocale, shopSchema);
-    long endTime = System.nanoTime();
-    long duration = (endTime - startTime)/1000;
-    System.out.println("End Notification " + duration);
+    long durationMicros = (System.nanoTime() - startTime) / 1000;
+    LOG.debug("Customer registration notification completed in {} micros for store {}", durationMicros, store.getCode());
   }
   
   

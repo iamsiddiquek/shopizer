@@ -22,10 +22,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceUnitUtil;
 import jakarta.persistence.Transient;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -53,8 +53,11 @@ public class EntityDependencyResolver {
 			"adminName",
 			"name");
 
-	@PersistenceContext
-	private EntityManager entityManager;
+	private final EntityManager entityManager;
+
+	public EntityDependencyResolver(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
 
 	@Transactional(propagation = Propagation.MANDATORY)
 	public void resolveDependencies(Object rootEntity) {
@@ -77,7 +80,7 @@ public class EntityDependencyResolver {
 			return;
 		}
 
-		for (Field field : getAllFields(entity.getClass())) {
+		for (Field field : getAllFields(entityClassOf(entity))) {
 			if (!isRelationshipField(field)) {
 				continue;
 			}
@@ -140,7 +143,8 @@ public class EntityDependencyResolver {
 
 		Object identifier = getIdentifier(reference);
 		if (identifier != null) {
-			Object managed = entityManager.find(reference.getClass(), identifier);
+			Class<?> entityClass = entityClassOf(reference);
+			Object managed = entityManager.find(entityClass, identifier);
 			return managed != null ? managed : reference;
 		}
 
@@ -165,7 +169,7 @@ public class EntityDependencyResolver {
 	}
 
 	private Optional<Object> findExisting(Object reference) {
-		Class<?> entityClass = reference.getClass();
+		Class<?> entityClass = entityClassOf(reference);
 		if (!isEntityClass(entityClass)) {
 			return Optional.empty();
 		}
@@ -302,6 +306,10 @@ public class EntityDependencyResolver {
 		return type.getAnnotation(Entity.class) != null;
 	}
 
+	private Class<?> entityClassOf(Object entity) {
+		return Hibernate.getClass(entity);
+	}
+
 	private Object getIdentifier(Object entity) {
 		try {
 			PersistenceUnitUtil unitUtil = entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
@@ -312,19 +320,20 @@ public class EntityDependencyResolver {
 	}
 
 	private String dependencyKey(Object entity) {
+		Class<?> entityClass = entityClassOf(entity);
 		Object id = getIdentifier(entity);
 		if (id != null) {
-			return entity.getClass().getName() + "#" + id;
+			return entityClass.getName() + "#" + id;
 		}
 
 		List<Field> fields = collectLookupFields(entity);
 		if (!fields.isEmpty()) {
 			Field field = fields.get(0);
 			Object value = readField(field, entity);
-			return entity.getClass().getName() + ":" + field.getName() + "=" + String.valueOf(value);
+			return entityClass.getName() + ":" + field.getName() + "=" + String.valueOf(value);
 		}
 
-		return entity.getClass().getName() + "@" + System.identityHashCode(entity);
+		return entityClass.getName() + "@" + System.identityHashCode(entity);
 	}
 
 	private List<Field> getAllFields(Class<?> type) {

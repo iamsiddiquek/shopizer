@@ -1,6 +1,7 @@
 package com.salesmanager.core.business.modules.utils;
 
 import java.net.InetAddress;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,10 +42,10 @@ public class GeoLocationImpl implements GeoLocation {
 			
 			CityResponse response = reader.city(InetAddress.getByName(ipAddress));
 
-			address.setCountry(response.getCountry().getIsoCode());
-			address.setPostalCode(response.getPostal().getCode());
-			address.setZone(response.getMostSpecificSubdivision().getIsoCode());
-			address.setCity(response.getCity().getName());
+			address.setCountry(response.country().isoCode());
+			address.setPostalCode(response.postal().code());
+			address.setZone(response.mostSpecificSubdivision().isoCode());
+			address.setCity(firstAvailableName(response.city().names()));
 			
 			} catch(com.maxmind.geoip2.exception.AddressNotFoundException ne) {
 				LOGGER.debug("Address not fount in DB " + ne.getMessage());
@@ -54,8 +55,15 @@ public class GeoLocationImpl implements GeoLocation {
 
 		
 			return address;
-		
-		
+
+
+	}
+
+	private String firstAvailableName(Map<String, String> names) {
+		if (names == null || names.isEmpty()) {
+			return null;
+		}
+		return names.values().iterator().next();
 	}
 
 

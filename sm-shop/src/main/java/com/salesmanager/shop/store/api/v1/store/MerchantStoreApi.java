@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -62,11 +61,13 @@ public class MerchantStoreApi {
 	private static final Map<String, String> MAPPING_FIELDS = ImmutableMap.<String, String>builder()
 			.put("name", "name").put("readableAudit.user", "auditSection.modifiedBy").build();
 
-	@Inject
-	private StoreFacade storeFacade;
+	private final StoreFacade storeFacade;
+	private final UserFacade userFacade;
 
-	@Inject
-	private UserFacade userFacade;
+	public MerchantStoreApi(StoreFacade storeFacade, UserFacade userFacade) {
+		this.storeFacade = storeFacade;
+		this.userFacade = userFacade;
+	}
 
 	@GetMapping(value = { "/store/{code}" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReadableMerchantStore store(@PathVariable String code,

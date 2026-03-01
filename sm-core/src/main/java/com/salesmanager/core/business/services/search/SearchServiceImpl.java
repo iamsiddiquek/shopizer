@@ -9,21 +9,20 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.inject.Inject;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.helper.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -56,13 +55,8 @@ import modules.commons.search.request.SearchRequest;
 import modules.commons.search.request.SearchResponse;
 
 @Service("productSearchService")
-@EnableConfigurationProperties(value = ApplicationSearchConfiguration.class)
 public class SearchServiceImpl implements com.salesmanager.core.business.services.search.SearchService {
 	
-	
-    @Value("${search.noindex:false}")//skip indexing process
-    private boolean noIndex;
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(SearchServiceImpl.class);
 
 	private final static String INDEX_PRODUCTS = "INDEX_PRODUCTS";
@@ -92,22 +86,27 @@ public class SearchServiceImpl implements com.salesmanager.core.business.service
 			    }\
 			""";	
 	
+	private final boolean noIndex;
+	private final CoreConfiguration configuration;
+	private final ApplicationSearchConfiguration applicationSearchConfiguration;
+	private final ProductInventoryService productInventoryService;
+	private final SearchModule searchModule;
+	private final ResourceLoader resourceLoader;
 
-
-	@Inject
-	private CoreConfiguration configuration;
-
-	@Autowired
-	private ApplicationSearchConfiguration applicationSearchConfiguration;
-	
-	@Autowired
-	private ProductInventoryService productInventoryService;
-
-	@Autowired(required = false)
-	private SearchModule searchModule;
-	
-	@Autowired
-	private ResourceLoader resourceLoader;
+	public SearchServiceImpl(
+			@Value("${search.noindex:false}") boolean noIndex,
+			CoreConfiguration configuration,
+			ApplicationSearchConfiguration applicationSearchConfiguration,
+			ProductInventoryService productInventoryService,
+			ObjectProvider<SearchModule> searchModuleProvider,
+			ResourceLoader resourceLoader) {
+		this.noIndex = noIndex;
+		this.configuration = configuration;
+		this.applicationSearchConfiguration = applicationSearchConfiguration;
+		this.productInventoryService = productInventoryService;
+		this.searchModule = searchModuleProvider.getIfAvailable();
+		this.resourceLoader = resourceLoader;
+	}
 
 	@PostConstruct
 	public void init() throws Exception {
@@ -122,7 +121,7 @@ public class SearchServiceImpl implements com.salesmanager.core.business.service
 			try {
 				searchModule.configure(searchConfiguration);
 			} catch (Exception e) {
-				LOGGER.error("SearchModule cannot be configured [" + e.getMessage() + "]", e);
+				LOGGER.error("Search module could not be configured", e);
 			}
 		}
 	}
@@ -145,14 +144,11 @@ public class SearchServiceImpl implements com.salesmanager.core.business.service
 			documents = document(product.getId(), languages, RequestOptions.DO_NOT_FAIL_ON_NOT_FOUND);
 
 				if (!CollectionUtils.isEmpty(product.getVariants())) {
-					variants = new ArrayList<Map<String, String>>();
-					variants = product.getVariants().stream().map(i -> variants(i)).collect(Collectors.toList());
+					variants = product.getVariants().stream().map(this::variants).collect(Collectors.toList());
 				}
 	
 				if (!CollectionUtils.isEmpty(documents)) {
-					if (documents.iterator().next() != null) {
-						searchModule.delete(languages, product.getId());
-					}
+					searchModule.delete(languages, product.getId());
 				}
 
 
@@ -169,23 +165,24 @@ public class SearchServiceImpl implements com.salesmanager.core.business.service
 	}
 
 	private List<Document> document(Long id, List<String> languages, RequestOptions options) throws Exception {
-		List<Optional<Document>> documents = null;
-		try {
-			documents = searchModule.getDocument(id, languages, options);
-		} catch(Exception e) {
-			e.printStackTrace();
+		if (searchModule == null) {
+			return Collections.emptyList();
 		}
-		
-		for(Optional<Document> d : documents) {
-			if(d == null) {//not allowed
-				return Collections.emptyList();
-			}
-		}
-		
-		List<Document> filteredList = documents.stream().flatMap(Optional::stream)
-				.collect(Collectors.toList());
 
-		return filteredList;
+		List<Optional<Document>> documents = Collections.emptyList();
+		try {
+			documents = Optional.ofNullable(searchModule.getDocument(id, languages, options))
+					.orElse(Collections.emptyList());
+		} catch(Exception e) {
+			LOGGER.warn("Unable to fetch indexed search documents for product {}", id, e);
+			return Collections.emptyList();
+		}
+		
+		if (documents.stream().anyMatch(Objects::isNull)) {
+			return Collections.emptyList();
+		}
+		
+		return documents.stream().flatMap(Optional::stream).toList();
 
 	}
 

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -14,7 +13,6 @@ import org.apache.commons.lang3.Validate;
 import org.drools.core.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -53,35 +51,38 @@ import com.salesmanager.shop.utils.LanguageUtils;
 @Service("storeFacade")
 public class StoreFacadeImpl implements StoreFacade {
 
-	@Inject
-	private MerchantStoreService merchantStoreService;
-
-	@Inject
-	private MerchantConfigurationService merchantConfigurationService;
-
-	@Inject
-	private LanguageService languageService;
-
-	@Inject
-	private ContentService contentService;
-
-	@Inject
-	private PersistableMerchantStorePopulator persistableMerchantStorePopulator;
-
-	@Inject
-	@Qualifier("img")
-	private ImageFilePath imageUtils;
-
-	@Inject
-	private LanguageUtils languageUtils;
-
-	@Inject
-	private EntityDependencyResolver entityDependencyResolver;
-	
-	@Autowired
-	private ReadableMerchantStorePopulator readableMerchantStorePopulator;
+	private final MerchantStoreService merchantStoreService;
+	private final MerchantConfigurationService merchantConfigurationService;
+	private final LanguageService languageService;
+	private final ContentService contentService;
+	private final PersistableMerchantStorePopulator persistableMerchantStorePopulator;
+	private final ImageFilePath imageUtils;
+	private final LanguageUtils languageUtils;
+	private final EntityDependencyResolver entityDependencyResolver;
+	private final ReadableMerchantStorePopulator readableMerchantStorePopulator;
 
 	private static final Logger LOG = LoggerFactory.getLogger(StoreFacadeImpl.class);
+
+	public StoreFacadeImpl(
+			MerchantStoreService merchantStoreService,
+			MerchantConfigurationService merchantConfigurationService,
+			LanguageService languageService,
+			ContentService contentService,
+			PersistableMerchantStorePopulator persistableMerchantStorePopulator,
+			@Qualifier("img") ImageFilePath imageUtils,
+			LanguageUtils languageUtils,
+			EntityDependencyResolver entityDependencyResolver,
+			ReadableMerchantStorePopulator readableMerchantStorePopulator) {
+		this.merchantStoreService = merchantStoreService;
+		this.merchantConfigurationService = merchantConfigurationService;
+		this.languageService = languageService;
+		this.contentService = contentService;
+		this.persistableMerchantStorePopulator = persistableMerchantStorePopulator;
+		this.imageUtils = imageUtils;
+		this.languageUtils = languageUtils;
+		this.entityDependencyResolver = entityDependencyResolver;
+		this.readableMerchantStorePopulator = readableMerchantStorePopulator;
+	}
 
 	@Override
 	public MerchantStore getByCode(HttpServletRequest request) {

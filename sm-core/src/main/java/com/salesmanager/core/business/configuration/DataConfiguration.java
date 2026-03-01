@@ -24,49 +24,42 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableCaching
 public class DataConfiguration {
 
-	/**
-	 * Datasource
-	 */
-    @Value("${db.driverClass}")
-    private String driverClassName;
-    
-    @Value("${db.jdbcUrl}")
-    private String url;
-    
-    @Value("${db.user}")
-    private String user;
-    
-    @Value("${db.password}")
-    private String password;
+    private final String driverClassName;
+    private final String url;
+    private final String user;
+    private final String password;
+    private final String hbm2ddl;
+    private final String dialect;
+    private final String showSql;
+    private final String schema;
+    private final String testQuery;
+    private final int minPoolSize;
+    private final int maxPoolSize;
 
-    
-    /**
-     * Other connection properties
-     */
-    
-    @Value("${hibernate.hbm2ddl.auto}")
-    private String hbm2ddl;
-    
-    @Value("${hibernate.dialect}")
-    private String dialect;
-    
-    @Value("${db.show.sql}")
-    private String showSql;
-    
-    @Value("${db.preferredTestQuery}")
-    private String preferredTestQuery;
-    
-    @Value("${db.schema}")
-    private String schema;
-    
-    @Value("${db.preferredTestQuery}")
-    private String testQuery;
-    
-    @Value("${db.minPoolSize}")
-    private int minPoolSize;
-    
-    @Value("${db.maxPoolSize}")
-    private int maxPoolSize;
+    public DataConfiguration(
+        @Value("${db.driverClass}") String driverClassName,
+        @Value("${db.jdbcUrl}") String url,
+        @Value("${db.user}") String user,
+        @Value("${db.password}") String password,
+        @Value("${hibernate.hbm2ddl.auto}") String hbm2ddl,
+        @Value("${hibernate.dialect}") String dialect,
+        @Value("${db.show.sql}") String showSql,
+        @Value("${db.schema}") String schema,
+        @Value("${db.preferredTestQuery}") String testQuery,
+        @Value("${db.minPoolSize}") int minPoolSize,
+        @Value("${db.maxPoolSize}") int maxPoolSize) {
+        this.driverClassName = driverClassName;
+        this.url = url;
+        this.user = user;
+        this.password = password;
+        this.hbm2ddl = hbm2ddl;
+        this.dialect = dialect;
+        this.showSql = showSql;
+        this.schema = schema;
+        this.testQuery = testQuery;
+        this.minPoolSize = minPoolSize;
+        this.maxPoolSize = maxPoolSize;
+    }
 
     @Bean
     public HikariDataSource dataSource() {
@@ -78,7 +71,7 @@ public class DataConfiguration {
     	.build();
     	
     	/** Datasource config **/
-    	dataSource.setIdleTimeout(minPoolSize);
+    	dataSource.setMinimumIdle(minPoolSize);
     	dataSource.setMaximumPoolSize(maxPoolSize);
     	dataSource.setConnectionTestQuery(testQuery);
     	

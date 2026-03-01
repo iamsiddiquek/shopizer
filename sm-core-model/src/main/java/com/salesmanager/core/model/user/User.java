@@ -27,8 +27,6 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
-import org.hibernate.annotations.Cascade;
-
 import com.salesmanager.core.model.common.CredentialsReset;
 import com.salesmanager.core.model.common.audit.AuditListener;
 import com.salesmanager.core.model.common.audit.AuditSection;
@@ -75,20 +73,13 @@ public class User extends SalesManagerEntity<Long, User> implements Auditable {
 	@Column(name="ADMIN_NAME", length=100)
 	private String adminName;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.DETACH})
 	@JoinTable(name = "USER_GROUP", joinColumns = { 
 			@JoinColumn(name = "USER_ID", nullable = false) }
 			, 
 			inverseJoinColumns = { @JoinColumn(name = "GROUP_ID", 
 					nullable = false) }
 	)
-	@Cascade({
-		org.hibernate.annotations.CascadeType.DETACH,
-		org.hibernate.annotations.CascadeType.LOCK,
-		org.hibernate.annotations.CascadeType.REFRESH,
-		org.hibernate.annotations.CascadeType.REPLICATE
-		
-	})
 	private List<Group> groups = new ArrayList<Group>();
 	
 	@NotEmpty

@@ -25,7 +25,7 @@ import com.salesmanager.shop.store.controller.product.facade.ProductVariantFacad
 import com.salesmanager.shop.utils.ImageFilePath;
 
 @Service("productDefinitionFacade")
-@Profile({ "default", "cloud", "gcp", "aws", "mysql", "local" })
+@Profile({ "default", "dev", "test", "prod", "cloud", "gcp", "aws", "mysql", "local" })
 public class ProductDefinitionFacadeImpl implements ProductDefinitionFacade {
 	
 

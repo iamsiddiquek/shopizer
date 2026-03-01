@@ -62,6 +62,8 @@
 	<beans:beans profile="firebase">
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<beans:property name="ignoreResourceNotFound"
+				value="true" />
 			<beans:property name="ignoreUnresolvablePlaceholders"
 				value="false" />
 			<beans:property name="locations">
@@ -70,14 +72,17 @@
 					<beans:value>classpath:email.properties</beans:value>
 					<beans:value>classpath:shopizer-core.properties</beans:value>
 					<beans:value>classpath:authentication.properties</beans:value>
+					<beans:value>classpath:application.properties</beans:value>
 				</beans:list>
 			</beans:property>
 		</beans:bean>
 	</beans:beans>
 
-	<beans:beans profile="default">
+	<beans:beans profile="dev">
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<beans:property name="ignoreResourceNotFound"
+				value="true" />
 			<beans:property name="ignoreUnresolvablePlaceholders"
 				value="false" />
 			<beans:property name="locations">
@@ -86,6 +91,67 @@
 					<beans:value>classpath:email.properties</beans:value>
 					<beans:value>classpath:shopizer-core.properties</beans:value>
 					<beans:value>classpath:authentication.properties</beans:value>
+					<beans:value>classpath:application.properties</beans:value>
+					<beans:value>classpath:application-dev.properties</beans:value>
+				</beans:list>
+			</beans:property>
+		</beans:bean>
+	</beans:beans>
+
+	<beans:beans profile="test">
+		<beans:bean
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<beans:property name="ignoreResourceNotFound"
+				value="true" />
+			<beans:property name="ignoreUnresolvablePlaceholders"
+				value="false" />
+			<beans:property name="locations">
+				<beans:list>
+					<beans:value>classpath:database.properties</beans:value>
+					<beans:value>classpath:email.properties</beans:value>
+					<beans:value>classpath:shopizer-core.properties</beans:value>
+					<beans:value>classpath:authentication.properties</beans:value>
+					<beans:value>classpath:application.properties</beans:value>
+					<beans:value>classpath:application-test.properties</beans:value>
+				</beans:list>
+			</beans:property>
+		</beans:bean>
+	</beans:beans>
+
+	<beans:beans profile="prod">
+		<beans:bean
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<beans:property name="ignoreResourceNotFound"
+				value="true" />
+			<beans:property name="ignoreUnresolvablePlaceholders"
+				value="false" />
+			<beans:property name="locations">
+				<beans:list>
+					<beans:value>classpath:profiles/mysql/database.properties</beans:value>
+					<beans:value>classpath:email.properties</beans:value>
+					<beans:value>classpath:profiles/mysql/shopizer-core.properties</beans:value>
+					<beans:value>classpath:authentication.properties</beans:value>
+					<beans:value>classpath:application.properties</beans:value>
+					<beans:value>classpath:application-prod.properties</beans:value>
+				</beans:list>
+			</beans:property>
+		</beans:bean>
+	</beans:beans>
+
+	<beans:beans profile="default">
+		<beans:bean
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<beans:property name="ignoreResourceNotFound"
+				value="true" />
+			<beans:property name="ignoreUnresolvablePlaceholders"
+				value="false" />
+			<beans:property name="locations">
+				<beans:list>
+					<beans:value>classpath:database.properties</beans:value>
+					<beans:value>classpath:email.properties</beans:value>
+					<beans:value>classpath:shopizer-core.properties</beans:value>
+					<beans:value>classpath:authentication.properties</beans:value>
+					<beans:value>classpath:application.properties</beans:value>
 				</beans:list>
 			</beans:property>
 		</beans:bean>
@@ -94,6 +160,8 @@
 	<beans:beans profile="gcp">
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<beans:property name="ignoreResourceNotFound"
+				value="true" />
 			<beans:property name="ignoreUnresolvablePlaceholders"
 				value="false" />
 			<beans:property name="locations">
@@ -103,6 +171,7 @@
 					<beans:value>classpath:profiles/gcp/shopizer-core.properties
 					</beans:value>
 					<beans:value>classpath:authentication.properties</beans:value>
+					<beans:value>classpath:application.properties</beans:value>
 				</beans:list>
 			</beans:property>
 		</beans:bean>
@@ -111,6 +180,8 @@
 	<beans:beans profile="cloud">
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<beans:property name="ignoreResourceNotFound"
+				value="true" />
 			<beans:property name="ignoreUnresolvablePlaceholders"
 				value="false" />
 			<beans:property name="locations">
@@ -120,6 +191,7 @@
 					<beans:value>classpath:profiles/cloud/shopizer-core.properties
 					</beans:value>
 					<beans:value>classpath:authentication.properties</beans:value>
+					<beans:value>classpath:application.properties</beans:value>
 				</beans:list>
 			</beans:property>
 		</beans:bean>
@@ -128,6 +200,8 @@
 	<beans:beans profile="local">
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<beans:property name="ignoreResourceNotFound"
+				value="true" />
 			<beans:property name="ignoreUnresolvablePlaceholders"
 				value="false" />
 			<beans:property name="locations">
@@ -136,6 +210,7 @@
 					<beans:value>classpath:email.properties</beans:value>
 					<beans:value>classpath:profiles/local/shopizer-core.properties</beans:value>
 					<beans:value>classpath:authentication.properties</beans:value>
+					<beans:value>classpath:application.properties</beans:value>
 				</beans:list>
 			</beans:property>
 		</beans:bean>
@@ -144,6 +219,8 @@
 	<beans:beans profile="mysql">
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<beans:property name="ignoreResourceNotFound"
+				value="true" />
 			<beans:property name="ignoreUnresolvablePlaceholders"
 				value="false" />
 			<beans:property name="locations">
@@ -152,6 +229,7 @@
 					<beans:value>classpath:email.properties</beans:value>
 					<beans:value>classpath:profiles/mysql/shopizer-core.properties</beans:value>
 					<beans:value>classpath:authentication.properties</beans:value>
+					<beans:value>classpath:application.properties</beans:value>
 				</beans:list>
 			</beans:property>
 		</beans:bean>
