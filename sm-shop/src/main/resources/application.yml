@@ -1,0 +1,64 @@
+# MIGRATION NOTE: Converted Spring Boot application.properties to application.yml while preserving the existing property keys and values.
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        default_schema: SALESMANAGER
+    hibernate:
+      use-new-id-generator-mappings: true
+  servlet:
+    multipart:
+      max-file-size: 4MB
+      max-request-size: 10MB
+  main:
+    allow-bean-definition-overriding: true
+    # MIGRATION NOTE: Preserves legacy circular reference handling during the XML-to-Java configuration transition.
+    allow-circular-references: true
+  mvc:
+    pathmatch:
+      # MIGRATION NOTE: Preserves legacy Ant path matching so existing Springfox and controller mappings remain unchanged.
+      matching-strategy: ant_path_matcher
+
+logging:
+  level:
+    org.hibernate.SQL: ERROR
+    # MIGRATION NOTE: Reduce Boot 4 runtime warning noise from unchanged fixed-size Hikari settings without altering pool behavior.
+    com.zaxxer.hikari.HikariConfig: ERROR
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+    org.springframework: ERROR
+    com.shopizer: INFO
+    org.hibernate: ERROR
+    org.apache.http: ERROR
+    # MIGRATION NOTE: Keep legacy OpenAPI endpoints enabled while silencing Boot 4 advisory startup warnings.
+    org.springdoc.core.events.SpringDocAppInitializer: ERROR
+    # MIGRATION NOTE: Preserve the existing AntiSamy policy behavior while suppressing its non-functional advisory log noise.
+    org.owasp.validator.html.Policy: ERROR
+
+application-description: "@project.description@"
+application-version: "@project.version@"
+
+build:
+  timestamp: "@maven.build.timestamp@"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+  health:
+    elasticsearch:
+      enabled: false
+    mail:
+      enabled: false
+    ping:
+      enabled: true
