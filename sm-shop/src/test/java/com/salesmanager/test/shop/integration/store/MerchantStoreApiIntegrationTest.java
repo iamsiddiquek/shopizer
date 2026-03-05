@@ -4,12 +4,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 import java.util.Arrays;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.resttestclient.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -27,6 +27,8 @@ import com.salesmanager.test.shop.common.ServicesTestSupport;
 
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
+// MIGRATION NOTE: Suppress SpringRunner deprecation warnings because this integration test intentionally stays on the JUnit 4 Spring runner during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class MerchantStoreApiIntegrationTest extends ServicesTestSupport {
   
   private static final String TEST_STORE_CODE = "test";
@@ -34,6 +36,7 @@ public class MerchantStoreApiIntegrationTest extends ServicesTestSupport {
   private static final String DEFAULT_LANGUAGE = "en";
 
   @Inject
+  // MIGRATION NOTE: Spring Boot 4 relocated TestRestTemplate to spring-boot-resttestclient without changing test HTTP behavior.
   private TestRestTemplate testRestTemplate;
   
   /**

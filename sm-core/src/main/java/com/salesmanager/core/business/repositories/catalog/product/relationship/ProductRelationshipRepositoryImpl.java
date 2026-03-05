@@ -8,8 +8,8 @@ import com.salesmanager.core.model.reference.language.Language;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 
 public class ProductRelationshipRepositoryImpl implements ProductRelationshipRepositoryCustom {
@@ -125,6 +125,7 @@ public class ProductRelationshipRepositoryImpl implements ProductRelationshipRep
           + "and pr.store.id=:storeId "
           + "and rpd.language.id=:langId";
 
+  // MIGRATION NOTE: Manual EntityManager retained in Phase 4 because these relationship queries depend on custom fetch graphs and only partial service-level coverage exists for the current behavior.
   @PersistenceContext
   private EntityManager entityManager;
 

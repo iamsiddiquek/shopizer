@@ -3,15 +3,16 @@ package com.salesmanager.shop.store.api.v1.customer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 import org.apache.commons.lang3.Validate;
 import org.apache.http.auth.AuthenticationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,14 +68,17 @@ public class AuthenticateCustomerApi {
     @Value("${authToken.header}")
     private String tokenHeader;
 
-    @Inject
-    private AuthenticationManager jwtCustomerAuthenticationManager;
+	    @Inject
+	    @Qualifier("jwtCustomerAuthenticationManager")
+	    // MIGRATION NOTE: Explicit qualifier preserves the legacy customer login AuthenticationManager after Boot 3 introduced a default shared manager bean.
+	    private AuthenticationManager jwtCustomerAuthenticationManager;
 
     @Inject
     private JWTTokenUtil jwtTokenUtil;
 
-    @Inject
-    private UserDetailsService jwtCustomerDetailsService;
+	    @Inject
+	    @Qualifier("jwtCustomerDetailsService")
+	    private UserDetailsService jwtCustomerDetailsService;
     
     @Inject
     private CustomerFacade customerFacade;

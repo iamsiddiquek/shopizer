@@ -2,7 +2,7 @@ package com.salesmanager.test.shop.integration.product;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.http.HttpStatus.CREATED;
 
 import java.io.BufferedInputStream;
@@ -48,6 +48,8 @@ import com.salesmanager.test.shop.common.ServicesTestSupport;
 
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
+// MIGRATION NOTE: Suppress SpringRunner deprecation warnings because this integration test intentionally stays on the JUnit 4 Spring runner during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class ProductManagementAPIIntegrationTest extends ServicesTestSupport {
 
 	private RestTemplate restTemplate;

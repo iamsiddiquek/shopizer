@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.data.repository.query.Param;
 
 import com.salesmanager.core.model.payments.Transaction;
@@ -17,6 +16,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 	
 	@Query("select t from Transaction t join fetch t.order to left join fetch to.orderAttributes toa left join fetch to.orderProducts too left join fetch to.orderTotal toot left join fetch to.orderHistory tood where to is not null and t.transactionDate BETWEEN :from AND :to")
 	List<Transaction> findByDates(
-			@Param("from") @Temporal(javax.persistence.TemporalType.TIMESTAMP) Date startDate, 
-			@Param("to") @Temporal(javax.persistence.TemporalType.TIMESTAMP) Date endDate);
+			// MIGRATION NOTE: Removed deprecated Spring Data @Temporal parameter metadata; Hibernate 7 still binds java.util.Date query parameters as TIMESTAMP for this BETWEEN predicate.
+			@Param("from") Date startDate, 
+			@Param("to") Date endDate);
 }

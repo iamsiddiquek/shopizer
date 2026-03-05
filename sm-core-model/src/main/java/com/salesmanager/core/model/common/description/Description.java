@@ -2,21 +2,20 @@ package com.salesmanager.core.model.common.description;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.sql.Types;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotEmpty;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotEmpty;
 
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcTypeCode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.salesmanager.core.model.common.audit.AuditListener;
@@ -26,7 +25,7 @@ import com.salesmanager.core.model.reference.language.Language;
 
 @MappedSuperclass
 @EntityListeners(value = AuditListener.class)
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+// MIGRATION NOTE: Removed invalid inheritance metadata from the mapped superclass because Hibernate 6 rejects @Inheritance on @MappedSuperclass while subclass table mappings remain unchanged.
 public class Description implements Auditable, Serializable {
 	@Serial
 	private static final long serialVersionUID = 1L;
@@ -52,7 +51,8 @@ public class Description implements Auditable, Serializable {
 	private String title;
 	
 	@Column(name="DESCRIPTION")
-	@Type(type = "org.hibernate.type.TextType")
+	// MIGRATION NOTE: Hibernate 6 replaced TextType with an explicit LONGVARCHAR JDBC mapping to preserve legacy text-column semantics.
+	@JdbcTypeCode(Types.LONGVARCHAR)
 	private String description;
 	
 	public Description() {

@@ -71,11 +71,15 @@ public class PersistableProductDefinitionMapper implements Mapper<PersistablePro
 
 			//core properties
 			
-			if(StringUtils.isBlank(source.getIdentifier())) {
-				destination.setSku(source.getSku());
-			} else {
-				destination.setSku(source.getIdentifier());
+			String sku = source.getIdentifier();
+			if (StringUtils.isBlank(sku)) {
+				sku = source.getSku();
 			}
+			if (StringUtils.isBlank(sku) && source.getInventory() != null) {
+				// MIGRATION NOTE: Preserve legacy v1 inventory-backed SKU payloads on the v2 definition mapper after Boot 4 request binding changes.
+				sku = source.getInventory().getSku();
+			}
+			destination.setSku(sku);
 			destination.setAvailable(source.isVisible());
 			destination.setDateAvailable(new Date());
 

@@ -20,7 +20,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.12</version>
+		<!-- MIGRATION NOTE: Upgraded Spring Boot parent to 4.0.3 for Phase 5 so the runtime moves to the latest stable Spring Boot 4 line without changing application behavior. -->
+		<version>4.0.3</version>
 	</parent>
 
 	<modules>
@@ -32,10 +33,13 @@
 	</modules>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+			<!-- MIGRATION NOTE: Centralize the Java 25 test JVM compatibility flags so Surefire and Failsafe can reuse them without relying on implicit argLine state. -->
+			<test.jvm.compatibility.args>-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar --sun-misc-unsafe-memory-access=allow -XX:+EnableDynamicAgentLoading --enable-native-access=ALL-UNNAMED</test.jvm.compatibility.args>
 
 		<!--java version -->
-		<java.version>17</java.version>
+		<!-- MIGRATION NOTE: Raised the compiler release to Java 25 for Phase 5 while preserving the existing source code semantics. -->
+		<java.version>25</java.version>
 
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
@@ -54,26 +58,30 @@
 		<org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
 
 		<org.apache.httpcomponent.version>4.5.2</org.apache.httpcomponent.version>
-		<javax.inject.version>1</javax.inject.version>
-		<javax.el.version>2.2.4</javax.el.version>
-		<javax.servlet-api-version>3.0.1</javax.servlet-api-version>
-		<javax.annotation>1.3.2</javax.annotation>
+		<jakarta.inject.version>2.0.1</jakarta.inject.version>
+		<angus-mail.version>2.0.4</angus-mail.version>
+		<ehcache2.version>2.10.9.2</ehcache2.version>
+		<swagger-annotations.version>1.6.15</swagger-annotations.version>
 		<infinispan.version>9.4.18.Final</infinispan.version>
 		<infinispan.tree.version>9.4.18.Final</infinispan.tree.version>
 		<mysql-jdbc-version>8.0.21</mysql-jdbc-version>
 		<oracle.version>18.3.0.0</oracle.version>
 		<postgresql.version>42.2.18</postgresql.version>
 		<simple-json-version>1.1.1</simple-json-version>
-		<jackson-version-databind>2.13.4.1</jackson-version-databind>
-		<jackson-version>2.13.4</jackson-version>
+		<!-- MIGRATION NOTE: Align Jackson 2 to the Spring Boot 4 compatibility line so the existing com.fasterxml-based serialization code keeps the same API surface on Boot 4. -->
+		<jackson-version-databind>2.20.2</jackson-version-databind>
+		<jackson-version>2.20.2</jackson-version>
+		<jackson-annotations.version>2.20</jackson-annotations.version>
+		<!-- MIGRATION NOTE: Pin H2 to the pre-upgrade test database version to preserve existing schema/bootstrap behavior during the Boot 2.7 transition. -->
+		<h2.version>1.4.200</h2.version>
 		<geoip2.version>2.7.0</geoip2.version>
 		<drools.version>7.32.0.Final</drools.version>
 		<google-client-maps-services-version>0.1.6</google-client-maps-services-version>
 		<jwt.version>0.8.0</jwt.version>
 
 
-		<!-- api documentation -->
-		<swagger.version>2.9.2</swagger.version>
+		<!-- MIGRATION NOTE: Upgraded springdoc to the latest Boot 4 compatible line for Phase 5 while preserving the existing OpenAPI endpoints. -->
+		<springdoc.version>3.0.2</springdoc.version>
 
 		<!-- jacoco coverage -->
 		<coverage.lines>.30</coverage.lines>
@@ -85,10 +93,6 @@
 	<dependencyManagement>
 		<dependencies>
 
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-web</artifactId>
-			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-cache</artifactId>
@@ -114,11 +118,11 @@
 				<version>3.2.5</version>
 			</dependency>
 
-			<!-- https://mvnrepository.com/artifact/javax.inject/javax.inject -->
+			<!-- MIGRATION NOTE: javax.inject replaced with jakarta.inject for Spring Boot 3 / Jakarta EE 9 compatibility. -->
 			<dependency>
-				<groupId>javax.inject</groupId>
-				<artifactId>javax.inject</artifactId>
-				<version>${javax.inject.version}</version>
+				<groupId>jakarta.inject</groupId>
+				<artifactId>jakarta.inject-api</artifactId>
+				<version>${jakarta.inject.version}</version>
 			</dependency>
 
 			<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
@@ -156,14 +160,14 @@
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
-				<version>${jackson-version}</version>
+				<version>${jackson-annotations.version}</version>
 			</dependency>
 
-			<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+			<!-- MIGRATION NOTE: javax.mail replaced with Angus Jakarta Mail so existing mail flows stay available on Jakarta-based Spring Boot 3. -->
 			<dependency>
-				<groupId>javax.mail</groupId>
-				<artifactId>mail</artifactId>
-				<version>1.4.7</version>
+				<groupId>org.eclipse.angus</groupId>
+				<artifactId>angus-mail</artifactId>
+				<version>${angus-mail.version}</version>
 			</dependency>
 
 			<!-- http://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
@@ -174,6 +178,7 @@
 			</dependency>
 
 			<dependency>
+				<!-- MIGRATION NOTE: Retain the legacy MySQL driver coordinates during Phase 2 to avoid artifact-resolution churn while the Jakarta migration is underway. -->
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>${mysql-jdbc-version}</version>
@@ -350,15 +355,16 @@
 			</dependency>
 
 			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-swagger2</artifactId>
-				<version>${swagger.version}</version>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+				<version>${springdoc.version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-swagger-ui</artifactId>
-				<version>${swagger.version}</version>
+				<!-- MIGRATION NOTE: Legacy Swagger annotation types are retained during Phase 2 so controller and DTO metadata can compile unchanged while the documentation runtime moves to springdoc. -->
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-annotations</artifactId>
+				<version>${swagger-annotations.version}</version>
 			</dependency>
 
 		</dependencies>
@@ -366,16 +372,16 @@
 	</dependencyManagement>
 
 	<!--general dependencies -->
-	<dependencies>
+		<dependencies>
 
 		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
@@ -406,18 +412,14 @@
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
+			<version>${ehcache2.version}</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<!-- MIGRATION NOTE: javax.mail-api/mail replaced with the Jakarta Mail implementation for Boot 3 compatibility. -->
 		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>javax.mail-api</artifactId>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
+			<groupId>org.eclipse.angus</groupId>
+			<artifactId>angus-mail</artifactId>
+			<version>${angus-mail.version}</version>
 		</dependency>
 
 		<!-- http://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
@@ -437,6 +439,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-jdbc-version}</version>
 		</dependency>
 
 		<!-- oracle -->
@@ -467,17 +470,6 @@
 			</snapshots>
 		</repository>
 		<repository>
-			<id>spring-releases</id>
-			<name>Spring Releases</name>
-			<url>https://repo.spring.io/libs-release</url>
-		</repository>
-		<!-- Milestone repo -->
-		<repository>
-			<id>spring-milestone</id>
-			<name>Spring Milestone</name>
-			<url>https://repo.spring.io/milestone/</url>
-		</repository>
-		<repository>
 			<id>org.jboss.repository.releases</id>
 			<name>JBoss Maven Release Repository</name>
 			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
@@ -485,11 +477,6 @@
 	</repositories>
 
 	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-releases</id>
-			<name>Spring Releases</name>
-			<url>https://repo.spring.io/libs-release</url>
-		</pluginRepository>
 	</pluginRepositories>
 
 	<build>
@@ -509,6 +496,50 @@
 					</annotationProcessorPaths>
 					<release>${java.version}</release>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<!-- MIGRATION NOTE: Pre-attach the Mockito agent and Java 25 compatibility flags so the existing test suite keeps the same runtime behavior without self-attachment warnings on newer JDKs. -->
+					<argLine>${test.jvm.compatibility.args}</argLine>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<!-- MIGRATION NOTE: Mirror the Surefire Java 25 test JVM flags for future Failsafe runs so integration-test execution stays aligned in CI. -->
+					<argLine>${test.jvm.compatibility.args}</argLine>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.6.2</version>
+				<configuration>
+					<rules>
+						<!-- MIGRATION NOTE: Enforce the Phase 5 Java 25 toolchain so both CLI and lifecycle-driven CI runs stay on the validated Boot 4 baseline. -->
+						<requireJavaVersion>
+							<version>[25,)</version>
+						</requireJavaVersion>
+						<!-- MIGRATION NOTE: Enforce Maven 3.9.11+ consistently across direct enforcer invocations and standard Maven lifecycle runs. -->
+						<requireMavenVersion>
+							<version>[3.9.11,)</version>
+						</requireMavenVersion>
+					</rules>
+				</configuration>
+				<executions>
+					<execution>
+						<id>phase5-enforce-toolchain</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>

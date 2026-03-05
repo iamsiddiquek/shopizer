@@ -5,9 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -168,7 +168,8 @@ public class CustomerApi {
 
 	}
 
-	@PatchMapping("/auth/customer/")
+	// MIGRATION NOTE: Spring Framework 7 trailing-slash normalization wraps /auth/customer/ to /auth/customer, so both mappings are kept to preserve the legacy authenticated-customer endpoint contract.
+	@PatchMapping({"/auth/customer", "/auth/customer/"})
 	@ApiOperation(httpMethod = "PATCH", value = "Updates a loged in customer profile", notes = "Requires authentication", produces = "application/json", response = PersistableCustomer.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "string", defaultValue = "DEFAULT") })
 	public PersistableCustomer update(@ApiIgnore MerchantStore merchantStore,
@@ -180,7 +181,8 @@ public class CustomerApi {
 		return customerFacade.update(userName, customer, merchantStore);
 	}
 	
-	@DeleteMapping("/auth/customer/")
+	// MIGRATION NOTE: Spring Framework 7 trailing-slash normalization wraps /auth/customer/ to /auth/customer, so both mappings are kept to preserve the legacy authenticated-customer delete contract.
+	@DeleteMapping({"/auth/customer", "/auth/customer/"})
 	@ApiOperation(httpMethod = "DELETE", value = "Deletes a loged in customer profile", notes = "Requires authentication", produces = "application/json", response = Void.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "string", defaultValue = "DEFAULT") })
 	public void delete(@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language,

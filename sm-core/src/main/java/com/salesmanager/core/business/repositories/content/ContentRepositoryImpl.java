@@ -3,9 +3,9 @@ package com.salesmanager.core.business.repositories.content;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 
 import com.salesmanager.core.model.content.Content;
 import com.salesmanager.core.model.content.ContentDescription;
@@ -17,6 +17,7 @@ import com.salesmanager.core.model.reference.language.Language;
 public class ContentRepositoryImpl implements ContentRepositoryCustom {
 
 	
+    // MIGRATION NOTE: Manual EntityManager retained in Phase 4 because the legacy content projection and lookup behavior is not covered by active tests well enough to prove a safe Spring Data rewrite.
     @PersistenceContext
     private EntityManager em;
     

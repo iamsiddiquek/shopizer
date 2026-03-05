@@ -9,6 +9,8 @@ import java.util.List;
  * @author carlsamson
  *
  */
+// MIGRATION NOTE: This folder DTO still exposes the deprecated legacy content contract, so it is marked deprecated to preserve serialization behavior without introducing new compiler warnings.
+@Deprecated
 public class ContentFolder {
 	
 	private String path;

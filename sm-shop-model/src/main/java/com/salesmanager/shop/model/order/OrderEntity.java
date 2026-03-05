@@ -12,6 +12,8 @@ import com.salesmanager.core.model.payments.PaymentType;
 import com.salesmanager.shop.model.order.total.OrderTotal;
 import com.salesmanager.shop.model.order.v0.Order;
 
+// MIGRATION NOTE: Suppress deprecated order-model warnings because this DTO intentionally retains the legacy v0 Order inheritance for backward compatibility.
+@SuppressWarnings("deprecation")
 public class OrderEntity extends Order implements Serializable {
 
 	/**

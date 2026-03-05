@@ -5,7 +5,7 @@
  */
 package com.salesmanager.test.common;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.junit.After;
 import org.junit.Before;
@@ -54,6 +54,8 @@ import com.salesmanager.test.configuration.ConfigurationTest;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=ConfigurationTest.class)
 @Ignore
+// MIGRATION NOTE: Legacy JUnit 4 core integration scaffolding is retained during the Boot 4 migration to preserve test behavior while suppressing compatibility-only deprecation noise.
+@SuppressWarnings("deprecation")
 public class AbstractSalesManagerCoreTestCase {
 	
 	private static final String CONTEXT_LOAD_NAME = "TEST";

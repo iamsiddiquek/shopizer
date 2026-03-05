@@ -1,9 +1,9 @@
 package com.salesmanager.core.business.repositories.user;
 
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +16,7 @@ import com.salesmanager.core.model.user.User;
 public class UserRepositoryImpl implements UserRepositoryCustom {
   
 
+  // MIGRATION NOTE: Manual EntityManager retained in Phase 4 because user criteria queries depend on legacy pagination/filter behavior without sufficient coverage for safe replacement.
   @PersistenceContext
   private EntityManager em;
 
@@ -93,7 +94,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
 
 
-    } catch (javax.persistence.NoResultException ers) {
+    } catch (jakarta.persistence.NoResultException ers) {
     } catch (Exception e) {
       LOGGER.error(e.getMessage());
       throw new ServiceException(e);

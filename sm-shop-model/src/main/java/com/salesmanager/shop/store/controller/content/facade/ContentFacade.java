@@ -26,6 +26,8 @@ import com.salesmanager.shop.model.content.page.ReadableContentPage;
  * @author carlsamson
  *
  */
+// MIGRATION NOTE: Suppress deprecated content-model warnings because this facade intentionally retains legacy content DTO contracts for backward compatibility.
+@SuppressWarnings("deprecation")
 public interface ContentFacade {
 	
 	

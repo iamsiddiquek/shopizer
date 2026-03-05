@@ -2,7 +2,7 @@ package com.salesmanager.test.shop.integration.customer;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.http.HttpStatus.OK;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +23,8 @@ import com.salesmanager.test.shop.common.ServicesTestSupport;
 
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
+// MIGRATION NOTE: This legacy customer registration integration test intentionally exercises backward-compatible contracts, so deprecation warnings are suppressed to keep the Boot 4 migration noise-free.
+@SuppressWarnings("deprecation")
 public class CustomerRegistrationIntegrationTest extends ServicesTestSupport {
 
     @Test

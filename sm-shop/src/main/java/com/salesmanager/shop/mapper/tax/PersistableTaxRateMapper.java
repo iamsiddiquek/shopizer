@@ -45,7 +45,12 @@ public class PersistableTaxRateMapper implements Mapper<PersistableTaxRate, TaxR
 		Validate.notNull(destination, "destination TaxRate cannot be null");
 		Validate.notNull(source, "source TaxRate cannot be null");
 		try {
-			destination.setId(source.getId());
+			if(source.getId() != null && source.getId().longValue() > 0) {
+				destination.setId(source.getId());
+			} else if(destination.getId() == null || destination.getId().longValue() == 0L) {
+				// MIGRATION NOTE: Normalize legacy default id=0 request payloads so Hibernate 6 preserves create semantics without changing update behavior.
+				destination.setId(null);
+			}
 			destination.setCode(source.getCode());
 			destination.setTaxPriority(source.getPriority());
 			

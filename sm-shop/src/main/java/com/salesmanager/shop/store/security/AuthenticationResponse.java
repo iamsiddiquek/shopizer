@@ -23,4 +23,9 @@ public class AuthenticationResponse extends Entity implements Serializable {
     return token;
   }
 
+  // MIGRATION NOTE: Jackson on Spring Boot 3 needs a writable token property so existing login responses deserialize without changing the JSON shape.
+  public void setToken(String token) {
+    this.token = token;
+  }
+
 }

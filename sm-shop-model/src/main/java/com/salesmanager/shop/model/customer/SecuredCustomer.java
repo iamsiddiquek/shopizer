@@ -2,7 +2,7 @@ package com.salesmanager.shop.model.customer;
 
 import java.io.Serial;
 import java.io.Serializable;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 import com.salesmanager.shop.validation.FieldMatch;
 
 

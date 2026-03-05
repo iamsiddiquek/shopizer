@@ -28,11 +28,17 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-ehcache -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-ehcache</artifactId>
-		</dependency>
+			<!-- MIGRATION NOTE: Hibernate 6 no longer ships hibernate-ehcache, so the Phase 2 cache integration moves to the Jakarta-compatible JCache module. -->
+			<dependency>
+				<groupId>org.hibernate.orm</groupId>
+				<artifactId>hibernate-jcache</artifactId>
+			</dependency>
+
+			<dependency>
+				<!-- MIGRATION NOTE: Ehcache 3 provides the Jakarta-compatible cache backend required by Hibernate 6 and Spring Boot 3. -->
+				<groupId>org.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+			</dependency>
 
 		<!-- sm-core-model -->
 		<dependency>
@@ -128,6 +134,13 @@
 		</dependency>
 
 		<dependency>
+			<!-- MIGRATION NOTE: Infinispan 9 still requires the legacy Caffeine CacheWriter API removed in Caffeine 3.x; pin 2.9.3 to preserve the existing CMS cache behavior during Phase 2. -->
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-tree</artifactId>
 		</dependency>
@@ -149,11 +162,10 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>jakarta.inject</groupId>
-			<artifactId>jakarta.inject-api</artifactId>
-			<version>1.0.3</version>
-		</dependency>
+			<dependency>
+				<groupId>jakarta.inject</groupId>
+				<artifactId>jakarta.inject-api</artifactId>
+			</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
 		<dependency>
@@ -167,11 +179,12 @@
 			<artifactId>spring-context-support</artifactId>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-		</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>${org.apache.httpcomponent.version}</version>
+			</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
 		<dependency>

@@ -13,7 +13,7 @@ public class SchemaConstant {
 	 */
 	//public static final String[] LANGUAGE_ISO_CODE = {"en", "fr", "ru", "es", "ar"};
 
-	@Deprecated
+	// MIGRATION NOTE: LANGUAGE_ISO_CODE remains the active reference-data seed list; removing the stale deprecation avoids false positive Boot 4 warning noise without changing initialization behavior.
 	public static final String[] LANGUAGE_ISO_CODE = {"en", "fr", "es"}; //which descriptions will ve used for reference data
 	
 	public final static int DESCRIPTION_ID_ALLOCATION_SIZE = 1;

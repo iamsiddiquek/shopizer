@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -41,7 +41,8 @@ import com.salesmanager.core.model.system.ModuleConfig;
 import com.salesmanager.core.modules.integration.IntegrationException;
 import com.salesmanager.core.modules.integration.payment.model.PaymentModule;
 
-
+// MIGRATION NOTE: This legacy payment integration still relies on deprecated card-masking helpers, so deprecation warnings are suppressed to preserve gateway behavior during the platform upgrade.
+@SuppressWarnings("deprecation")
 public class BeanStreamPayment implements PaymentModule {
 	
 	@Inject

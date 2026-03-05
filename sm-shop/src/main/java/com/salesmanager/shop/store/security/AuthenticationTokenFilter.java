@@ -5,11 +5,11 @@ import java.util.Enumeration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.inject.Inject;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.inject.Inject;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +33,8 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     private final static String BEARER_TOKEN ="Bearer ";
     
     private final static String FACEBOOK_TOKEN ="FB ";
+
+    private static final String OPTIONS_METHOD = "OPTIONS";
     
     //private final static String privateApiPatternString = "/api/v*/private";
     
@@ -86,6 +88,9 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 		        } else if(requestHeader != null && requestHeader.startsWith(FACEBOOK_TOKEN)) {
 		        	//Facebook
 		        	//facebookCustomerAuthenticationManager.authenticateRequest(request, response);
+		        } else if (OPTIONS_METHOD.equalsIgnoreCase(request.getMethod())) {
+		        	// MIGRATION NOTE: Treat unauthenticated CORS preflight requests as expected debug noise on Boot 4 rather than warning conditions.
+		        	LOGGER.debug("no authorization token present for CORS preflight request");
 		        } else {
 		        	LOGGER.warn("couldn't find any authorization token, will ignore the header");
 		        }
@@ -112,6 +117,9 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 		        	
 		        	jwtCustomAdminAuthenticationManager.authenticateRequest(request, response);
 	
+		        } else if (OPTIONS_METHOD.equalsIgnoreCase(request.getMethod())) {
+		        	// MIGRATION NOTE: Treat unauthenticated CORS preflight requests as expected debug noise on Boot 4 rather than warning conditions.
+		        	LOGGER.debug("no authorization token present for CORS preflight request");
 		        } else {
 		        	LOGGER.warn("couldn't find any authorization token, will ignore the header, might be a preflight check");
 		        }

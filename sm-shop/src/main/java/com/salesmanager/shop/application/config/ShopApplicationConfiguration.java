@@ -12,8 +12,8 @@ import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +22,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -38,6 +36,7 @@ import com.salesmanager.shop.utils.LabelUtils;
 
 @Configuration
 @ComponentScan({"com.salesmanager.shop"})
+// MIGRATION NOTE: Spring Boot 4 relocates ServletComponentScan to the web-server servlet context package; servlet scanning behavior is unchanged.
 @ServletComponentScan
 @Import({CoreApplicationConfiguration.class}) // import sm-core configurations
 @EnableWebSecurity
@@ -62,11 +61,6 @@ public class ShopApplicationConfiguration implements WebMvcConfigurer {
       registrationBean.addUrlPatterns("/customer/**");
           
       return registrationBean;    
-  }
-
-  @Override
-  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    converters.add(new MappingJackson2HttpMessageConverter());
   }
 
   @Override
@@ -99,6 +93,7 @@ public class ShopApplicationConfiguration implements WebMvcConfigurer {
 
   @Bean
   public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
+    // MIGRATION NOTE: The explicit deprecated Jackson 2 converter override was removed because Spring Boot 4 auto-configures the same JSON converter via spring-boot-jackson2; the custom binary media handling below remains unchanged.
     List<MediaType> supportedMediaTypes = Arrays.asList(IMAGE_JPEG, IMAGE_GIF, IMAGE_PNG, APPLICATION_OCTET_STREAM);
 
     ByteArrayHttpMessageConverter byteArrayHttpMessageConverter =

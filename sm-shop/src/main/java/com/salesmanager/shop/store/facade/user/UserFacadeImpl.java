@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -70,6 +70,8 @@ import com.salesmanager.shop.utils.ImageFilePath;
 import com.salesmanager.shop.utils.LabelUtils;
 
 @Service("userFacade")
+// MIGRATION NOTE: Suppress deprecated user-service warnings because this facade intentionally retains the legacy criteria contract unchanged.
+@SuppressWarnings("deprecation")
 public class UserFacadeImpl implements UserFacade {
 
 	private static final String PRIVATE_PATH = "/private/";

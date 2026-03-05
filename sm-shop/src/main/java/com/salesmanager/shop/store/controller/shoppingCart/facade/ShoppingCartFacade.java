@@ -29,6 +29,8 @@ import java.util.Optional;
  */
 
 
+// MIGRATION NOTE: Suppress deprecated Spring nullable warnings because this facade intentionally keeps the legacy nullability contract unchanged.
+@SuppressWarnings("deprecation")
 public interface ShoppingCartFacade {
 
     public ShoppingCartData addItemsToShoppingCart(ShoppingCartData shoppingCart,final ShoppingCartItem item, final MerchantStore store,final Language language,final Customer customer) throws Exception;

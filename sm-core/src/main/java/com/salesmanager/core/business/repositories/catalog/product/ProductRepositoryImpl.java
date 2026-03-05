@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.NonUniqueResultException;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,10 +28,13 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 import com.salesmanager.core.model.reference.language.Language;
 import com.salesmanager.core.model.tax.taxclass.TaxClass;
 
+// MIGRATION NOTE: Suppress deprecated custom-repository access warnings because these legacy getByCode methods remain intentionally retained for behavior compatibility.
+@SuppressWarnings("deprecation")
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductRepositoryImpl.class);
 
+	// MIGRATION NOTE: Manual EntityManager retained in Phase 4 because these product queries use complex fetch graphs, dynamic filters, and pagination paths that are not fully covered for safe Spring Data replacement.
 	@PersistenceContext
 	private EntityManager em;
 
@@ -103,7 +106,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
 			return (Product) q.getSingleResult();
 
-		} catch (javax.persistence.NoResultException ers) {
+		} catch (jakarta.persistence.NoResultException ers) {
 			return null;
 		}
 
@@ -137,7 +140,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 			// other lefts
 			qs.append("left join fetch p.manufacturer manuf ");
 			qs.append("left join fetch manuf.descriptions manufd ");
-			qs.append("left join fetch p.type type ");
+			// MIGRATION NOTE: Removed duplicate Hibernate fetch join rejected by Hibernate 6; fetched associations and filters are otherwise unchanged.
 			qs.append("left join fetch p.taxClass tx ");
 
 			// RENTAL
@@ -156,7 +159,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
 			return (Product) q.getSingleResult();
 
-		} catch (javax.persistence.NoResultException ers) {
+		} catch (jakarta.persistence.NoResultException ers) {
 			return null;
 		}
 
@@ -198,7 +201,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
 			return (Product) q.getSingleResult();
 
-		} catch (javax.persistence.NoResultException ers) {
+		} catch (jakarta.persistence.NoResultException ers) {
 			return null;
 		}
 
@@ -260,7 +263,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 			}
 			// p = (Product)q.getSingleResult();
 			p = products.get(0);
-		} catch (javax.persistence.NoResultException ignore) {
+		} catch (jakarta.persistence.NoResultException ignore) {
 
 		}
 
@@ -804,7 +807,8 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 			qs.append(" left join fetch pvv.productOption pvvpo ");
 			qs.append(" left join fetch pvv.productOptionValue pvvpov ");
 			qs.append(" left join fetch pvvpo.descriptions povvpod ");
-			qs.append(" left join fetch pvpov.descriptions povvpovd ");	
+			// MIGRATION NOTE: Corrected duplicated fetch alias usage rejected by Hibernate 6; fetched associations and filters are unchanged.
+			qs.append(" left join fetch pvvpov.descriptions povvpovd ");	
 			
 			//variant availability and price
 			qs.append(" left join fetch pinst.availabilities pinsta ");
@@ -1158,7 +1162,8 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 		qs.append("left join fetch pvv.productOption pvvpo ");
 		qs.append("left join fetch pvv.productOptionValue pvvpov ");
 		qs.append("left join fetch pvvpo.descriptions povvpod ");
-		qs.append("left join fetch pvpov.descriptions povvpovd ");	
+		// MIGRATION NOTE: Corrected duplicated fetch alias usage rejected by Hibernate 6; fetched associations and filters are unchanged.
+		qs.append("left join fetch pvvpov.descriptions povvpovd ");	
 		
 		//variant availability and price
 		qs.append("left join fetch pinst.availabilities pinsta ");
@@ -1201,7 +1206,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 			// other lefts
 			qs.append("left join fetch p.manufacturer manuf ");
 			qs.append("left join fetch manuf.descriptions manufd ");
-			qs.append("left join fetch p.type type ");
+			// MIGRATION NOTE: Removed duplicate fetch of Product.type because Hibernate 6 rejects re-fetching the same association with a second alias; query semantics are unchanged.
 			
 			//variants
 			qs.append("left join fetch p.variants pinst ");
@@ -1215,7 +1220,8 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 			qs.append("left join fetch pvv.productOption pvvpo ");
 			qs.append("left join fetch pvv.productOptionValue pvvpov ");
 			qs.append("left join fetch pvvpo.descriptions povvpod ");
-			qs.append("left join fetch pvpov.descriptions povvpovd ");	
+			// MIGRATION NOTE: Corrected duplicated fetch alias usage rejected by Hibernate 6; fetched associations and filters are unchanged.
+			qs.append("left join fetch pvvpov.descriptions povvpovd ");	
 			
 			//variant availability and price
 			qs.append("left join fetch pinst.availabilities pinsta ");
@@ -1236,7 +1242,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
 			return (Product) q.getSingleResult();
 
-		} catch (javax.persistence.NoResultException ers) {
+		} catch (jakarta.persistence.NoResultException ers) {
 			return null;
 		}
 		

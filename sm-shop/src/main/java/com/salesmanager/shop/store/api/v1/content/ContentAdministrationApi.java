@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -53,6 +53,8 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequestMapping(value = "/api/v1")
 @CrossOrigin(origins = "*", maxAge = 3600)
+// MIGRATION NOTE: Suppress deprecated content-model warnings because this controller intentionally retains legacy content DTO contracts for backward compatibility.
+@SuppressWarnings("deprecation")
 public class ContentAdministrationApi {
 	
 	

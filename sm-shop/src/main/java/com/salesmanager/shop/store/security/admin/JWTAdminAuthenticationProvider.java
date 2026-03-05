@@ -1,8 +1,5 @@
 package com.salesmanager.shop.store.security.admin;
 
-import javax.inject.Inject;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -10,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 /**
@@ -20,11 +16,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 public class JWTAdminAuthenticationProvider extends DaoAuthenticationProvider {
 	
-    @Autowired
     private UserDetailsService jwtAdminDetailsService;
-    
-    @Inject
-    private PasswordEncoder passwordEncoder;
+
+	public JWTAdminAuthenticationProvider(UserDetailsService jwtAdminDetailsService) {
+		super(jwtAdminDetailsService);
+		// MIGRATION NOTE: Spring Security 7 requires DaoAuthenticationProvider subclasses to receive the UserDetailsService in the constructor; provider behavior is otherwise unchanged.
+		this.jwtAdminDetailsService = jwtAdminDetailsService;
+	}
 
 	public UserDetailsService getJwtAdminDetailsService() {
 		return jwtAdminDetailsService;
@@ -60,7 +58,7 @@ public class JWTAdminAuthenticationProvider extends DaoAuthenticationProvider {
 	
 	
     private boolean passwordMatch(String rawPassword, String user) {
-		    return passwordEncoder.matches(rawPassword, user);
+		    return getPasswordEncoder().matches(rawPassword, user);
 	}
 	
     @Override

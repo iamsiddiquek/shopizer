@@ -2,17 +2,12 @@ package com.salesmanager.core.model.customer.connection;
 
 import java.io.Serial;
 
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-import com.salesmanager.core.constants.SchemaConstant;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 
 @Deprecated
 @MappedSuperclass
-@Table(name="USERCONNECTION", uniqueConstraints = { @UniqueConstraint(columnNames = { "userId",
-		"providerId", "userRank" }) })
+// MIGRATION NOTE: Hibernate 6 disallows @Table on @MappedSuperclass; the inherited USERCONNECTION mapping is now declared on the concrete entity without changing table semantics.
 public abstract class AbstractUserConnectionWithCompositeKey extends
 		AbstractUserConnection<UserConnectionPK> {
 

@@ -2,6 +2,8 @@ package com.salesmanager.shop.model.content;
 
 import java.io.Serial;
 
+// MIGRATION NOTE: Suppress deprecated content-model warnings because this DTO intentionally retains legacy ObjectContent inheritance for backward compatibility.
+@SuppressWarnings("deprecation")
 public class ReadableContentObject extends ObjectContent {
 
 	/**

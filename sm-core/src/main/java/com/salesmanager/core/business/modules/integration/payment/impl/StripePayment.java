@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -36,6 +36,8 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.stripe.model.Refund;
 
+// MIGRATION NOTE: Suppress deprecated formatting API warnings because the legacy admin amount formatter remains intentionally retained to preserve Stripe amount generation.
+@SuppressWarnings("deprecation")
 public class StripePayment implements PaymentModule {
 	
 	@Inject

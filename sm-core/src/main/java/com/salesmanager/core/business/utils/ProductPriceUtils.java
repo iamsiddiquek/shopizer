@@ -301,7 +301,8 @@ public class ProductPriceUtils {
 
 		try {
 			currency = store.getCurrency().getCurrency();
-			locale = new Locale(store.getDefaultLanguage().getCode(), store.getCountry().getIsoCode());
+			// MIGRATION NOTE: Locale#of replaces the deprecated constructor with equivalent language-country semantics on Java 25.
+			locale = Locale.of(store.getDefaultLanguage().getCode(), store.getCountry().getIsoCode());
 		} catch (Exception e) {
 			LOGGER.error("Cannot create currency or locale instance for store " + store.getCode());
 		}

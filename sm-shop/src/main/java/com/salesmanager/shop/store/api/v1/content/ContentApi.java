@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +59,8 @@ import springfox.documentation.annotations.ApiIgnore;
 @Api(tags = { "Content management resource (Content Management Api)" })
 @SwaggerDefinition(tags = {
 		@Tag(name = "Content management resource", description = "Add pages, content boxes, manage images and files") })
+// MIGRATION NOTE: Suppress deprecated content-model warnings because this controller intentionally retains legacy content DTO contracts for backward compatibility.
+@SuppressWarnings("deprecation")
 public class ContentApi {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ContentApi.class);
@@ -507,7 +509,8 @@ public class ContentApi {
 	 *
 	 * @param name
 	 */
-	@DeleteMapping(value = "/private/content/")
+	// MIGRATION NOTE: Spring Framework 7 trailing-slash normalization wraps /private/content/ to /private/content, so both mappings are kept to preserve the legacy CMS delete contract.
+	@DeleteMapping(value = { "/private/content", "/private/content/" })
 	@ApiOperation(httpMethod = "DELETE", value = "Deletes a file from CMS", notes = "Delete a file from server", response = Void.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })

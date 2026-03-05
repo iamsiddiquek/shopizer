@@ -9,6 +9,8 @@ import java.io.Serial;
  * @author carlsamson
  *
  */
+// MIGRATION NOTE: This legacy content DTO remains deprecated with ContentPath to preserve existing CMS serialization contracts without introducing new compiler warnings.
+@Deprecated
 public class ContentFile extends ContentPath {
 
 	/**

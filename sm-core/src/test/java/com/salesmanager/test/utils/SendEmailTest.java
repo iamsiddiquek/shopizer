@@ -3,7 +3,7 @@ package com.salesmanager.test.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -21,6 +21,8 @@ import com.salesmanager.test.configuration.ConfigurationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {ConfigurationTest.class})
 @Ignore
+// MIGRATION NOTE: Suppress SpringJUnit4ClassRunner deprecation warnings because this ignored legacy utility test remains on the JUnit 4 runner to avoid behavioral drift.
+@SuppressWarnings("deprecation")
 public class SendEmailTest extends AbstractSalesManagerCoreTestCase {
   
   @Inject

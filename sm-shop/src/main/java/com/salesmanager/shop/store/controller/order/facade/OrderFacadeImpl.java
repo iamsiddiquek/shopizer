@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -111,6 +111,8 @@ import com.salesmanager.shop.utils.LabelUtils;
 import com.salesmanager.shop.utils.LocaleUtils;
 
 @Service("orderFacade")
+// MIGRATION NOTE: The order facade implementation intentionally keeps legacy v0 order DTO flows and deprecated card-masking helpers for backward compatibility during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class OrderFacadeImpl implements OrderFacade {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(OrderFacadeImpl.class);

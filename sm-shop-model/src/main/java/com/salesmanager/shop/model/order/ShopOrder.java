@@ -17,6 +17,8 @@ import com.salesmanager.shop.model.order.v0.PersistableOrder;
  * @author Carl Samson
  *
  */
+// MIGRATION NOTE: This website order wrapper still extends the deprecated v0 persistable-order contract for backward compatibility, so it is marked deprecated as well to avoid new compiler warnings.
+@Deprecated
 public class ShopOrder extends PersistableOrder implements Serializable {
 
 	/**

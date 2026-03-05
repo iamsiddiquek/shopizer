@@ -11,6 +11,7 @@ public interface PageableProductVariantRepositoty extends PagingAndSortingReposi
 
 
 	
+	// MIGRATION NOTE: Corrected duplicated fetch alias usage rejected by Hibernate 6; fetched associations and filters are unchanged.
 	@Query(value = "select p from ProductVariant p " 
 			+ "join fetch p.product pr " 
 			+ "left join fetch p.variation pv "
@@ -23,7 +24,7 @@ public interface PageableProductVariantRepositoty extends PagingAndSortingReposi
 			+ "left join fetch pvv.productOption pvvpo "
 			+ "left join fetch pvv.productOptionValue pvvpov " 
 			+ "left join fetch pvvpo.descriptions povvpod "
-			+ "left join fetch pvpov.descriptions pvpovd "
+			+ "left join fetch pvvpov.descriptions povvpovd "
 			+ "left join fetch p.productVariantGroup pig "
 			+ "left join fetch pig.images pigi "
 			+ "left join fetch pigi.descriptions pigid "

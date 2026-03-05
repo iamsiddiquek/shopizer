@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Map;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -27,6 +27,8 @@ import com.salesmanager.test.configuration.ConfigurationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {ConfigurationTest.class})
 @Ignore
+// MIGRATION NOTE: Suppress SpringJUnit4ClassRunner deprecation warnings because this ignored legacy utility test is intentionally left on the JUnit 4 runner during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class ImportIntegrationModule  {
 
 	@Inject

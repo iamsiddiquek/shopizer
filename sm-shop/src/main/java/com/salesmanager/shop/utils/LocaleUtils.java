@@ -16,7 +16,8 @@ public class LocaleUtils {
 
 	public static Locale getLocale(Language language) {
 
-		return new Locale(language.getCode());
+			// MIGRATION NOTE: Locale#of replaces the deprecated constructor with equivalent language semantics on Java 25.
+			return Locale.of(language.getCode());
 
 	}
 

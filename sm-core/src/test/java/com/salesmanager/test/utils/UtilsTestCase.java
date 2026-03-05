@@ -6,7 +6,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -28,6 +28,8 @@ import com.salesmanager.test.configuration.ConfigurationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {ConfigurationTest.class})
 @Ignore
+// MIGRATION NOTE: Suppress SpringJUnit4ClassRunner deprecation warnings because this ignored legacy utility test remains on the JUnit 4 runner to avoid behavioral drift.
+@SuppressWarnings("deprecation")
 public class UtilsTestCase  {
 	
 	

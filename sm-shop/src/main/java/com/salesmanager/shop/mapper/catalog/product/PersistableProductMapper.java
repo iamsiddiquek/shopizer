@@ -95,7 +95,12 @@ public class PersistableProductMapper implements Mapper<PersistableProduct, Prod
 		try {
 
 			//core properties
-			destination.setSku(source.getSku());
+			String sku = source.getSku();
+			if (StringUtils.isBlank(sku) && source.getInventory() != null) {
+				// MIGRATION NOTE: Preserve legacy v1 create payloads that only provide SKU inside inventory during Boot 3/Jakarta request binding.
+				sku = source.getInventory().getSku();
+			}
+			destination.setSku(sku);
 
 			destination.setAvailable(source.isVisible());
 			destination.setDateAvailable(new Date());

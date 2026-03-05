@@ -35,6 +35,8 @@ import com.salesmanager.shop.model.order.total.OrderTotal;
 import com.salesmanager.shop.model.order.v0.PersistableOrder;
 import com.salesmanager.shop.utils.LocaleUtils;
 
+// MIGRATION NOTE: This populator intentionally remains on the deprecated v0 order contract to preserve legacy order import behavior during the Boot 4 upgrade.
+@Deprecated
 public class PersistableOrderPopulator extends
 		AbstractDataPopulator<PersistableOrder, Order> {
 	

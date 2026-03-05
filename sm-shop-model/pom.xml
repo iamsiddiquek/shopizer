@@ -70,11 +70,11 @@
       <artifactId>jakarta.annotation-api</artifactId>
     </dependency>
 
-    <!-- Swagger 2 documentation -->
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger2</artifactId>
-    </dependency>
+	    <!-- MIGRATION NOTE: Retain the legacy Swagger 2 annotation library during Phase 2 so DTO metadata compiles unchanged while the runtime documentation stack migrates separately. -->
+	    <dependency>
+	      <groupId>io.swagger</groupId>
+	      <artifactId>swagger-annotations</artifactId>
+	    </dependency>
 
   </dependencies>
 

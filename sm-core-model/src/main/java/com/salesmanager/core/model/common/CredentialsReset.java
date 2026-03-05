@@ -2,12 +2,14 @@ package com.salesmanager.core.model.common;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Embeddable
+// MIGRATION NOTE: Suppress jakarta.persistence.Temporal deprecation warnings because this legacy Date mapping must stay unchanged during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class CredentialsReset {
 	
 	@Column (name ="RESET_CREDENTIALS_REQ", length=256)

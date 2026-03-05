@@ -2,7 +2,7 @@ package com.salesmanager.shop.model.content;
 
 import java.io.Serial;
 import java.io.Serializable;
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
 @Deprecated
 public abstract class Content implements Serializable {

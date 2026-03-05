@@ -1,7 +1,7 @@
 package com.salesmanager.test.shop.integration.search;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.http.HttpStatus.CREATED;
 
 import org.junit.Ignore;
@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.resttestclient.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -25,9 +25,12 @@ import com.salesmanager.test.shop.common.ServicesTestSupport;
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 @Ignore
+// MIGRATION NOTE: Suppress SpringRunner deprecation warnings because this integration test intentionally stays on the JUnit 4 Spring runner during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class SearchApiIntegrationTest extends ServicesTestSupport {
 
     @Autowired
+    // MIGRATION NOTE: Spring Boot 4 relocated TestRestTemplate to spring-boot-resttestclient without changing test HTTP behavior.
     private TestRestTemplate testRestTemplate;
 
 

@@ -29,6 +29,13 @@
 		</dependency>
 
 		<dependency>
+			<!-- MIGRATION NOTE: Pin the legacy Caffeine API required by Infinispan 9 for sm-shop integration tests so the web runtime matches the Phase 2 cms/cache compatibility fix in sm-core. -->
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.shopizer</groupId>
 			<artifactId>sm-core-model</artifactId>
 		</dependency>
@@ -41,17 +48,46 @@
 		<!-- Spring boot starters -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<!-- MIGRATION NOTE: Added the explicit Boot 4 MVC starter and excluded Boot's Jackson 3 starter so the existing MVC stack stays on the same com.fasterxml Jackson 2 API surface. -->
+			<artifactId>spring-boot-starter-webmvc</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-jackson</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<!-- MIGRATION NOTE: Spring Boot 4 removed the legacy AOP starter, so keep the existing @Aspect behavior with the equivalent Spring AOP dependency. -->
+			<artifactId>spring-aop</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<!-- MIGRATION NOTE: Spring Boot 4 removed the legacy AOP starter, so keep AspectJ weaving available for the existing @Aspect classes without changing their behavior. -->
+			<artifactId>aspectjweaver</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<!-- MIGRATION NOTE: Spring Boot 4 no longer folds bean validation into the dedicated MVC starter, so keep validation explicit to preserve request/body validation behavior. -->
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
 		<dependency>
@@ -91,30 +127,52 @@
 			<artifactId>h2</artifactId>
 		</dependency>
 -->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-		</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+			</dependency>
 
-		<!-- Swagger 2 documentation -->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jakarta.inject</groupId>
-			<artifactId>jakarta.inject-api</artifactId>
-			<version>1.0.3</version>
-		</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<!-- MIGRATION NOTE: Boot 4 defaults to Jackson 3, but this application still uses the existing com.fasterxml Jackson 2 API surface and serialization contracts. -->
+				<artifactId>spring-boot-jackson2</artifactId>
+			</dependency>
 
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-		</dependency>
+			<dependency>
+				<!-- MIGRATION NOTE: Legacy jjwt 0.8.0 still calls javax.xml.bind.DatatypeConverter, so keep the JAXB API on the Boot 3 test/runtime classpath without changing token behavior. -->
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>2.3.1</version>
+			</dependency>
+
+				<!-- MIGRATION NOTE: Springfox replaced with springdoc because Spring Boot 3 requires a Jakarta-compatible OpenAPI library. -->
+				<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			</dependency>
+
+			<dependency>
+				<groupId>jakarta.inject</groupId>
+				<artifactId>jakarta.inject-api</artifactId>
+			</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<!-- MIGRATION NOTE: Spring Boot 4 moved TestRestTemplate into spring-boot-resttestclient; keep the existing integration test client behavior unchanged. -->
+			<artifactId>spring-boot-resttestclient</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<!-- MIGRATION NOTE: Boot 4 TestRestTemplate auto-configuration now depends on the dedicated restclient module; this keeps the legacy random-port integration tests wiring unchanged. -->
+			<artifactId>spring-boot-restclient</artifactId>
 			<scope>test</scope>
 		</dependency>
 

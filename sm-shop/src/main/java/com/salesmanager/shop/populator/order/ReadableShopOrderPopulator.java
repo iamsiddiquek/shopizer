@@ -10,6 +10,8 @@ import com.salesmanager.shop.model.customer.address.Address;
 import com.salesmanager.shop.model.order.ReadableShopOrder;
 import com.salesmanager.shop.model.order.ShopOrder;
 
+// MIGRATION NOTE: This populator intentionally bridges deprecated shop-order DTOs to preserve the existing storefront order contract during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class ReadableShopOrderPopulator extends
 		AbstractDataPopulator<ShopOrder, ReadableShopOrder> {
 

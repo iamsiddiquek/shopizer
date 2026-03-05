@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.lang3.StringUtils;
@@ -55,6 +55,8 @@ import com.salesmanager.core.modules.integration.shipping.model.ShippingQuoteMod
  * @author casams1
  *
  */
+// MIGRATION NOTE: Suppress deprecated formatting API warnings because the legacy admin amount formatter remains intentionally retained to preserve USPS request payload formatting.
+@SuppressWarnings("deprecation")
 public class USPSShippingQuote implements ShippingQuoteModule {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(USPSShippingQuote.class);

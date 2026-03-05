@@ -1,12 +1,13 @@
 package com.salesmanager.shop.store.api.v1.user;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 import org.apache.http.auth.AuthenticationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,11 +48,14 @@ public class AuthenticateUserApi {
     @Value("${authToken.header}")
     private String tokenHeader;
 
-    @Inject
-    private AuthenticationManager jwtAdminAuthenticationManager;
-    
-    @Inject
-    private UserDetailsService jwtAdminDetailsService;
+	    @Inject
+	    @Qualifier("jwtAdminAuthenticationManager")
+	    // MIGRATION NOTE: Explicit qualifier preserves the legacy admin login AuthenticationManager after Boot 3 introduced a default shared manager bean.
+	    private AuthenticationManager jwtAdminAuthenticationManager;
+	    
+	    @Inject
+	    @Qualifier("jwtAdminDetailsService")
+	    private UserDetailsService jwtAdminDetailsService;
 
     @Inject
     private JWTTokenUtil jwtTokenUtil;

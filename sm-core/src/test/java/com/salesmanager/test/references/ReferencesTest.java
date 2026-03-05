@@ -2,7 +2,7 @@ package com.salesmanager.test.references;
 
 import java.util.List;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -20,6 +20,8 @@ import com.salesmanager.test.configuration.ConfigurationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest	(classes = {ConfigurationTest.class})
 @Ignore
+// MIGRATION NOTE: This ignored legacy reference-data smoke test remains on older test scaffolding for compatibility, so deprecation warnings are suppressed during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class ReferencesTest {
 	
 

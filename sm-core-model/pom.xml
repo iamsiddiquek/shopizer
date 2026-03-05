@@ -14,11 +14,7 @@
 	<name>sm-core-model</name>
 	<url>http://www.shopizer.com</url>
 
-	<properties>
-		<java.version>17</java.version>
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
-	</properties>
+	<!-- MIGRATION NOTE: Removed the module-local Java 17 override in Phase 5 so sm-core-model inherits the root Java 25 toolchain without changing source behavior. -->
 
 
 
@@ -58,10 +54,11 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-		</dependency>
+			<dependency>
+				<!-- MIGRATION NOTE: javax.validation replaced with jakarta.validation for Spring Boot 3 / Jakarta EE 9 compatibility. -->
+				<groupId>jakarta.validation</groupId>
+				<artifactId>jakarta.validation-api</artifactId>
+			</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

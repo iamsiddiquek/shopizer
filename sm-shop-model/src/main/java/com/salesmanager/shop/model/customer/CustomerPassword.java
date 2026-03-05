@@ -2,8 +2,8 @@ package com.salesmanager.shop.model.customer;
 
 import java.io.Serial;
 import java.io.Serializable;
-import javax.validation.constraints.Size;
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotEmpty;
 import com.salesmanager.shop.validation.FieldMatch;
 
 @FieldMatch.List({

@@ -2,7 +2,7 @@ package com.salesmanager.test.shop.common;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -13,9 +13,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.resttestclient.TestRestTemplate;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -45,10 +47,14 @@ import com.salesmanager.shop.store.security.AuthenticationRequest;
 import com.salesmanager.shop.store.security.AuthenticationResponse;
 
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
+// MIGRATION NOTE: Spring Boot 4 requires explicit AutoConfigureTestRestTemplate to provide the same random-port test HTTP client bean used by the legacy integration suite.
+@AutoConfigureTestRestTemplate
 @ExtendWith(SpringExtension.class)
+@Import(ShopTestConfiguration.class)
 public class ServicesTestSupport {
 
 	@Autowired
+	// MIGRATION NOTE: Spring Boot 4 relocated TestRestTemplate to spring-boot-resttestclient without changing test HTTP behavior.
 	protected TestRestTemplate testRestTemplate;
 
 	protected HttpHeaders getHeader() {

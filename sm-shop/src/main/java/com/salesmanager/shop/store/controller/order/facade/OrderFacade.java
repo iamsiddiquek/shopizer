@@ -27,7 +27,8 @@ import com.salesmanager.shop.model.order.history.PersistableOrderStatusHistory;
 import com.salesmanager.shop.model.order.history.ReadableOrderStatusHistory;
 import com.salesmanager.shop.model.order.transaction.ReadableTransaction;
 
-
+// MIGRATION NOTE: The order facade intentionally keeps legacy v0 order DTO signatures for backward compatibility during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public interface OrderFacade {
 
 	ShopOrder initializeOrder(MerchantStore store, Customer customer, ShoppingCart shoppingCart, Language language) throws Exception;

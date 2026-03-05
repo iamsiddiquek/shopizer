@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.salesmanager.shop.model.catalog.category.Category;
 import com.salesmanager.shop.model.catalog.product.ProductDescription;
+import com.salesmanager.shop.model.catalog.product.PersistableProductPrice;
 import com.salesmanager.shop.model.catalog.product.attribute.PersistableProductAttribute;
+import com.salesmanager.shop.model.catalog.product.product.PersistableProductInventory;
 
 public class PersistableProductDefinition extends ProductDefinition {
 
@@ -24,6 +26,7 @@ public class PersistableProductDefinition extends ProductDefinition {
 	private String manufacturer;
 	private BigDecimal price;
 	private int quantity;
+	private PersistableProductInventory inventory;
 	public List<ProductDescription> getDescriptions() {
 		return descriptions;
 	}
@@ -65,6 +68,27 @@ public class PersistableProductDefinition extends ProductDefinition {
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	public PersistableProductInventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(PersistableProductInventory inventory) {
+		// MIGRATION NOTE: Preserve legacy v1 inventory payload compatibility on the v2 product-definition endpoint after Boot 3/Jakarta request binding changes.
+		this.inventory = inventory;
+		if (inventory == null) {
+			return;
+		}
+		if ((this.getSku() == null || this.getSku().isBlank()) && inventory.getSku() != null && !inventory.getSku().isBlank()) {
+			this.setSku(inventory.getSku());
+		}
+		if (this.getQuantity() == 0 && inventory.getQuantity() > 0) {
+			this.setQuantity(inventory.getQuantity());
+		}
+		PersistableProductPrice inventoryPrice = inventory.getPrice();
+		if (this.getPrice() == null && inventoryPrice != null && inventoryPrice.getPrice() != null) {
+			this.setPrice(inventoryPrice.getPrice());
+		}
 	}
 
 }

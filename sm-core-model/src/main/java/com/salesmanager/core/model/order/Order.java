@@ -2,31 +2,32 @@ package com.salesmanager.core.model.order;
 
 import java.io.Serial;
 import java.math.BigDecimal;
+import java.sql.Types;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.Valid;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
+import jakarta.persistence.Table;
+import jakarta.persistence.TableGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.Valid;
 
-import org.hibernate.annotations.OrderBy;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcTypeCode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.salesmanager.core.model.common.Billing;
@@ -44,6 +45,8 @@ import com.salesmanager.core.utils.CloneUtils;
 
 @Entity
 @Table (name="ORDERS")
+// MIGRATION NOTE: Suppress jakarta.persistence.Temporal deprecation warnings because this legacy Date mapping must stay unchanged during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class Order extends SalesManagerEntity<Long, Order> {
 
 
@@ -134,7 +137,8 @@ public class Order extends SalesManagerEntity<Long, Order> {
 	@JoinColumn(name = "CURRENCY_ID")
 	private Currency currency;
 	
-	@Type(type="locale")  
+	// MIGRATION NOTE: Hibernate 6 still maps Locale as a built-in basic type; JdbcTypeCode keeps the legacy VARCHAR column semantics.
+	@JdbcTypeCode(Types.VARCHAR)
 	@Column (name ="LOCALE")
 	private Locale locale; 
 	
@@ -151,11 +155,13 @@ public class Order extends SalesManagerEntity<Long, Order> {
 	private Set<OrderProduct> orderProducts = new LinkedHashSet<OrderProduct>();
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-	@OrderBy(clause = "sort_order asc")
+	// MIGRATION NOTE: Replaced deprecated Hibernate-specific @OrderBy with the equivalent JPA property-based ordering.
+	@OrderBy("sortOrder ASC")
 	private Set<OrderTotal> orderTotal = new LinkedHashSet<OrderTotal>();
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-	@OrderBy(clause = "ORDER_STATUS_HISTORY_ID asc")
+	// MIGRATION NOTE: Replaced deprecated Hibernate-specific @OrderBy with the equivalent JPA property-based ordering.
+	@OrderBy("id ASC")
 	private Set<OrderStatusHistory> orderHistory = new LinkedHashSet<OrderStatusHistory>();
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

@@ -18,7 +18,8 @@ public class FileUploadExceptionAdvice {
 	private static final Logger log = LoggerFactory.getLogger(FileUploadExceptionAdvice.class);
     
     @ExceptionHandler(MaxUploadSizeExceededException.class)
-    @ResponseStatus(HttpStatus.PAYLOAD_TOO_LARGE)
+    // MIGRATION NOTE: HttpStatus.CONTENT_TOO_LARGE is the Spring 7 replacement for PAYLOAD_TOO_LARGE and preserves the same 413 response semantics.
+    @ResponseStatus(HttpStatus.CONTENT_TOO_LARGE)
     public @ResponseBody ErrorEntity handleFileException(Exception exception) {
         log.error(exception.getMessage(), exception);
         ErrorEntity errorEntity = new ErrorEntity();

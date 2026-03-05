@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.salesmanager.shop.model.entity.Entity;
 
+// MIGRATION NOTE: Suppress deprecated content-model warnings because this DTO intentionally retains legacy ObjectContent fields for backward compatibility.
+@SuppressWarnings("deprecation")
 public class PersistableContent extends Entity implements Serializable {
 	/**
 	 * 

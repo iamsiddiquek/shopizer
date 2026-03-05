@@ -1,11 +1,10 @@
 package com.salesmanager.core.business.configuration;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -16,9 +15,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "com.salesmanager.core.business.repositories")
 @EntityScan(basePackages = "com.salesmanager.core.model")
 @EnableTransactionManagement
-@ImportResource("classpath:/spring/shopizer-core-context.xml")
 public class CoreApplicationConfiguration {
 
-
+  // MIGRATION NOTE: Phase 3 removes the root Spring XML import and relies on Java configuration classes in this package instead.
 
 }

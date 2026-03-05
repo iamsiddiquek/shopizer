@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.helper.Validate;
@@ -52,6 +52,8 @@ import com.salesmanager.shop.utils.FilePathUtils;
 import com.salesmanager.shop.utils.ImageFilePath;
 
 @Component("contentFacade")
+// MIGRATION NOTE: Suppress deprecated content-model warnings because this facade implementation intentionally retains legacy content DTO contracts for backward compatibility.
+@SuppressWarnings("deprecation")
 public class ContentFacadeImpl implements ContentFacade {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ContentFacade.class);

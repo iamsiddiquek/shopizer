@@ -2,19 +2,19 @@ package com.salesmanager.shop.filter;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
-public class CorsFilter extends HandlerInterceptorAdapter {
+public class CorsFilter implements HandlerInterceptor {
 
 		public CorsFilter() {
 			
@@ -23,10 +23,12 @@ public class CorsFilter extends HandlerInterceptorAdapter {
 		/**
 		 * Allows public web services to work from remote hosts
 		 */
+	   @Override
 	   public boolean preHandle(
 	            HttpServletRequest request,
 	            HttpServletResponse response,
 	            Object handler) throws Exception {
+		   // MIGRATION NOTE: HandlerInterceptorAdapter was removed in Spring Framework 6; implementing HandlerInterceptor preserves the same preHandle contract.
 		   
         	HttpServletResponse httpResponse = (HttpServletResponse) response;
         	

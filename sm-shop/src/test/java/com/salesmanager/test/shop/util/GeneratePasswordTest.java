@@ -1,7 +1,7 @@
 package com.salesmanager.test.shop.util;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,6 +24,8 @@ import com.salesmanager.test.shop.common.ServicesTestSupport;
  */
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
+// MIGRATION NOTE: Suppress SpringRunner deprecation warnings because this integration test intentionally stays on the JUnit 4 Spring runner during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class GeneratePasswordTest extends ServicesTestSupport {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GeneratePasswordTest.class);

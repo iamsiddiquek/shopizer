@@ -30,6 +30,8 @@ import com.salesmanager.shop.populator.store.ReadableMerchantStorePopulator;
 import com.salesmanager.shop.utils.ImageFilePath;
 
 @Component
+// MIGRATION NOTE: This populator intentionally targets the deprecated v0 readable-order DTO to preserve the existing order API contract during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class ReadableOrderPopulator extends
 		AbstractDataPopulator<Order, ReadableOrder> {
 	

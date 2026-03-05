@@ -6,27 +6,27 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.TableGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 import org.hibernate.annotations.Cascade;
 
@@ -52,6 +52,8 @@ import com.salesmanager.core.model.tax.taxclass.TaxClass;
 @EntityListeners(value = AuditListener.class)
 @Table(name = "PRODUCT", uniqueConstraints=
 @UniqueConstraint(columnNames = {"MERCHANT_ID", "SKU"}))
+// MIGRATION NOTE: Suppress jakarta.persistence.Temporal deprecation warnings because this legacy Date mapping must stay unchanged during the Boot 4 migration.
+@SuppressWarnings("deprecation")
 public class Product extends SalesManagerEntity<Long, Product> implements Auditable {
 	@Serial
 	private static final long serialVersionUID = 1L;
@@ -106,12 +108,15 @@ public class Product extends SalesManagerEntity<Long, Product> implements Audita
 	 * Product to category
 	 */
 	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
+	// MIGRATION NOTE: Removed legacy join-table mutability flags because Hibernate 6 now validates them strictly on many-to-many metadata; join table names and foreign keys are unchanged.
 	@JoinTable(name = "PRODUCT_CATEGORY", joinColumns = { 
-			@JoinColumn(name = "PRODUCT_ID", nullable = false, updatable = false) }
+			@JoinColumn(name = "PRODUCT_ID", nullable = false) }
 			, 
 			inverseJoinColumns = { @JoinColumn(name = "CATEGORY_ID", 
-					nullable = false, updatable = false) }
+					nullable = false) }
 	)
+	// MIGRATION NOTE: Retain legacy Hibernate-specific cascade semantics during the Boot 4 / Hibernate 7 upgrade because removing LOCK/REPLICATE here could change persistence behavior on category associations.
+	@SuppressWarnings({"deprecation", "removal"})
 	@Cascade({
 		org.hibernate.annotations.CascadeType.DETACH,
 		org.hibernate.annotations.CascadeType.LOCK,

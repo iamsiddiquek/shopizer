@@ -2,24 +2,25 @@ package com.salesmanager.core.model.system;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-import javax.persistence.Transient;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
+import jakarta.persistence.TableGenerator;
+import jakarta.persistence.Transient;
 
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcTypeCode;
 
 import com.salesmanager.core.model.common.audit.AuditListener;
 import com.salesmanager.core.model.common.audit.AuditSection;
@@ -58,7 +59,8 @@ public class IntegrationModule extends SalesManagerEntity<Long, IntegrationModul
 	private String configuration;
 
 	@Column(name = "DETAILS")
-	@Type(type = "org.hibernate.type.TextType")
+	// MIGRATION NOTE: Hibernate 6 replaced TextType with an explicit LONGVARCHAR JDBC mapping to preserve legacy text-column semantics.
+	@JdbcTypeCode(Types.LONGVARCHAR)
 	private String configDetails;
 
 	@Column(name = "TYPE")

@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,6 +60,8 @@ import springfox.documentation.annotations.ApiIgnore;
 @RequestMapping("/api/v1")
 @Api(tags = { "Order payment resource (Order payment Api)" })
 @SwaggerDefinition(tags = { @Tag(name = "Order payment resource", description = "Manage order payments") })
+// MIGRATION NOTE: Suppress deprecated order-model warnings because this controller intentionally retains legacy order DTO contracts for backward compatibility.
+@SuppressWarnings("deprecation")
 public class OrderPaymentApi {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(OrderPaymentApi.class);

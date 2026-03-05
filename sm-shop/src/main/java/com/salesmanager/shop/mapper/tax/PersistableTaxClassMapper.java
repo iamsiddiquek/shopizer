@@ -19,7 +19,12 @@ public class PersistableTaxClassMapper implements Mapper<PersistableTaxClass, Ta
 		TaxClass taxClass = new TaxClass();
 		taxClass.setMerchantStore(store);
 		taxClass.setTitle(source.getName());
-		taxClass.setId(source.getId());
+		if(source.getId() != null && source.getId().longValue() > 0) {
+			taxClass.setId(source.getId());
+		} else {
+			// MIGRATION NOTE: Normalize legacy default id=0 request payloads to null so Hibernate 6 keeps create semantics unchanged.
+			taxClass.setId(null);
+		}
 		return this.merge(source, taxClass, store, language);
 	}
 

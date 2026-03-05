@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +27,8 @@ import com.salesmanager.core.model.reference.currency.Currency;
  *
  */
 @Service("pricingService")
+// MIGRATION NOTE: Suppress deprecated formatting API warnings because the legacy admin amount formatter remains intentionally retained to preserve payment and pricing behavior.
+@SuppressWarnings("deprecation")
 public class PricingServiceImpl implements PricingService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PricingServiceImpl.class);

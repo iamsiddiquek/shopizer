@@ -1,7 +1,7 @@
 package com.salesmanager.core.business.services.user;
 
 import java.util.List;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.helper.Validate;
@@ -21,6 +21,8 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 import com.salesmanager.core.model.user.User;
 import com.salesmanager.core.model.user.UserCriteria;
 
+// MIGRATION NOTE: Suppress deprecated criteria-contract warnings because this service intentionally retains the legacy listByCriteria API unchanged.
+@SuppressWarnings("deprecation")
 public class UserServiceImpl extends SalesManagerEntityServiceImpl<Long, User> implements UserService {
 
 	private UserRepository userRepository;

@@ -6,10 +6,10 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 import com.salesmanager.core.business.services.order.OrderService;
 import com.salesmanager.core.model.order.orderstatus.OrderStatus;
@@ -67,6 +67,8 @@ import springfox.documentation.annotations.ApiIgnore;
 @RequestMapping("/api/v1")
 @Api(tags = { "Ordering api (Order Flow Api)" })
 @SwaggerDefinition(tags = { @Tag(name = "Order flow resource", description = "Manage orders (create, list, get)") })
+// MIGRATION NOTE: The v1 order API intentionally retains deprecated v0 order DTOs for backward compatibility, so deprecation warnings are suppressed to preserve the public contract.
+@SuppressWarnings("deprecation")
 public class OrderApi {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(OrderApi.class);

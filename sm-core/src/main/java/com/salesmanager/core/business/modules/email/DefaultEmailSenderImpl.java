@@ -10,12 +10,14 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.mail.BodyPart;
+import jakarta.mail.Message;
+import jakarta.mail.Multipart;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMultipart;
 import java.io.*;
 import java.util.Map;
 import java.util.Properties;
@@ -84,7 +86,8 @@ public class DefaultEmailSenderImpl implements EmailModule {
       } catch (TemplateException e) {
         throw new MailPreparationException("Can't generate text mail", e);
       }
-      textPart.setDataHandler(new javax.activation.DataHandler(new javax.activation.DataSource() {
+      // MIGRATION NOTE: javax.activation moved to jakarta.activation for the Boot 3 / Jakarta EE 9 baseline.
+      textPart.setDataHandler(new DataHandler(new DataSource() {
         public InputStream getInputStream() throws IOException {
           // return new StringBufferInputStream(textWriter
           // .toString());
@@ -117,7 +120,8 @@ public class DefaultEmailSenderImpl implements EmailModule {
       } catch (TemplateException e) {
         throw new MailPreparationException("Can't generate HTML mail", e);
       }
-      htmlPage.setDataHandler(new javax.activation.DataHandler(new javax.activation.DataSource() {
+      // MIGRATION NOTE: javax.activation moved to jakarta.activation for the Boot 3 / Jakarta EE 9 baseline.
+      htmlPage.setDataHandler(new DataHandler(new DataSource() {
         public InputStream getInputStream() throws IOException {
           // return new StringBufferInputStream(htmlWriter
           // .toString());

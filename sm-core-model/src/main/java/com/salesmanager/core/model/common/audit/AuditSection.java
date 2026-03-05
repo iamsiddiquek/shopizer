@@ -3,10 +3,10 @@ package com.salesmanager.core.model.common.audit;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -14,6 +14,8 @@ import com.salesmanager.core.utils.CloneUtils;
 
 
 @Embeddable
+// MIGRATION NOTE: Audit embeddable behavior is intentionally unchanged during the Boot 4 migration, so compatibility-only deprecation warnings are suppressed until the remaining legacy model cleanup is scheduled separately.
+@SuppressWarnings("deprecation")
 public class AuditSection implements Serializable {
 
 

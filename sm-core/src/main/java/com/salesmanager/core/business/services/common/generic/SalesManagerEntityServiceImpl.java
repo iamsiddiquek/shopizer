@@ -36,7 +36,8 @@ public abstract class SalesManagerEntityServiceImpl<K extends Serializable & Com
 
 
 	public E getById(K id) {
-		return repository.getOne(id);
+		// MIGRATION NOTE: JpaRepository#getReferenceById is the Spring Data replacement for getOne and preserves lazy-reference semantics on Boot 4.
+		return repository.getReferenceById(id);
 	}
 
 	

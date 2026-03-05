@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+// MIGRATION NOTE: Suppress deprecated content-model warnings because this DTO intentionally retains legacy content entity types for backward compatibility.
+@SuppressWarnings("deprecation")
 public class PersistableContentEntity extends ContentEntity implements Serializable {
 
 	/**

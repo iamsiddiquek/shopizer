@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -38,6 +38,8 @@ import com.stripe.param.PaymentIntentCreateParams;
 
 // import com.stripe.exception.APIConnectionException;
 
+// MIGRATION NOTE: Suppress deprecated formatting API warnings because the legacy admin amount formatter remains intentionally retained to preserve Stripe amount generation.
+@SuppressWarnings("deprecation")
 public class Stripe3Payment implements PaymentModule {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Stripe3Payment.class);

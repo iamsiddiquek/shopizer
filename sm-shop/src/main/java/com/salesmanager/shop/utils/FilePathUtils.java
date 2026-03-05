@@ -12,12 +12,13 @@ import static com.salesmanager.shop.constants.Constants.SLASH;
 import static com.salesmanager.shop.constants.Constants.STATIC_URI;
 import static com.salesmanager.shop.constants.Constants.URL_EXTENSION;
 
+import java.net.URI;
 import java.net.URL;
 import java.util.Properties;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.annotation.Resource;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -215,7 +216,8 @@ public class FilePathUtils {
 	{
 	    try
 	    {
-	        URL url = new URL(urlString);
+		        // MIGRATION NOTE: URI#create(...).toURL() replaces the deprecated URL(String) constructor without changing the boolean validation contract.
+		        URL url = URI.create(urlString).toURL();
 	        url.toURI();
 	        return true;
 	    } catch (Exception exception)

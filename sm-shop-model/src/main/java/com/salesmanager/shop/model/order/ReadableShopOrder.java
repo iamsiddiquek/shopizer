@@ -8,6 +8,8 @@ import com.salesmanager.shop.model.order.shipping.ReadableShippingSummary;
 import com.salesmanager.shop.model.order.total.ReadableOrderTotal;
 import com.salesmanager.shop.model.order.v0.ReadableOrder;
 
+// MIGRATION NOTE: This shop order view model still extends the deprecated v0 readable-order contract for backward compatibility, so it is marked deprecated as well to avoid new compiler warnings.
+@Deprecated
 public class ReadableShopOrder extends ReadableOrder implements Serializable {
 
 	/**

@@ -1,9 +1,12 @@
 package com.salesmanager.core.business.modules.cms.impl;
 
+import java.security.PrivilegedAction;
+import javax.security.auth.Subject;
 import org.infinispan.Cache;
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.manager.EmbeddedCacheManager;
+import org.infinispan.security.Security;
 import org.infinispan.tree.TreeCache;
 import org.infinispan.tree.TreeCacheFactory;
 import org.slf4j.Logger;
@@ -36,9 +39,6 @@ public abstract class CacheManagerImpl implements CacheManager {
         return;
       }
       
-      TreeCacheFactory f = null;
-      
-      
 /*      @SuppressWarnings("rawtypes")
       Cache c = manager.getManager().getCache(namedCache);
       
@@ -59,13 +59,18 @@ public abstract class CacheManagerImpl implements CacheManager {
     		   .invocationBatching().enable()
     		   .build();
       
-      manager.getManager().defineConfiguration(namedCache, config);
+      // MIGRATION NOTE: Wrap named-cache bootstrap in Infinispan's thread-local Subject context
+      // so Java 25 can execute legacy listener registration without changing cache semantics.
+      Security.doAs(new Subject(), (PrivilegedAction<Void>) () -> {
+        manager.getManager().defineConfiguration(namedCache, config);
 
-      final Cache<String, String> cache = manager.getManager().getCache(namedCache);
-      
-      f = new TreeCacheFactory();
-      treeCache = f.createTreeCache(cache);
-      cache.start();
+        final Cache<String, String> cache = manager.getManager().getCache(namedCache);
+
+        TreeCacheFactory treeCacheFactory = new TreeCacheFactory();
+        treeCache = treeCacheFactory.createTreeCache(cache);
+        cache.start();
+        return null;
+      });
 
       LOGGER.debug("CMS started");
 

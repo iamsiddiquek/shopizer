@@ -16,8 +16,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-import javax.persistence.NoResultException;
+import jakarta.inject.Inject;
+import jakarta.persistence.NoResultException;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -68,6 +68,8 @@ import com.salesmanager.shop.utils.ImageFilePath;
  * @since 1.0
  */
 @Service(value = "shoppingCartFacade")
+// MIGRATION NOTE: Suppress deprecated shopping-cart compatibility warnings because this facade intentionally retains legacy nullable and populator contracts unchanged.
+@SuppressWarnings("deprecation")
 public class ShoppingCartFacadeImpl implements ShoppingCartFacade {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ShoppingCartFacadeImpl.class);

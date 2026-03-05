@@ -3,7 +3,7 @@ package com.salesmanager.core.business.services.merchant;
 import java.util.List;
 import java.util.Optional;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.jsoup.helper.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,8 @@ import com.salesmanager.core.model.merchant.MerchantStore;
 import com.salesmanager.core.model.merchant.MerchantStoreCriteria;
 
 @Service("merchantService")
+// MIGRATION NOTE: Suppress inherited getById deprecation warnings because this service must retain the repository's legacy fetch-join method unchanged.
+@SuppressWarnings("deprecation")
 public class MerchantStoreServiceImpl extends SalesManagerEntityServiceImpl<Integer, MerchantStore>
 		implements MerchantStoreService {
 

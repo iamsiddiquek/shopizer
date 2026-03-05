@@ -1,8 +1,8 @@
 package com.salesmanager.core.business.repositories.order;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,15 +18,17 @@ import com.salesmanager.core.model.order.orderstatus.OrderStatus;
 public class OrderRepositoryImpl implements OrderRepositoryCustom {
 
 	
+    // MIGRATION NOTE: Manual EntityManager retained in Phase 4 because order search uses legacy dynamic JPQL and paging behavior that is only partially covered in tests.
     @PersistenceContext
     private EntityManager em;
     
-    /**
-     * @deprecated
-     */
-	@SuppressWarnings("unchecked")
-	@Override
-	public OrderList listByStore(MerchantStore store, OrderCriteria criteria) {
+	    /**
+	     * @deprecated
+	     */
+		@Deprecated
+		@SuppressWarnings("unchecked")
+		@Override
+		public OrderList listByStore(MerchantStore store, OrderCriteria criteria) {
 		
 
 		OrderList orderList = new OrderList();
